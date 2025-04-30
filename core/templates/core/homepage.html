@@ -1,0 +1,7 @@
+{% extends 'core/layout.html' %}
+
+{% block inner_main %}
+  {% include 'core/includes/hero.html' %}
+  {% include 'core/includes/lists.html' with section_id="offers" section_heading="Our Offers" section_paragraph="What we offer" %}
+  {% include 'core/includes/contact.html' %}
+{% endblock inner_main %}

@@ -1,0 +1,44 @@
+{% load static %}
+<style>
+  /*--------------------------------------------------------------
+  # Registration
+  --------------------------------------------------------------*/
+  .breadcrumbs.bg-image {
+    background: url("{% static 'accounts/img/accounts-min.jpg' %}") no-repeat center / cover;
+  }
+
+  .registration .email-form {
+    background: #fff;
+  }
+
+  .registration .email-form .form-group {
+    padding-bottom: 8px;
+  }
+
+  .registration .email-form input {
+    border-radius: 4px;
+    box-shadow: none;
+    font-size: 14px;
+  }
+
+  .registration .email-form input:focus {
+    border-color: #ff5821;
+  }
+
+  .registration .email-form input {
+    height: 44px;
+  }
+
+  .registration .email-form button[type="submit"] {
+    background: #ff5821;
+    border: 0;
+    padding: 10px 35px;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 50px;
+  }
+
+  .registration .email-form button[type="submit"]:hover {
+    background: #3ac162;
+  }
+</style>

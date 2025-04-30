@@ -1,0 +1,3 @@
+- footer navlinks
+- manifest
+- working hours

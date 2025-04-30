@@ -1,0 +1,22 @@
+<section id="breadcrumbs" class="breadcrumbs bg-image">
+  <div class="container">
+    <ol>
+      <li>
+        <a href="{% url 'homepage' %}">Home</a>
+      </li>
+      {% for crumb in page_title %}
+        <li {% if forloop.last %}aria-current="page"{% endif %}>
+          {% if crumb.url and not forloop.last %}
+            <a href="{{ crumb.url }}">{{ crumb.label }}</a>
+          {% else %}
+            {{ crumb.label }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+
+    {% with page_title|last as last_crumb %}
+      <h2>{{ last_crumb.label }}</h2>
+    {% endwith %}
+  </div>
+</section>
