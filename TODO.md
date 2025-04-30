@@ -1,3 +1,5 @@
 - footer navlinks
 - manifest
 - working hours
+- profile update
+- each form message being specific

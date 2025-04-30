@@ -1,0 +1,28 @@
+<section id="{{ section_id }}" class="lists section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>{{ section_heading }}</h2>
+    <p>{{ section_paragraph }}</p>
+  </div>
+  <!-- End Section Title -->
+  <div class="container">
+    <div class="row gy-4">
+      {% for list_item in list_items %}
+        <div class="col-lg-6 " data-aos="fade-up" data-aos-delay="100">
+          <div class="service-item d-flex">
+            <div class="icon flex-shrink-0">
+              <i class="{{ list_item.bootstrap_icon }}"></i>
+            </div>
+            <div>
+              <h4 class="title">
+                <a href="service-details.html" class="stretched-link pe-none">{{ list_item.name }}</a>
+              </h4>
+              <p class="description">{{ list_item.description }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <!-- End Service Item -->
+    </div>
+  </div>
+</section>

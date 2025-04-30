@@ -1,0 +1,17 @@
+{% extends "home/layout1.html" %}
+{% load static %}
+{% block styles %}
+  {% include "_auth/stylesheet/style.html" %}
+{% endblock styles %}
+{% block inner_main %}
+  {% include 'home/includes/breadcrumbs.html' %}
+  <!-- ======= Registration Section ======= -->
+  {% if signupinterface %}
+    {% include "_auth/includes/signup.html" %}
+  {% elif profileupdateinterface %}
+    {% include "_auth/includes/profile_update.html" %}
+  {% elif logininterface %}
+    {% include "_auth/includes/login.html" %}
+  {% endif %}
+  <!-- End Registration Section -->
+{% endblock inner_main %}

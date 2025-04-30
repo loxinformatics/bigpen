@@ -1,0 +1,91 @@
+<footer id="footer" class="footer dark-background">
+  {% if variant == "V1" %}
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-6">
+            <h4>Join Our Newsletter</h4>
+            <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+            <form action="" method="post" class="php-email-form">
+              <div class="newsletter-form">
+                <input type="email"
+                       name="email"
+                       placeholder="Feature Coming Soon :)"
+                       disabled />
+                <input type="submit" value="Subscribe" class="btn btn-primary" disabled />
+              </div>
+              <!-- <div class="loading">Loading</div> -->
+              <!-- <div class="error-message"></div> -->
+              <!-- <div class="sent-message">Your subscription request has been sent. Thank you!</div> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="d-flex align-items-center">
+            <span class="sitename">{{ coreprovider.name }}</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>
+              {{ coreprovider.building }}
+              {% if coreprovider.street %}, {{ coreprovider.street }}{% endif %}
+            </p>
+            <p>
+              {{ coreprovider.city_name }}
+              {% if coreprovider.PO_Box %}, {{ coreprovider.PO_Box }}{% endif %}
+            </p>
+          </div>
+        </div>
+        <div class="{% if has_any_social_media_link %}col-lg-2{% else %}col-lg-4{% endif %} col-md-3 footer-links">
+          <h4>{{ footer_nav_column_1.heading }}</h4>
+          <ul class="list-unstyled">
+            {% for link in footer_nav_column_1.navlinks %}
+              <li>
+                <i class="bi bi-chevron-right"></i> <a href="{{ link.href }}">{{ link.label }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="{% if has_any_social_media_link %}col-lg-2{% else %}col-lg-4{% endif %} col-md-3 footer-links">
+          <h4>{{ footer_nav_column_2.heading }}</h4>
+          <ul class="list-unstyled">
+            {% for link in footer_nav_column_2.navlinks %}
+              <li>
+                <i class="bi bi-chevron-right"></i> <a href="{{ link.href }}">{{ link.label }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% if has_any_social_media_link %}
+          <div class="col-lg-4 col-md-12">
+            <h4>Follow Us</h4>
+            <p>Discover the latest deals, trends, and offers. Follow us for exclusive discounts and updates!</p>
+            <div class="social-links d-flex">
+              {% if coreprovider.twitter %}<a href="{{ coreprovider.twitter }}"><i class="bi bi-twitter-x"></i></a>{% endif %}
+              {% if coreprovider.facebook %}<a href="{{ coreprovider.facebook }}"><i class="bi bi-facebook"></i></a>{% endif %}
+              {% if coreprovider.instagram %}<a href="{{ coreprovider.instagram }}"><i class="bi bi-instagram"></i></a>{% endif %}
+              {% if coreprovider.linkedin %}<a href="{{ coreprovider.linkedin }}"><i class="bi bi-linkedin"></i></a>{% endif %}
+              {% if coreprovider.tiktok %}<a href="{{ coreprovider.tiktok }}"><i class="bi bi-tiktok"></i></a>{% endif %}
+              {% if coreprovider.youtube %}<a href="{{ coreprovider.youtube }}"><i class="bi bi-youtube"></i></a>{% endif %}
+              {% if coreprovider.whatsapp %}<a href="{{ coreprovider.whatsapp }}"><i class="bi bi-whatsapp"></i></a>{% endif %}
+              {% if coreprovider.telegram %}<a href="{{ coreprovider.telegram }}"><i class="bi bi-telegram"></i></a>{% endif %}
+              {% if coreprovider.snapchat %}<a href="{{ coreprovider.snapchat }}"><i class="bi bi-snapchat"></i></a>{% endif %}
+              {% if coreprovider.pinterest %}<a href="{{ coreprovider.pinterest }}"><i class="bi bi-pinterest"></i></a>{% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="container copyright text-center mt-4">
+      <p>
+        © <span>Copyright</span> <strong class="px-1 sitename">{{ coreprovider.name }}</strong> <span>All Rights Reserved</span>
+      </p>
+      <div class="credits">
+        Designed by <a href="https://loxinformatics.co.ke/" class="pe-none">Lox Informatics</a>
+      </div>
+    </div>
+  {% endif %}
+</footer>
