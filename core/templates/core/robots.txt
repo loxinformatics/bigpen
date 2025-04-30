@@ -1,0 +1,21 @@
+# robots.txt for example.com
+# https://www.robotstxt.org/robotstxt.html
+# Last updated: 2025-04-30
+
+User-agent: *
+
+# Block Admin endpoints
+Disallow: /admin/
+Disallow: /admin
+
+# Block API lib endpoints
+Disallow: /api/
+Disallow: /api
+
+# Block test pages
+Disallow: /test/
+Disallow: /test
+
+# Allow everything else
+Allow: /
+
