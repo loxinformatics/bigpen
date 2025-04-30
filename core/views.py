@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 
 from .forms import ContactForm
+from .models import ListItem
 
 
 def robots_txt(request):
@@ -21,6 +22,7 @@ def home(request):
         "has_contact": True,
         "has_footer": True,
         "footer_variant": "V1",
+        "list_items": ListItem.objects.filter(category__name="Offers"),
     }
 
     if request.method == "POST":
