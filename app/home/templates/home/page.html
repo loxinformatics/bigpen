@@ -1,0 +1,8 @@
+{% extends 'home/layout1.html' %}
+{% block inner_main %}
+  {% include 'home/includes/hero.html' %}
+  {% include 'home/includes/about.html' %}
+  {% include 'home/includes/lists.html' with section_id="offers" section_heading="Our Offers" section_paragraph="What we offer" %}
+  {% include 'home/includes/call-to-action.html' %}
+  {% include 'home/includes/contact.html' %}
+{% endblock inner_main %}

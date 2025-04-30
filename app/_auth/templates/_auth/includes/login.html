@@ -1,0 +1,27 @@
+<section class="registration pt-3">
+  <div class="container">
+    <form method="post" role="form" class="mx-auto w-75 text-start email-form">
+      {% if messages %}
+        {% for message in messages %}
+          {% if message.tags == 'error' %}
+            <div class="alert alert-danger text-center">{{ message }}</div>
+          {% elif message.tags == 'success' %}
+            <div class="alert alert-success text-center">{{ message }}</div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% csrf_token %}
+      {% if next_redirect %}<input type="hidden" name="next" value="{{ next_redirect }}">{% endif %}
+      {% if back_url %}<input type="hidden" name="back" value="{{ back_url }}">{% endif %}
+      <div class="form-group mt-3">{{ loginform.username }}</div>
+      <div class="form-group mt-3">{{ loginform.password }}</div>
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary">Login</button>
+        {% if back_url %}<a href="{{ back_url }}" class="back-btn btn btn-secondary ms-2">Back</a>{% endif %}
+      </div>
+      <p class="mt-5">
+        Don't have an account yet? You can <a href="{% url 'signup' %}">sign up here</a>
+      </p>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+{% extends "home/layout1.html" %}
+{% load static %}
+{% block styles %}
+  {% include "blog/stylesheet/style.html" %}
+  {% if single_article %}
+    <style>
+        .breadcrumbs.bg-image {
+            background: url("{{ single_article.image.url }}") no-repeat center / cover;
+        }
+    </style>
+  {% endif %}
+{% endblock styles %}
+{% block inner_main %}
+  <!-- ======= Blog Section ======= -->
+  <section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+        {% if blog_articles %}
+          {% include "blog/includes/list.html" %}
+        {% elif single_article %}
+          {% include "blog/includes/details.html" %}
+        {% endif %}
+        {% include "blog/includes/sidebar.html" %}
+      </div>
+    </div>
+  </section>
+{% endblock inner_main %}
