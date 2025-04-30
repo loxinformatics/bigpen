@@ -21,20 +21,21 @@ def provider(request):
     footer_nav_column_1 = {
         "heading": "Useful Links",
         "navlinks": [
-            {"href": "#", "label": "Stationery Supplies"},
-            {"href": "#", "label": "School Management System"},
-            {"href": "#", "label": "Online Tutorial Classes"},
-            {"href": "#", "label": "Food Supplies"},
+            {"href": "/#home", "label": "Home"},
+            {"href": "/shop", "label": "Shop"},
+            {"href": "/blog", "label": "Blog"},
+            {"href": "#", "label": "Others to be added"},
+            # {"href": "/admin", "label": ""},
         ],
     }
 
     footer_nav_column_2 = {
         "heading": "Our Services",
         "navlinks": [
-            {"href": "#", "label": "Stationery Supplies"},
-            {"href": "#", "label": "School Management System"},
-            {"href": "#", "label": "Online Tutorial Classes"},
-            {"href": "#", "label": "Food Supplies"},
+            {"href": "#", "label": "To be added"},
+            # {"href": "#", "label": "School Management System"},
+            # {"href": "#", "label": "Online Tutorial Classes"},
+            # {"href": "#", "label": "Food Supplies"},
         ],
     }
 

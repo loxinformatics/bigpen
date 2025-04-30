@@ -168,6 +168,9 @@ class ListCategory(models.Model):
 
 
 class ListItem(models.Model):
+    class Meta:
+        ordering = ("name",)
+
     category = models.ForeignKey(
         ListCategory,
         on_delete=models.CASCADE,
@@ -175,14 +178,14 @@ class ListItem(models.Model):
     )
     name = models.CharField(
         max_length=255,
-        help_text="Descriptive name of the item (e.g., 'Smartphone', 'Office Chair').",
+        help_text="Name of the item.",
     )
-    image = models.ImageField(
-        upload_to="list_items/",
-        blank=True,
-        null=True,
-        help_text="Upload an image representing this item (optional).",
-    )
+    # image = models.ImageField(
+    #     upload_to="list_items/",
+    #     blank=True,
+    #     null=True,
+    #     help_text="Upload an image representing this item (optional).",
+    # )
     bootstrap_icon = models.CharField(
         max_length=255,
         blank=True,

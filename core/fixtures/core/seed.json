@@ -47,7 +47,6 @@
     "fields": {
       "category": 1,
       "name": "24/7 Online Customer Support",
-      "image": "",
       "bootstrap_icon": "bi bi-headset",
       "description": "Always available to assist customers."
     }
@@ -58,7 +57,6 @@
     "fields": {
       "category": 1,
       "name": "Best Quality Products",
-      "image": "",
       "bootstrap_icon": "bi bi-award",
       "description": "Guaranteed excellence in every item."
     }
@@ -69,7 +67,6 @@
     "fields": {
       "category": 1,
       "name": "Discounted Pricing",
-      "image": "",
       "bootstrap_icon": "bi bi-tags",
       "description": "Special offers and savings for customers."
     }
@@ -80,7 +77,6 @@
     "fields": {
       "category": 1,
       "name": "We Save Your Precious Time",
-      "image": "",
       "bootstrap_icon": "bi bi-clock",
       "description": "Efficient service for a hassle-free experience."
     }
@@ -91,7 +87,6 @@
     "fields": {
       "category": 1,
       "name": "Fast Delivery",
-      "image": "",
       "bootstrap_icon": "bi bi-truck",
       "description": "Swift and reliable shipping."
     }
@@ -102,7 +97,6 @@
     "fields": {
       "category": 1,
       "name": "Free Returns, Shortages or Exchange",
-      "image": "",
       "bootstrap_icon": "bi bi-arrow-repeat",
       "description": "Hassle-free returns and exchanges."
     }
@@ -113,7 +107,6 @@
     "fields": {
       "category": 1,
       "name": "Payment After Delivery",
-      "image": "",
       "bootstrap_icon": "bi bi-cash-stack",
       "description": "Convenient pay-on-delivery option."
     }
