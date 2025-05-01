@@ -3,9 +3,6 @@
     "model": "home.company",
     "pk": 1,
     "fields": {
-      "name": "Online BigPen Kenya",
-      "short_name": "BigPen",
-      "motto": "We Deliver Stationery In less than 24 hours",
       "website": "http://bigpen.co.ke",
       "primary_phone": "+254725842443",
       "secondary_phone": "+254115452405",
@@ -25,7 +22,7 @@
       "linkedin": "",
       "tiktok": "",
       "youtube": "",
-      "whatsapp": "",
+      "whatsapp": "http://code.treeolive.tech:8002/admin/home/company/1/change/",
       "telegram": "",
       "snapchat": "",
       "pinterest": "",

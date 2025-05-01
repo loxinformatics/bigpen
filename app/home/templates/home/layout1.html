@@ -5,31 +5,31 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="theme-color" content="{{ coreprovider.theme_color }}" />
-    <meta name="author" content="{{ coreprovider.name }}" />
-    <meta name="description" content="{{ coreprovider.motto }}" />
-    <meta name="keywords" content="{{ coreprovider.name }}" />
-    <meta name="twitter:card" content="{{ coreprovider.motto }}" />
+    <meta name="author" content="{{ company_fullname }}" />
+    <meta name="description" content="{{ company_motto }}" />
+    <meta name="keywords" content="{{ company_fullname }}" />
+    <meta name="twitter:card" content="{{ company_motto }}" />
     <meta name="twitter:site" content="{{ coreprovider.website }}" />
-    <meta name="twitter:title" content="{{ coreprovider.name }}" />
-    <meta name="twitter:description" content="{{ coreprovider.motto }}" />
+    <meta name="twitter:title" content="{{ company_fullname }}" />
+    <meta name="twitter:description" content="{{ company_motto }}" />
     <meta name="twitter:image" content="{{ coreprovider.logo.url }}" />
-    <meta name="twitter:image:alt" content="{{ coreprovider.name }}" />
+    <meta name="twitter:image:alt" content="{{ company_fullname }}" />
     <meta property="og:url" content="{{ coreprovider.website }}" />
-    <meta property="og:site_name" content="{{ coreprovider.name }}" />
-    <meta property="og:title" content="{{ coreprovider.name }}" />
+    <meta property="og:site_name" content="{{ company_fullname }}" />
+    <meta property="og:title" content="{{ company_fullname }}" />
     <meta property="og:image" content="{{ coreprovider.logo.url }}" />
     <meta property="og:locale" content="en_GB" />
     <!-- title -->
     {% if page_title %}
       {% with page_title|last as last_crumb %}
         {% if last_crumb.label %}
-          <title>{{ last_crumb.label }} | {{ coreprovider.name }}</title>
+          <title>{{ last_crumb.label }} | {{ company_fullname }}</title>
         {% else %}
-          <title>{{ last_crumb }} | {{ coreprovider.name }}</title>
+          <title>{{ last_crumb }} | {{ company_fullname }}</title>
         {% endif %}
       {% endwith %}
     {% else %}
-      <title>{{ coreprovider.name }}</title>
+      <title>{{ company_fullname }}</title>
     {% endif %}
     <!-- Favicons & Webmanifest -->
     <link href="{{ coreprovider.favicon.url }}" rel="icon" />

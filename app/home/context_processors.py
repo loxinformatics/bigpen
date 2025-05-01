@@ -1,4 +1,6 @@
 # from .forms import NewsletterForm
+from django.conf import settings
+
 from .models import Company
 
 
@@ -40,6 +42,10 @@ def provider(request):
     }
 
     return {
+        "company_fullname": settings.COMPANY_FULLNAME,
+        "company_shortname": settings.COMPANY_SHORTNAME,
+        "company_motto": settings.COMPANY_MOTTO,
+        "company_accent_color": settings.COMPANY_ACCENT_COLOR,
         "coreprovider": coreprovider,
         "has_any_social_media_link": bool(has_any_social_media_link),
         "footer_nav_column_1": footer_nav_column_1,

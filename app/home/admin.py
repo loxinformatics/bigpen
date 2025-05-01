@@ -54,7 +54,12 @@ class CoreProviderAdmin(BaseSingletonAdmin):
         Organize CoreProvider fields into collapsible sections in the admin form.
         """
         fieldsets = [
-            ("Company Info", {"fields": ("name", "short_name", "motto")}),
+            (
+                "Logo & Icons",
+                {
+                    "fields": ("logo", "favicon", "apple_touch_icon"),
+                },
+            ),
             (
                 "Contact Info",
                 {
@@ -67,7 +72,6 @@ class CoreProviderAdmin(BaseSingletonAdmin):
                         "secondary_email",
                         "other_email",
                     ),
-                    "classes": ("collapse",),
                 },
             ),
             (
@@ -81,7 +85,6 @@ class CoreProviderAdmin(BaseSingletonAdmin):
                         "zip_code",
                         "map_url",
                     ),
-                    "classes": ("collapse",),
                 },
             ),
             (
@@ -99,14 +102,6 @@ class CoreProviderAdmin(BaseSingletonAdmin):
                         "snapchat",
                         "pinterest",
                     ),
-                    "classes": ("collapse",),
-                },
-            ),
-            (
-                "Branding & Icons",
-                {
-                    "fields": ("logo", "favicon", "apple_touch_icon"),
-                    "classes": ("collapse",),
                 },
             ),
         ]

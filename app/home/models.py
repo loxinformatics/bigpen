@@ -4,21 +4,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Company(models.Model):
-    # Company Info
-    name = models.CharField(
-        max_length=255,
-        help_text="Full legal or public-facing name of your organization.",
-    )
-    short_name = models.CharField(
-        max_length=100,
-        blank=True,
-        help_text="An abbreviated name or acronym for your organization (optional).",
-    )
-    motto = models.TextField(
-        blank=True,
-        help_text="A short slogan, mission statement, or tagline (optional).",
-    )
-
     # Contact Info
     website = models.URLField(
         help_text="Main website URL of your company, including https://."
