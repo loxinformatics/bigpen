@@ -17,7 +17,6 @@ from decouple import Csv, config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/latest/howto/deployment/checklist/
 
@@ -92,6 +91,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
+
+
+# Company
+
+COMPANY_FULLNAME = config("COMPANY_FULLNAME", default="")
+
+COMPANY_SHORTNAME = config("COMPANY_SHORTNAME", default="")
+
+COMPANY_MOTTO = config("COMPANY_MOTTO", default="")
+
+COMPANY_ACCENT_COLOR = config("COMPANY_ACCENT_COLOR", default="")
 
 
 # Database
