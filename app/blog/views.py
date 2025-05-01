@@ -41,8 +41,8 @@ def blog(request):
 
     context = {
         "has_header": True,
+        "header_has_breadcrumbs": True,
         "has_footer": True,
-        "has_breadcrumbs": True,
         "page_title": [
             {"label": "Blog", "url": None},  # current page
         ],
@@ -69,8 +69,13 @@ def details(request, pk):
     comments = article.comment_set.all()
 
     context = {
-        "page_title": "Article",
-        "blog_active": "active",
+        "has_header": True,
+        "header_has_breadcrumbs": True,
+        "has_footer": True,
+        "page_title": [
+            {"label": "Blog", "url": "/blog"},
+            {"label": article.title, "url": None},  # current page
+        ],
         "single_article": article,
         "articles": articles,
         "categories": categories,

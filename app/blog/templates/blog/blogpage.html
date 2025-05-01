@@ -1,11 +1,17 @@
 {% extends "home/layout1.html" %}
 {% load static %}
 {% block styles %}
-  {% include "blog/stylesheet/style.html" %}
+  <link rel="stylesheet" href="{% static 'blog/page.css' %}">
   {% if single_article %}
     <style>
         .breadcrumbs.bg-image {
             background: url("{{ single_article.image.url }}") no-repeat center / cover;
+        }
+    </style>
+  {% else %}
+    <style>
+        .breadcrumbs.bg-image {
+            background: url("{% static 'blog/img/breadcrumbs-blog.jpg' %}") no-repeat center / cover;
         }
     </style>
   {% endif %}
