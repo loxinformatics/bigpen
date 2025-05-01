@@ -1,6 +1,30 @@
 {% extends 'home/layout1.html' %}
+{% load static %}
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'shop/categories.css' %}">
+  {% if single_article %}
+    <style>
+        .breadcrumbs.bg-image {
+            background: url("{{ single_article.image.url }}") no-repeat center / cover;
+        }
+    </style>
+  {% else %}
+    <style>
+        .breadcrumbs.bg-image {
+            background: url("{% static 'shop/img/breadcrumbs-shop.jpg' %}") no-repeat center / cover;
+        }
+    </style>
+  {% endif %}
+{% endblock styles %}
 {% block inner_main %}
   <section class="container">
-    <h1>Coming up! Updates happening! Check in by noon May 1st 2025.</h1>
+    <div class="row">
+      {% include 'shop/includes/sidebar.html' %}
+      <div class="col-lg-8">
+        <!-- TODO: Add category-header -->
+        {% include 'shop/includes/category-product-list.html' %}
+        <!-- TODO: Add category-pagination -->
+      </div>
+    </div>
   </section>
 {% endblock inner_main %}

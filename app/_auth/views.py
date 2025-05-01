@@ -20,6 +20,7 @@ class SignupPage(CreateView):
     extra_context = {
         "signupinterface": True,
         "has_header": True,
+        "header_has_breadcrumbs": True,
         "has_footer": True,
         "page_title": [{"label": "Sign up", "url": None}],
     }
@@ -98,9 +99,10 @@ def LoginPage(request):
         return redirect("homepage")
 
     extra_context = {
-        "has_header": True,
-        "has_footer": True,
         "logininterface": True,
+        "has_header": True,
+        "header_has_breadcrumbs": True,
+        "has_footer": True,
         "page_title": [
             {"label": "Login", "url": None},  # current page
         ],

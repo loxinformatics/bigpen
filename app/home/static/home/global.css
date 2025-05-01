@@ -113,34 +113,49 @@ h6 {
 }
 
 /*--------------------------------------------------------------
-  # Back To Top
+  # Back To Top, Whatsapp Button, Call Float
   --------------------------------------------------------------*/
-.back-to-top {
+.back-to-top,
+.whatsapp-button,
+.call-float {
   position: fixed;
   visibility: hidden;
   opacity: 0;
-  right: 15px;
-  bottom: 15px;
   z-index: 996;
-  background: var(--accent-color);
   width: 40px;
   height: 40px;
   border-radius: 4px;
   transition: all 0.4s;
 }
 
-.back-to-top i {
+.back-to-top,
+.call-float {
+  background: var(--accent-color);
+}
+
+.whatsapp-button {
+  background: #25D366;
+  /* WhatsApp green */
+}
+
+.back-to-top i,
+.whatsapp-button i,
+.call-float i {
   font-size: 24px;
   color: var(--contrast-color);
   line-height: 0;
 }
 
-.back-to-top:hover {
+.back-to-top:hover,
+.whatsapp-button:hover,
+.call-float:hover {
   background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
   color: var(--contrast-color);
 }
 
-.back-to-top.active {
+.back-to-top.active,
+.whatsapp-button.active,
+.call-float.active {
   visibility: visible;
   opacity: 1;
 }
@@ -193,7 +208,7 @@ h6 {
 /*--------------------------------------------------------------
 # Global Header
 --------------------------------------------------------------*/
-.header {
+.header .main-header {
   --background-color: rgba(0, 0, 0, 0);
   --default-color: #ffffff;
   --heading-color: #ffffff;
@@ -204,27 +219,27 @@ h6 {
   z-index: 997;
 }
 
-.header .logo {
+.header .main-header .logo {
   line-height: 1;
 }
 
-.header .logo img {
+.header .main-header .logo img {
   max-height: 36px;
   margin-right: 8px;
 }
 
-.header .logo h1 {
+.header .main-header .logo h1 {
   font-size: 30px;
   margin: 0;
   font-weight: 700;
   color: var(--heading-color);
 }
 
-.header .header-social-links {
+.header .main-header .header-social-links {
   padding-right: 15px;
 }
 
-.header .header-social-links a {
+.header .main-header .header-social-links a {
   color: color-mix(in srgb, var(--default-color), transparent 40%);
   padding-left: 6px;
   display: inline-block;
@@ -232,30 +247,30 @@ h6 {
   font-size: 16px;
 }
 
-.header .header-social-links a:hover {
+.header .main-header .header-social-links a:hover {
   color: var(--accent-color);
 }
 
-.header .header-social-links a i {
+.header .main-header .header-social-links a i {
   line-height: 0px;
 }
 
 @media (max-width: 1200px) {
-  .header .logo {
+  .header .main-header .logo {
     order: 1;
   }
 
-  .header .header-social-links {
+  .header .main-header .header-social-links {
     order: 2;
   }
 
-  .header .navmenu {
+  .header .main-header .navmenu {
     order: 3;
   }
 }
 
 /* Global Header on Scroll */
-.scrolled .header {
+.scrolled .header .main-header {
   --background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -509,6 +524,7 @@ h6 {
   padding: 15px 0;
   background: #f4f2f2;
   margin-bottom: 40px;
+  transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .breadcrumbs::before {
@@ -552,6 +568,10 @@ h6 {
   /* color: #635551; */
   color: #9caaad;
   content: "/";
+}
+
+.scrolled .breadcrumbs {
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.6);
 }
 
 /*--------------------------------------------------------------

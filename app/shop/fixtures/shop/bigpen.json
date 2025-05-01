@@ -1,0 +1,136 @@
+[
+  {
+    "model": "shop.category",
+    "pk": 1,
+    "fields": {
+      "name": "Assessment Books",
+      "image": "",
+      "icon": "bi bi-book",
+      "description": "Essential guides for evaluating student progress."
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 2,
+    "fields": {
+      "name": "Branded Receipt Books",
+      "image": "",
+      "icon": "bi bi-receipt",
+      "description": "Custom receipt books for organized transactions."
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 3,
+    "fields": {
+      "name": "CBC Schemes",
+      "image": "",
+      "icon": "bi bi-file",
+      "description": "Competency-Based Curriculum planning resources."
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 4,
+    "fields": {
+      "name": "Dustless Chalk",
+      "image": "",
+      "icon": "bi bi-pencil",
+      "description": "Smooth, dust-free chalk for clean writing."
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 5,
+    "fields": {
+      "name": "Holiday Homework",
+      "image": "",
+      "icon": "bi bi-house",
+      "description": "Learning activities for school breaks."
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 6,
+    "fields": {
+      "name": "Lesson plans",
+      "image": "",
+      "icon": "bi bi-journal-text",
+      "description": "Structured teaching guides for educators."
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 7,
+    "fields": {
+      "name": "PP2 Graduation",
+      "image": "",
+      "icon": "bi bi-mortarboard",
+      "description": "Celebrating the transition."
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 8,
+    "fields": {
+      "name": "Primary Schools Exams",
+      "image": "",
+      "icon": "bi bi-clipboard-check",
+      "description": "Standardized tests for academic assessment."
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 9,
+    "fields": {
+      "name": "School Diaries",
+      "image": "",
+      "icon": "bi bi-calendar",
+      "description": "Daily planners for students and teachers."
+    }
+  },
+  {
+    "model": "shop.category",
+    "pk": 10,
+    "fields": {
+      "name": "School Uniforms",
+      "image": "",
+      "icon": "bi bi-shirt",
+      "description": "Essential guides for evaluating student progress."
+    }
+  },
+  {
+    "model": "shop.item",
+    "pk": 1,
+    "fields": {
+      "category": 10,
+      "name": "Boy shorts",
+      "image": "",
+      "icon": "",
+      "short_description": "comfortable boys shorts short description",
+      "long_description": "comfortable boys shorts longdescription",
+      "quantity": 0,
+      "original_price": "125.00",
+      "discount": "0.00",
+      "is_featured": false,
+      "created_at": "2025-04-29T17:53:19.376Z",
+      "updated_at": "2025-04-29T18:05:47.594Z"
+    }
+  },
+  {
+    "model": "shop.itemimage",
+    "pk": 1,
+    "fields": {
+      "item": 1,
+      "image": "store_item/other_images/about.png"
+    }
+  },
+  {
+    "model": "shop.itemimage",
+    "pk": 2,
+    "fields": {
+      "item": 1,
+      "image": "store_item/other_images/about_wDTzHci.png"
+    }
+  }
+]

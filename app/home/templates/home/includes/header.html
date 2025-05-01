@@ -1,73 +1,73 @@
 <header id="header"
-        class="header d-flex align-items-center {% if is_header_fixed %}fixed-top{% else %}sticky-top{% endif %}"
-        {% if not is_header_fixed %}style="background-color: black"{% endif %}>
-  <div class="container-fluid position-relative d-flex align-items-center justify-content-center">
-    <!-- Logo -->
-    <div class="d-flex align-items-center me-auto">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img src="{{ coreprovider.logo.url }}" alt="" width="" height="" />
-        <!-- <h1 class="sitename"></h1> -->
-      </a>
-    </div>
-    <!-- Navigation -->
-    <nav id="navmenu" class="navmenu mx-4">
-      <ul>
-        <li>
-          <a href="{% url 'homepage' %}#hero" class="active">Home</a>
-        </li>
-        <!-- <li><a href="{% url 'homepage' %}#services">Services</a></li> -->
-        <li>
-          <a href="{% url 'homepage' %}#offers">Offers</a>
-        </li>
-        <li>
-          <a href="{% url 'homepage' %}#contact">Contact</a>
-        </li>
-        <li>
-          <a href="{% url 'blogpage' %}">Blog</a>
-        </li>
-        <li>
-          <a href="{% url 'shop-dashboard' %}">Shop</a>
-        </li>
-        <li class="dropdown">
-          <a href="#">
-            <span><i class="bi bi-person-circle fs-6 me-1 d-none d-xl-inline"></i> Account</span>
-            <i class="bi bi-chevron-down toggle-dropdown"></i>
-          </a>
-          <ul>
-            {% if not request.user.is_authenticated %}
-              <li>
-                <a href="{% url 'login' %}">Login</a>
-              </li>
-              <li>
-                <a href="{% url 'signup' %}">Sign up</a>
-              </li>
-            {% elif request.user.is_staff %}
-              <!-- TODO: Add Profile -->
-              <li>
-                <a href="{% url 'admin:index' %}">Go to Admin</a>
-              </li>
-              <li>
-                <form method="post"
-                      action="{% url 'logout' %}"
-                      class="d-inline logout-form px-2">
-                  {% csrf_token %}
-                  <button type="submit" class="btn">Logout</button>
-                </form>
-              </li>
-            {% else %}
-              <!-- TODO: Add Profile -->
-              <li>
-                <form method="post"
-                      action="{% url 'logout' %}"
-                      class="d-inline logout-form px-2">
-                  {% csrf_token %}
-                  <button type="submit" class="btn">Logout</button>
-                </form>
-              </li>
-            {% endif %}
-            <!-- TODO: To be used later -->
-            <!-- <li class="dropdown">
+        class="header {% if is_header_fixed %}fixed-top{% else %}sticky-top bg-black{% endif %}">
+  <div class="main-header d-flex align-items-center">
+    <div class="container-fluid position-relative d-flex align-items-center justify-content-center">
+      <!-- Logo -->
+      <div class="d-flex align-items-center me-auto">
+        <a href="{% url 'homepage' %}" class="logo d-flex align-items-center">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <img src="{{ coreprovider.logo.url }}" alt="" width="" height="" />
+          <!-- <h1 class="sitename"></h1> -->
+        </a>
+      </div>
+      <!-- Navigation -->
+      <nav id="navmenu" class="navmenu mx-4">
+        <ul>
+          <li>
+            <a href="{% url 'homepage' %}#hero" class="active">Home</a>
+          </li>
+          <!-- <li><a href="{% url 'homepage' %}#services">Services</a></li> -->
+          <li>
+            <a href="{% url 'homepage' %}#offers">Offers</a>
+          </li>
+          <li>
+            <a href="{% url 'homepage' %}#contact">Contact</a>
+          </li>
+          <li>
+            <a href="{% url 'blogpage' %}">Blog</a>
+          </li>
+          <li>
+            <a href="{% url 'shop-dashboard' %}">Shop</a>
+          </li>
+          <li class="dropdown">
+            <a href="#">
+              <span><i class="bi bi-person-circle fs-6 me-1 d-none d-xl-inline"></i> Account</span>
+              <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+            <ul>
+              {% if not request.user.is_authenticated %}
+                <li>
+                  <a href="{% url 'login' %}">Login</a>
+                </li>
+                <li>
+                  <a href="{% url 'signup' %}">Sign up</a>
+                </li>
+              {% elif request.user.is_staff %}
+                <!-- TODO: Add Profile -->
+                <li>
+                  <a href="{% url 'admin:index' %}">Go to Admin</a>
+                </li>
+                <li>
+                  <form method="post"
+                        action="{% url 'logout' %}"
+                        class="d-inline logout-form px-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">Logout</button>
+                  </form>
+                </li>
+              {% else %}
+                <!-- TODO: Add Profile -->
+                <li>
+                  <form method="post"
+                        action="{% url 'logout' %}"
+                        class="d-inline logout-form px-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">Logout</button>
+                  </form>
+                </li>
+              {% endif %}
+              <!-- TODO: To be used later -->
+              <!-- <li class="dropdown">
               <a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
                 <li>
@@ -87,17 +87,40 @@
                 </li>
               </ul>
             </li> -->
-          </ul>
-        </li>
-      </ul>
-      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-    </nav>
-    <!-- Social/Shop Button -->
-    <div class="header-social-links ms-auto">
-      <a href="{% url 'shop-dashboard' %}"
-         class="btn btn-redirect px-4 text-white">
-        <i class="bi bi-shop"></i><span class="ms-2">Shop Now</span>
-      </a>
+            </ul>
+          </li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      <!-- Social/Shop Button -->
+      <div class="header-social-links ms-auto">
+        <a href="{% url 'shop-dashboard' %}"
+           class="btn btn-redirect px-4 text-white">
+          <i class="bi bi-shop"></i><span class="ms-2">Shop Now</span>
+        </a>
+      </div>
     </div>
   </div>
+  <!-- Breadcrumbs -->
+  {% if has_breadcrumbs %}
+    <div id="breadcrumbs" class="breadcrumbs bg-image">
+      <div class="container">
+        <ol>
+          <li>
+            <a href="{% url 'homepage' %}">Home</a>
+          </li>
+          {% for crumb in page_title %}
+            <li {% if forloop.last %}aria-current="page"{% endif %}>
+              {% if crumb.url and not forloop.last %}
+                <a href="{{ crumb.url }}">{{ crumb.label }}</a>
+              {% else %}
+                {{ crumb.label }}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ol>
+        {% with page_title|last as last_crumb %}<h2>{{ last_crumb.label }}</h2>{% endwith %}
+      </div>
+    </div>
+  {% endif %}
 </header>
