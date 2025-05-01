@@ -1,6 +1,6 @@
 [
   {
-    "model": "home.company",
+    "model": "home.organization",
     "pk": 1,
     "fields": {
       "website": "http://bigpen.co.ke",

@@ -93,15 +93,15 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# Company
+# Organization
 
-COMPANY_FULLNAME = config("COMPANY_FULLNAME", default="")
+ORG_FULLNAME = config("ORG_FULLNAME", default="")
 
-COMPANY_SHORTNAME = config("COMPANY_SHORTNAME", default="")
+ORG_SHORTNAME = config("ORG_SHORTNAME", default="")
 
-COMPANY_MOTTO = config("COMPANY_MOTTO", default="")
+ORG_MOTTO = config("ORG_MOTTO", default="")
 
-COMPANY_ACCENT_COLOR = config("COMPANY_ACCENT_COLOR", default="")
+ORG_ACCENT_COLOR = config("ORG_ACCENT_COLOR", default="")
 
 
 # Database

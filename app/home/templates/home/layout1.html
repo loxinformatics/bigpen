@@ -4,20 +4,20 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta name="theme-color" content="{{ coreprovider.theme_color }}" />
+    <meta name="theme-color" content="{{ org.theme_color }}" />
     <meta name="author" content="{{ company_fullname }}" />
     <meta name="description" content="{{ company_motto }}" />
     <meta name="keywords" content="{{ company_fullname }}" />
     <meta name="twitter:card" content="{{ company_motto }}" />
-    <meta name="twitter:site" content="{{ coreprovider.website }}" />
+    <meta name="twitter:site" content="{{ org.website }}" />
     <meta name="twitter:title" content="{{ company_fullname }}" />
     <meta name="twitter:description" content="{{ company_motto }}" />
-    <meta name="twitter:image" content="{{ coreprovider.logo.url }}" />
+    <meta name="twitter:image" content="{{ org.logo.url }}" />
     <meta name="twitter:image:alt" content="{{ company_fullname }}" />
-    <meta property="og:url" content="{{ coreprovider.website }}" />
+    <meta property="og:url" content="{{ org.website }}" />
     <meta property="og:site_name" content="{{ company_fullname }}" />
     <meta property="og:title" content="{{ company_fullname }}" />
-    <meta property="og:image" content="{{ coreprovider.logo.url }}" />
+    <meta property="og:image" content="{{ org.logo.url }}" />
     <meta property="og:locale" content="en_GB" />
     <!-- title -->
     {% if page_title %}
@@ -32,8 +32,8 @@
       <title>{{ company_fullname }}</title>
     {% endif %}
     <!-- Favicons & Webmanifest -->
-    <link href="{{ coreprovider.favicon.url }}" rel="icon" />
-    <link href="{{ coreprovider.apple_touch_icon.url }}" rel="apple-touch-icon" />
+    <link href="{{ org.favicon.url }}" rel="icon" />
+    <link href="{{ org.apple_touch_icon.url }}" rel="apple-touch-icon" />
     <!-- Vendor CSS Styles -->
     <link href="{% static 'home/vendor/bootstrap/css/bootstrap.min.css' %}"
           rel="stylesheet" />
@@ -80,19 +80,19 @@
       <i class="bi bi-arrow-up-short"></i>
     </a>
     <!-- ======= Whatsapp button & Call Button ======= -->
-    {% if coreprovider.whatsapp %}
-      <a href="{{ coreprovider.whatsapp }}"
+    {% if org.whatsapp %}
+      <a href="{{ org.whatsapp }}"
          class="whatsapp-button d-flex align-items-center justify-content-center position-fixed start-0 bottom-0 mb-3 ms-3">
         <i class="bi bi-whatsapp"></i>
       </a>
-      <a href="tel:{{ coreprovider.primary_phone.as_e164 }}"
-         class="call-float {% if coreprovider.primary_phone %}d-flex{% else %}d-none{% endif %} align-items-center justify-content-center position-fixed start-0 bottom-0 ms-3"
+      <a href="tel:{{ org.primary_phone.as_e164 }}"
+         class="call-float {% if org.primary_phone %}d-flex{% else %}d-none{% endif %} align-items-center justify-content-center position-fixed start-0 bottom-0 ms-3"
          style="margin-bottom: 4rem">
         <i class="bi bi-telephone"></i>
       </a>
     {% else %}
-      <a href="tel:{{ coreprovider.primary_phone.as_e164 }}"
-         class="call-float {% if coreprovider.primary_phone %}d-flex{% else %}d-none{% endif %} align-items-center justify-content-center position-fixed start-0 bottom-0 mb-3 ms-3">
+      <a href="tel:{{ org.primary_phone.as_e164 }}"
+         class="call-float {% if org.primary_phone %}d-flex{% else %}d-none{% endif %} align-items-center justify-content-center position-fixed start-0 bottom-0 mb-3 ms-3">
         <i class="bi bi-telephone"></i>
       </a>
     {% endif %}
