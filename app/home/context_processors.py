@@ -1,23 +1,23 @@
 # from .forms import NewsletterForm
 from django.conf import settings
 
-from .models import Company
+from .models import Organization
 
 
 def provider(request):
-    coreprovider = Company.objects.first()
+    org = Organization.objects.first()
 
-    has_any_social_media_link = coreprovider and (
-        coreprovider.twitter
-        or coreprovider.facebook
-        or coreprovider.instagram
-        or coreprovider.linkedin
-        or coreprovider.tiktok
-        or coreprovider.youtube
-        or coreprovider.whatsapp
-        or coreprovider.telegram
-        or coreprovider.snapchat
-        or coreprovider.pinterest
+    has_any_social_media_link = org and (
+        org.twitter
+        or org.facebook
+        or org.instagram
+        or org.linkedin
+        or org.tiktok
+        or org.youtube
+        or org.whatsapp
+        or org.telegram
+        or org.snapchat
+        or org.pinterest
     )
 
     footer_nav_column_1 = {
@@ -42,11 +42,11 @@ def provider(request):
     }
 
     return {
-        "company_fullname": settings.COMPANY_FULLNAME,
-        "company_shortname": settings.COMPANY_SHORTNAME,
-        "company_motto": settings.COMPANY_MOTTO,
-        "company_accent_color": settings.COMPANY_ACCENT_COLOR,
-        "coreprovider": coreprovider,
+        "company_fullname": settings.ORG_FULLNAME,
+        "company_shortname": settings.ORG_SHORTNAME,
+        "company_motto": settings.ORG_MOTTO,
+        "company_accent_color": settings.ORG_ACCENT_COLOR,
+        "org": org,
         "has_any_social_media_link": bool(has_any_social_media_link),
         "footer_nav_column_1": footer_nav_column_1,
         "footer_nav_column_2": footer_nav_column_2,

@@ -30,12 +30,12 @@
           </a>
           <div class="footer-contact pt-3">
             <p>
-              {{ coreprovider.building }}
-              {% if coreprovider.street %}, {{ coreprovider.street }}{% endif %}
+              {{ org.building }}
+              {% if org.street %}, {{ org.street }}{% endif %}
             </p>
             <p>
-              {{ coreprovider.city_name }}
-              {% if coreprovider.PO_Box %}, {{ coreprovider.PO_Box }}{% endif %}
+              {{ org.city_name }}
+              {% if org.PO_Box %}, {{ org.PO_Box }}{% endif %}
             </p>
           </div>
         </div>
@@ -64,16 +64,16 @@
             <h4>Follow Us</h4>
             <p>Discover the latest deals, trends, and offers. Follow us for exclusive discounts and updates!</p>
             <div class="social-links d-flex">
-              {% if coreprovider.twitter %}<a href="{{ coreprovider.twitter }}"><i class="bi bi-twitter-x"></i></a>{% endif %}
-              {% if coreprovider.facebook %}<a href="{{ coreprovider.facebook }}"><i class="bi bi-facebook"></i></a>{% endif %}
-              {% if coreprovider.instagram %}<a href="{{ coreprovider.instagram }}"><i class="bi bi-instagram"></i></a>{% endif %}
-              {% if coreprovider.linkedin %}<a href="{{ coreprovider.linkedin }}"><i class="bi bi-linkedin"></i></a>{% endif %}
-              {% if coreprovider.tiktok %}<a href="{{ coreprovider.tiktok }}"><i class="bi bi-tiktok"></i></a>{% endif %}
-              {% if coreprovider.youtube %}<a href="{{ coreprovider.youtube }}"><i class="bi bi-youtube"></i></a>{% endif %}
-              {% if coreprovider.whatsapp %}<a href="{{ coreprovider.whatsapp }}"><i class="bi bi-whatsapp"></i></a>{% endif %}
-              {% if coreprovider.telegram %}<a href="{{ coreprovider.telegram }}"><i class="bi bi-telegram"></i></a>{% endif %}
-              {% if coreprovider.snapchat %}<a href="{{ coreprovider.snapchat }}"><i class="bi bi-snapchat"></i></a>{% endif %}
-              {% if coreprovider.pinterest %}<a href="{{ coreprovider.pinterest }}"><i class="bi bi-pinterest"></i></a>{% endif %}
+              {% if org.twitter %}<a href="{{ org.twitter }}"><i class="bi bi-twitter-x"></i></a>{% endif %}
+              {% if org.facebook %}<a href="{{ org.facebook }}"><i class="bi bi-facebook"></i></a>{% endif %}
+              {% if org.instagram %}<a href="{{ org.instagram }}"><i class="bi bi-instagram"></i></a>{% endif %}
+              {% if org.linkedin %}<a href="{{ org.linkedin }}"><i class="bi bi-linkedin"></i></a>{% endif %}
+              {% if org.tiktok %}<a href="{{ org.tiktok }}"><i class="bi bi-tiktok"></i></a>{% endif %}
+              {% if org.youtube %}<a href="{{ org.youtube }}"><i class="bi bi-youtube"></i></a>{% endif %}
+              {% if org.whatsapp %}<a href="{{ org.whatsapp }}"><i class="bi bi-whatsapp"></i></a>{% endif %}
+              {% if org.telegram %}<a href="{{ org.telegram }}"><i class="bi bi-telegram"></i></a>{% endif %}
+              {% if org.snapchat %}<a href="{{ org.snapchat }}"><i class="bi bi-snapchat"></i></a>{% endif %}
+              {% if org.pinterest %}<a href="{{ org.pinterest }}"><i class="bi bi-pinterest"></i></a>{% endif %}
             </div>
           </div>
         {% endif %}

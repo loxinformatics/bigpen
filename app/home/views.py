@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 
 from .forms import ContactForm
-from .models import Company, ListItem
+from .models import ListItem, Organization
 
 
 def robots_txt(request):
@@ -32,8 +32,8 @@ def HomePage(request):
             sender_subject = filled_form.cleaned_data["subject"]
             sender_message = filled_form.cleaned_data["message"]
             recipient_email = (
-                Company.objects.first().primary_email
-                if Company._meta.db_table in connection.introspection.table_names()
+                Organization.objects.first().primary_email
+                if Organization._meta.db_table in connection.introspection.table_names()
                 else None,
             )
 

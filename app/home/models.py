@@ -3,7 +3,16 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-class Company(models.Model):
+class Organization(models.Model):
+    """
+    Generic model for representing various types of organizations:
+    companies, schools, churches, ecommerce stores, NGOs, etc.
+    """
+
+    class Meta:
+        verbose_name = "App organization settings"
+        verbose_name_plural = "App organization settings"
+
     # Contact Info
     website = models.URLField(
         help_text="Main website URL of your company, including https://."
@@ -81,7 +90,6 @@ class Company(models.Model):
         blank=True,
         help_text="WhatsApp Business contact link (Format: https://wa.me/{phone_number}, e.g., https://wa.me/254712345678) (optional).",
     )
-
     telegram = models.URLField(
         blank=True, help_text="Telegram channel or group link (optional)."
     )
@@ -114,27 +122,29 @@ class Company(models.Model):
     #     help_text="Upload a manifest.webmanifest file to support Progressive Web App (PWA) functionality.",
     # )
 
-    class Meta:
-        verbose_name = "Basic Company Information"
-        verbose_name_plural = "Basic Company Information"
+    @classmethod
+    def get_org_name(cls):
+        from django.conf import settings
 
-    def __str__(self):
-        return "Basic Company Information"
+        return f"{settings.ORG_SHORTNAME if hasattr(settings, 'ORG_SHORTNAME') else settings.ORG_FULLNAME if hasattr(settings, 'ORG_FULLNAME') else 'Organization'}"
 
     def clean(self):
-        if Company.objects.exists() and not self.pk:
+        if Organization.objects.exists() and not self.pk:
             raise ValidationError(
-                "There can be only one Core (Basic Company Information) instance."
+                f"There can be only one {self.get_org_name()} instance."
             )
 
     def save(self, *args, **kwargs):
         self.clean()
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.get_org_name()
+
 
 class ListCategory(models.Model):
     class Meta:
-        verbose_name_plural = "List Categories"
+        verbose_name_plural = "List categories"
 
     name = models.CharField(
         max_length=255,

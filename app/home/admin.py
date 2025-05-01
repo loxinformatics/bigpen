@@ -3,7 +3,7 @@ from django.contrib.admin import SimpleListFilter
 from django.http import HttpResponseRedirect
 from django.shortcuts import reverse
 
-from .models import Company, ListCategory, ListItem
+from .models import ListCategory, ListItem, Organization
 
 
 class BaseSingletonAdmin(admin.ModelAdmin):
@@ -47,8 +47,8 @@ class BaseSingletonAdmin(admin.ModelAdmin):
         )
 
 
-@admin.register(Company)
-class CoreProviderAdmin(BaseSingletonAdmin):
+@admin.register(Organization)
+class OrganizationAdmin(BaseSingletonAdmin):
     def get_fieldsets(self, request, obj=None):
         """
         Organize CoreProvider fields into collapsible sections in the admin form.
