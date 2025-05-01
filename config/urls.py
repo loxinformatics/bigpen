@@ -16,6 +16,13 @@ urlpatterns = [
     path("shop/", include("app.shop.urls")),
 ]
 
+
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+admin.site.site_header = "Online BigPen Kenya"
+admin.site.site_title = "Admin | Online BigPen Kenya"
+admin.site.index_title = "Online BigPen Kenya Administration"

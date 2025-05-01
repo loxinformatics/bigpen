@@ -146,13 +146,6 @@ class Company(models.Model):
         self.clean()
         super().save(*args, **kwargs)
 
-        # Dynamically update admin site branding
-        from django.contrib import admin
-
-        admin.site.site_header = f"{self.name}"
-        admin.site.site_title = f"Admin | {self.name}"
-        admin.site.index_title = f"{self.name} Administration"
-
 
 class ListCategory(models.Model):
     class Meta:
