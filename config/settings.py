@@ -130,7 +130,7 @@ DATABASES = {
 AUTH_USER_MODEL = "_auth.User"
 
 AUTHENTICATION_BACKENDS = [
-    "app._auth.backends.UsernameOrEmailAuthBackend",  # Keep this as the first as it's needed in signup
+    # "app._auth.backends.UsernameOrEmailAuthBackend",  # Keep this as the first as it's needed in signup
     "django.contrib.auth.backends.ModelBackend",  # Keep the default backend
 ]
 

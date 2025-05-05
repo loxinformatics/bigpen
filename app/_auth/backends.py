@@ -3,6 +3,11 @@ from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 
 
+class PhoneAuthBackend(ModelBackend):
+    pass
+    # if I make the phone the username field, do I need to create a backend that uses the phoneauth?
+
+
 class UsernameOrEmailAuthBackend(ModelBackend):
     """
     Custom authentication backend that allows users to login with either username or email
