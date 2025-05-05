@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 from .models import Category, Item
 
@@ -15,7 +15,7 @@ def ShopDashboard(request):
         "page_title": [
             {
                 "label": "All Categories",
-                "url": "/shop" if category_name else None,
+                "url": "/shop/items" if category_name else None,
             }
         ]
         + ([{"label": category_name, "url": None}] if category_name else []),
@@ -37,8 +37,19 @@ def ItemDetailView(request, pk):
     context = {
         "item": item,
         "images": images,
-        "page_title": [{"label": item.name, "url": None}],
+        "page_title": [
+            {
+                "label": "All Categories",
+                "url": "/shop/items",
+            },
+            {
+                "label": item.category.name,
+                "url": f"/shop/items/?category={item.category.name}",
+            },
+            {"label": item.name, "url": None},
+        ],
         "has_header": True,
+        "header_has_breadcrumbs": True,
         "has_footer": True,
     }
     return render(request, "shop/item_detail.html", context)

@@ -3,9 +3,9 @@
     "model": "shop.category",
     "pk": 1,
     "fields": {
-      "name": "Assessment Books",
       "image": "",
       "icon": "bi bi-book",
+      "name": "Assessment Books",
       "description": "Essential guides for evaluating student progress."
     }
   },
@@ -13,9 +13,9 @@
     "model": "shop.category",
     "pk": 2,
     "fields": {
-      "name": "Branded Receipt Books",
       "image": "",
       "icon": "bi bi-receipt",
+      "name": "Branded Receipt Books",
       "description": "Custom receipt books for organized transactions."
     }
   },
@@ -23,9 +23,9 @@
     "model": "shop.category",
     "pk": 3,
     "fields": {
-      "name": "CBC Schemes",
       "image": "",
       "icon": "bi bi-file",
+      "name": "CBC Schemes",
       "description": "Competency-Based Curriculum planning resources."
     }
   },
@@ -33,9 +33,9 @@
     "model": "shop.category",
     "pk": 4,
     "fields": {
-      "name": "Dustless Chalk",
       "image": "",
       "icon": "bi bi-pencil",
+      "name": "Dustless Chalk",
       "description": "Smooth, dust-free chalk for clean writing."
     }
   },
@@ -43,9 +43,9 @@
     "model": "shop.category",
     "pk": 5,
     "fields": {
-      "name": "Holiday Homework",
       "image": "",
       "icon": "bi bi-house",
+      "name": "Holiday Homework",
       "description": "Learning activities for school breaks."
     }
   },
@@ -53,9 +53,9 @@
     "model": "shop.category",
     "pk": 6,
     "fields": {
-      "name": "Lesson plans",
       "image": "",
       "icon": "bi bi-journal-text",
+      "name": "Lesson plans",
       "description": "Structured teaching guides for educators."
     }
   },
@@ -63,9 +63,9 @@
     "model": "shop.category",
     "pk": 7,
     "fields": {
-      "name": "PP2 Graduation",
       "image": "",
       "icon": "bi bi-mortarboard",
+      "name": "PP2 Graduation",
       "description": "Celebrating the transition."
     }
   },
@@ -73,9 +73,9 @@
     "model": "shop.category",
     "pk": 8,
     "fields": {
-      "name": "Primary Schools Exams",
       "image": "",
       "icon": "bi bi-clipboard-check",
+      "name": "Primary Schools Exams",
       "description": "Standardized tests for academic assessment."
     }
   },
@@ -83,9 +83,9 @@
     "model": "shop.category",
     "pk": 9,
     "fields": {
-      "name": "School Diaries",
       "image": "",
       "icon": "bi bi-calendar",
+      "name": "School Diaries",
       "description": "Daily planners for students and teachers."
     }
   },
@@ -93,9 +93,9 @@
     "model": "shop.category",
     "pk": 10,
     "fields": {
-      "name": "School Uniforms",
       "image": "",
       "icon": "bi bi-shirt",
+      "name": "School Uniforms",
       "description": "Essential guides for evaluating student progress."
     }
   },
@@ -105,16 +105,14 @@
     "fields": {
       "category": 10,
       "name": "Boy shorts",
-      "image": "",
-      "icon": "",
-      "short_description": "comfortable boys shorts short description",
-      "long_description": "comfortable boys shorts longdescription",
-      "quantity": 0,
+      "image": "/shop/items/default_item_image.jpg",
+      "description": "comfortable boys shorts longdescription",
+      "quantity": 4,
+      "is_featured": false,
       "original_price": "125.00",
       "discount": "0.00",
-      "is_featured": false,
       "created_at": "2025-04-29T17:53:19.376Z",
-      "updated_at": "2025-04-29T18:05:47.594Z"
+      "updated_at": "2025-05-05T09:11:18.318Z"
     }
   },
   {
@@ -122,7 +120,7 @@
     "pk": 1,
     "fields": {
       "item": 1,
-      "image": "store_item/other_images/about.png"
+      "image": "shop/items/cv8llPdyGeqbh4n4Ovrernk5NJ2fMehKKQ9asUo2.jpg"
     }
   },
   {
@@ -130,7 +128,47 @@
     "pk": 2,
     "fields": {
       "item": 1,
-      "image": "store_item/other_images/about_wDTzHci.png"
+      "image": "shop/items/DPTE.jpg"
+    }
+  },
+  {
+    "model": "shop.itemimage",
+    "pk": 3,
+    "fields": {
+      "item": 1,
+      "image": "shop/items/breadcrumbs-shop_sbiYDeK.jpg"
+    }
+  },
+  {
+    "model": "shop.itemimage",
+    "pk": 4,
+    "fields": {
+      "item": 1,
+      "image": "shop/items/breadcrumbs-shop_vqEeZSt.jpg"
+    }
+  },
+  {
+    "model": "shop.itemimage",
+    "pk": 5,
+    "fields": {
+      "item": 1,
+      "image": "shop/items/breadcrumbs-shop_MGBuXNr.jpg"
+    }
+  },
+  {
+    "model": "shop.itemimage",
+    "pk": 6,
+    "fields": {
+      "item": 1,
+      "image": "shop/items/breadcrumbs-shop_brGqr85.jpg"
+    }
+  },
+  {
+    "model": "shop.itemimage",
+    "pk": 7,
+    "fields": {
+      "item": 1,
+      "image": "shop/items/breadcrumbs-shop_Ab3IWli.jpg"
     }
   }
 ]
