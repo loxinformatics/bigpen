@@ -37,18 +37,12 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "email")
+        fields = ("username",)
         widgets = {
             "username": forms.TextInput(
                 attrs={
                     "class": "form-control",
                     "placeholder": "Username",
-                }
-            ),
-            "email": forms.EmailInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Email address",
                 }
             ),
         }
@@ -88,18 +82,12 @@ class ProfileUpdateForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ("username", "email", "image", "first_name", "last_name")
+        fields = ("username", "image", "first_name", "last_name")
         widgets = {
             "username": forms.TextInput(
                 attrs={
                     "class": "form-control",
                     "placeholder": "Username",
-                }
-            ),
-            "email": forms.EmailInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Email address",
                 }
             ),
             "first_name": forms.TextInput(

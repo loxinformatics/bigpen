@@ -51,7 +51,6 @@ class UserAdmin(DefaultUserAdmin):
             {
                 "fields": (
                     "username",
-                    "email",
                     "password",
                 )
             },
@@ -105,7 +104,7 @@ class UserAdmin(DefaultUserAdmin):
     )
 
     # Display these fields in the user list view
-    list_display = ["username", "email", "title", "first_name", "last_name"]
+    list_display = ["username", "title", "first_name", "last_name"]
     # Make username a clickable link in the list view
     list_display_links = ["username"]
     # Allow inline editing of these fields in the list view
