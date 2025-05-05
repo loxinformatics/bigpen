@@ -1,0 +1,62 @@
+{% extends 'home/layout1.html' %}
+{% load static %}
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'shop/item_detail.css' %}">
+  <style type="text/css" class="drift-base-styles">
+      .drift-bounding-box,
+      .drift-zoom-pane {
+          position: absolute;
+          pointer-events: none
+      }
+
+      @keyframes noop {
+          0% {
+              zoom: 1
+          }
+      }
+
+      @-webkit-keyframes noop {
+          0% {
+              zoom: 1
+          }
+      }
+
+      .drift-zoom-pane.drift-open {
+          display: block
+      }
+
+      .drift-zoom-pane.drift-closing,
+      .drift-zoom-pane.drift-opening {
+          animation: noop 1ms;
+          -webkit-animation: noop 1ms
+      }
+
+      .drift-zoom-pane {
+          overflow: hidden;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0
+      }
+
+      .drift-zoom-pane-loader {
+          display: none
+      }
+
+      .drift-zoom-pane img {
+          position: absolute;
+          display: block;
+          max-width: none;
+          max-height: none
+      }
+  </style>
+  <style>
+      .breadcrumbs.bg-image {
+          background: url("{% static 'shop/img/breadcrumbs-shop.jpg' %}") no-repeat center / cover;
+      }
+  </style>
+
+{% endblock styles %}
+{% block inner_main %}
+  {% include 'shop/includes/product-details.html' %}
+{% endblock inner_main %}

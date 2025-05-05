@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import Category, Item
 
@@ -27,4 +27,18 @@ def ShopDashboard(request):
         "category_param": category_name,
     }
 
-    return render(request, "shop/page.html", extra_context)
+    return render(request, "shop/categories.html", extra_context)
+
+
+def ItemDetailView(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    images = item.otherImages.all()
+
+    context = {
+        "item": item,
+        "images": images,
+        "page_title": [{"label": item.name, "url": None}],
+        "has_header": True,
+        "has_footer": True,
+    }
+    return render(request, "shop/item_detail.html", context)

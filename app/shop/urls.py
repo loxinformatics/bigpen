@@ -1,5 +1,7 @@
 from django.urls import path
+from .views import ShopDashboard, ItemDetailView
 
-from .views import ShopDashboard
-
-urlpatterns = [path("", ShopDashboard, name="shop-dashboard")]
+urlpatterns = [
+    path("items/", ShopDashboard, name="shop-dashboard"),
+    path("items/<int:pk>/", ItemDetailView, name="item-detail"),
+]

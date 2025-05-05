@@ -39,7 +39,7 @@
             <div class="product-content">
               <div class="product-details">
                 <h3 class="product-title">
-                  <a href="#">{{ item.name }}</a>
+                  <a href="{% url 'item-detail' pk=item.id %}">{{ item.name }}</a>
                 </h3>
                 <div class="product-price">
                   {% if item.discount_percentage and item.discount_percentage != 0 %}
