@@ -37,17 +37,18 @@ class Item(models.Model):
     image = models.ImageField(
         upload_to="shop/items/",
         help_text="Main image for the item.",
+        default="/shop/items/default_item_image.jpg"
     )
-    icon = models.CharField(
-        max_length=255,
-        blank=True,
-        help_text="Optional. Icon class or path for the item.",
-    )
-    short_description = models.TextField(
-        blank=True,
-        help_text="Optional. Short description of the item.",
-    )
-    long_description = models.TextField(
+    # icon = models.CharField(
+    #     max_length=255,
+    #     blank=True,
+    #     help_text="Optional. Icon class or path for the item.",
+    # )
+    # short_description = models.TextField(
+    #     blank=True,
+    #     help_text="Optional. Short description of the item.",
+    # )
+    description = models.TextField(
         blank=True,
         help_text="Optional. Detailed description of the item.",
     )

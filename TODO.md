@@ -1,3 +1,4 @@
+- appropriate default item image
 - footer navlinks
 - manifest
 - working hours

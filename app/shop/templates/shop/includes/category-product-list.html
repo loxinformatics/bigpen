@@ -21,15 +21,18 @@
               {% endif %}
               <div class="product-overlay">
                 <div class="product-quick-actions">
-                  <button type="button" class="quick-action-btn">
-                    <i class="bi bi-heart"></i>
-                  </button>
-                  <button type="button" class="quick-action-btn">
-                    <i class="bi bi-arrow-repeat"></i>
-                  </button>
-                  <button type="button" class="quick-action-btn">
+                  {% comment  %}
+                    <button type="button" class="quick-action-btn">
+                      <i class="bi bi-heart"></i>
+                    </button>
+                    <button type="button" class="quick-action-btn">
+                      <i class="bi bi-arrow-repeat"></i>
+                    </button>
+                  {% endcomment %}
+                  <a href="{% url 'item-detail' pk=item.id %}"
+                     class="btn quick-action-btn">
                     <i class="bi bi-eye"></i>
-                  </button>
+                  </a>
                 </div>
                 <!-- <div class="add-to-cart-container">
                   <button type="button" class="add-to-cart-btn">Add to Cart</button>

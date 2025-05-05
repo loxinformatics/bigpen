@@ -102,22 +102,22 @@ class Organization(models.Model):
 
     # Branding & Icons
     logo = models.ImageField(
-        upload_to="branding/",
+        upload_to="home/org/",
         blank=True,
         help_text="Upload your company logo (recommended size: 512x512px, transparent PNG).",
     )
     favicon = models.ImageField(
-        upload_to="branding/",
+        upload_to="home/org/",
         blank=True,
         help_text="Upload a small icon used in browser tabs (usually 32x32px .ico or .png).",
     )
     apple_touch_icon = models.ImageField(
-        upload_to="branding/",
+        upload_to="home/org/",
         blank=True,
         help_text="Upload an Apple touch icon (recommended 180x180px PNG) for iOS devices.",
     )
     # webmanifest = models.FileField(
-    #     upload_to="branding/",
+    #     upload_to="home/org/",
     #     blank=True,
     #     help_text="Upload a manifest.webmanifest file to support Progressive Web App (PWA) functionality.",
     # )
