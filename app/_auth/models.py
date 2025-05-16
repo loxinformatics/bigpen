@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser, Group
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
 
 from .apps import PROTECTED_GROUPS
 
@@ -34,17 +36,28 @@ class UserGroup(Group):
 
 
 class User(AbstractUser):
+    class Meta:
+        verbose_name = _("user")
+        verbose_name_plural = _("users")
+
+    # Override username field with PhoneNumberField
+    username = PhoneNumberField(
+        _("phone number"),
+        unique=True,
+        help_text=_("Required. Enter a valid phone number."),
+        error_messages={
+            "unique": _("A user with that phone number already exists."),
+        },
+    )
     # Add back the email field, make it optional
     email = models.EmailField(
-        "email address",
+        _("email address"),
         blank=True,
-        null=True,
-        unique=False,
         help_text="Optional. Used for notifications and password reset.",
     )
 
     USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["email", "first_name", "last_name"]
 
     # Name field that automatically combines first_name and last_name
     @property
@@ -94,4 +107,4 @@ class User(AbstractUser):
     )
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.username}"

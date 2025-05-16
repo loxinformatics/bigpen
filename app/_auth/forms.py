@@ -42,7 +42,7 @@ class SignUpForm(UserCreationForm):
             "username": forms.TextInput(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "Username",
+                    "placeholder": "Phone number",
                 }
             ),
         }
@@ -87,7 +87,7 @@ class ProfileUpdateForm(UserChangeForm):
             "username": forms.TextInput(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "Username",
+                    "placeholder": "Phone number",
                 }
             ),
             "first_name": forms.TextInput(
@@ -132,12 +132,6 @@ class ProfileUpdateForm(UserChangeForm):
         return user
 
 
-# class CustomUserChangeAdminForm(UserChangeForm):
-#     class Meta:
-#         model = User
-#         fields = ("username", "email", "image", "first_name", "last_name")
-
-
 class LoginForm(AuthenticationForm):
     # override the variables in BaseUserCreationform
     username = UsernameField(
@@ -145,7 +139,7 @@ class LoginForm(AuthenticationForm):
             attrs={
                 "autofocus": True,
                 "class": "form-control",
-                "placeholder": "Your username or email",
+                "placeholder": "Your phone number",
             }
         )
     )
