@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "image": "",
-      "icon": "bi bi-book",
+      "bootstrap_icon": "bi bi-book",
       "name": "Assessment Books",
       "description": "Essential guides for evaluating student progress."
     }
@@ -14,7 +14,7 @@
     "pk": 2,
     "fields": {
       "image": "",
-      "icon": "bi bi-receipt",
+      "bootstrap_icon": "bi bi-receipt",
       "name": "Branded Receipt Books",
       "description": "Custom receipt books for organized transactions."
     }
@@ -24,7 +24,7 @@
     "pk": 3,
     "fields": {
       "image": "",
-      "icon": "bi bi-file",
+      "bootstrap_icon": "bi bi-file",
       "name": "CBC Schemes",
       "description": "Competency-Based Curriculum planning resources."
     }
@@ -34,7 +34,7 @@
     "pk": 4,
     "fields": {
       "image": "",
-      "icon": "bi bi-pencil",
+      "bootstrap_icon": "bi bi-pencil",
       "name": "Dustless Chalk",
       "description": "Smooth, dust-free chalk for clean writing."
     }
@@ -44,7 +44,7 @@
     "pk": 5,
     "fields": {
       "image": "",
-      "icon": "bi bi-house",
+      "bootstrap_icon": "bi bi-house",
       "name": "Holiday Homework",
       "description": "Learning activities for school breaks."
     }
@@ -54,7 +54,7 @@
     "pk": 6,
     "fields": {
       "image": "",
-      "icon": "bi bi-journal-text",
+      "bootstrap_icon": "bi bi-journal-text",
       "name": "Lesson plans",
       "description": "Structured teaching guides for educators."
     }
@@ -64,7 +64,7 @@
     "pk": 7,
     "fields": {
       "image": "",
-      "icon": "bi bi-mortarboard",
+      "bootstrap_icon": "bi bi-mortarboard",
       "name": "PP2 Graduation",
       "description": "Celebrating the transition."
     }
@@ -74,7 +74,7 @@
     "pk": 8,
     "fields": {
       "image": "",
-      "icon": "bi bi-clipboard-check",
+      "bootstrap_icon": "bi bi-clipboard-check",
       "name": "Primary Schools Exams",
       "description": "Standardized tests for academic assessment."
     }
@@ -84,7 +84,7 @@
     "pk": 9,
     "fields": {
       "image": "",
-      "icon": "bi bi-calendar",
+      "bootstrap_icon": "bi bi-calendar",
       "name": "School Diaries",
       "description": "Daily planners for students and teachers."
     }
@@ -94,7 +94,7 @@
     "pk": 10,
     "fields": {
       "image": "",
-      "icon": "bi bi-shirt",
+      "bootstrap_icon": "bi bi-shirt",
       "name": "School Uniforms",
       "description": "Essential guides for evaluating student progress."
     }

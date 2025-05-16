@@ -12,10 +12,10 @@ class Category(models.Model):
         null=True,
         help_text="Optional. Image representing the category.",
     )
-    icon = models.CharField(
+    bootstrap_icon = models.CharField(
         max_length=255,
         blank=True,
-        help_text="Optional. Icon class or path for the category.",
+        help_text="Optional. Bootstrap icon class or path for the category. Example: 'bi bi-cart' for a shopping cart icon. Find icons at [Bootstrap Icons](https://icons.getbootstrap.com/).",
     )
     name = models.CharField(max_length=255, help_text="Name of the category.")
     description = models.TextField(
@@ -39,15 +39,11 @@ class Item(models.Model):
         help_text="Main image for the item.",
         default="/shop/items/default_item_image.jpg"
     )
-    # icon = models.CharField(
-    #     max_length=255,
-    #     blank=True,
-    #     help_text="Optional. Icon class or path for the item.",
-    # )
-    # short_description = models.TextField(
-    #     blank=True,
-    #     help_text="Optional. Short description of the item.",
-    # )
+    bootstrap_icon = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Optional. Bootstrap icon class or path for the item. Example: 'bi bi-cart' for a shopping cart icon. Find icons at [Bootstrap Icons](https://icons.getbootstrap.com/).",
+    )
     description = models.TextField(
         blank=True,
         help_text="Optional. Detailed description of the item.",
