@@ -2,6 +2,9 @@ from django.contrib import admin
 from django.contrib.auth.admin import GroupAdmin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 from django.contrib.auth.models import Group
+from django.utils.translation import gettext_lazy as _
+from django import forms
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
 from .models import User, UserGroup
 
@@ -35,6 +38,47 @@ class UserGroupAdmin(GroupAdmin):
         return list(super().get_list_display(request)) + ["is_default_group"]
 
 
+# Custom forms for handling PhoneNumberField
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Convert PhoneNumberField to CharField in the form
+        if "username" in self.fields:
+            self.fields["username"] = forms.CharField(
+                label=_("Phone Number"),
+                max_length=20,
+                help_text=_(
+                    "Enter a valid phone number in E.164 format (+12345678901)."
+                ),
+                required=True,
+            )
+            # Pre-format the initial value
+            if self.instance and self.instance.pk:
+                self.fields["username"].initial = str(self.instance.username)
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ("username", "email")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Convert PhoneNumberField to CharField in the form
+        if "username" in self.fields:
+            self.fields["username"] = forms.CharField(
+                label=_("Phone Number"),
+                max_length=20,
+                help_text=_(
+                    "Enter a valid phone number in E.164 format (+12345678901)."
+                ),
+                required=True,
+            )
+
 @admin.register(User)
 class UserAdmin(DefaultUserAdmin):
     """
@@ -44,6 +88,9 @@ class UserAdmin(DefaultUserAdmin):
     - Allows inline editing of title, first_name, last_name in the list view.
     - Restricts certain fields for non-superusers.
     """
+
+    form = CustomUserChangeForm
+    add_form = CustomUserCreationForm
 
     fieldsets = (
         (
@@ -61,6 +108,7 @@ class UserAdmin(DefaultUserAdmin):
                 "fields": (
                     "image",
                     "title",
+                    "email",
                     "first_name",
                     "last_name",
                     "description",
@@ -99,6 +147,17 @@ class UserAdmin(DefaultUserAdmin):
                     "last_login",
                     "date_joined",
                 )
+            },
+        ),
+    )
+
+    # Customize the add form layout
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("username", "password1", "password2"),
             },
         ),
     )
