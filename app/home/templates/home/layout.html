@@ -50,14 +50,15 @@
     {% block styles %}
     {% endblock styles %}
     <!-- Vendor JS Scripts -->
-    
     <script defer
             src="{% static 'home/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script defer src="{% static 'home/vendor/swiper/swiper-bundle.min.js' %}"></script>  
+    <script defer src="{% static 'home/vendor/swiper/swiper-bundle.min.js' %}"></script>
     <script defer src="{% static 'home/vendor/aos/aos.js' %}"></script>
-    <script defer src="{% static 'home/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
-    <script defer src="{% static 'home/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-     <script defer src="{% static 'home/vendor/drift/Drift.min.js' %}"></script>
+    <script defer
+            src="{% static 'home/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script defer
+            src="{% static 'home/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script defer src="{% static 'home/vendor/drift/Drift.min.js' %}"></script>
     <!-- Init JS Scripts -->
     <script defer src="{% static 'home/init/aos.js' %}"></script>
     <script defer src="{% static 'home/init/glightbox.js' %}"></script>
@@ -70,10 +71,9 @@
     {% endblock scripts %}
   </head>
   <body>
-    <!-- ======= Top Bar ======= -->
     <!-- ======= Header ======= -->
     {% if has_header %}
-      {% include 'home/includes/header.html' with has_breadcrumbs=header_has_breadcrumbs %}
+      {% include 'home/sections/header.html' %}
     {% endif %}
     <!-- ======= Main ======= -->
     <main id="main">
@@ -83,31 +83,13 @@
     </main>
     <!-- ======= Footer ======= -->
     {% if has_footer %}
-      {% include 'home/includes/footer.html' with variant=footer_variant|default:"V1" %}
+      {% include 'home/sections/footer.html' %}
     {% endif %}
     <!-- ======= Back To Top Arrow ======= -->
-    <a href="#"
-       class="back-to-top d-flex align-items-center justify-content-center position-fixed end-0 bottom-0 mb-3 me-3">
-      <i class="bi bi-arrow-up-short"></i>
-    </a>
+    {% include 'home/widgets/back-to-top.html' %}
     <!-- ======= Whatsapp button & Call Button ======= -->
-    {% if org.whatsapp %}
-      <a href="{{ org.whatsapp }}"
-         class="whatsapp-button d-flex align-items-center justify-content-center position-fixed start-0 bottom-0 mb-3 ms-3">
-        <i class="bi bi-whatsapp"></i>
-      </a>
-      <a href="tel:{{ org.primary_phone.as_e164 }}"
-         class="call-float {% if org.primary_phone %}d-flex{% else %}d-none{% endif %} align-items-center justify-content-center position-fixed start-0 bottom-0 ms-3"
-         style="margin-bottom: 4rem">
-        <i class="bi bi-telephone"></i>
-      </a>
-    {% else %}
-      <a href="tel:{{ org.primary_phone.as_e164 }}"
-         class="call-float {% if org.primary_phone %}d-flex{% else %}d-none{% endif %} align-items-center justify-content-center position-fixed start-0 bottom-0 mb-3 ms-3">
-        <i class="bi bi-telephone"></i>
-      </a>
-    {% endif %}
+    {% include 'home/widgets/whatsapp-call-us.html' %}
     <!-- ======= Preloader ======= -->
-    <div id="preloader"></div>
+    {% include 'home/widgets/preloader.html' %}
   </body>
 </html>

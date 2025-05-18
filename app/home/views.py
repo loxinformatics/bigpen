@@ -20,7 +20,6 @@ def HomePage(request):
         "is_header_fixed": True,
         "has_contact": True,
         "has_footer": True,
-        "footer_variant": "V1",
         "list_items": ListItem.objects.filter(category__name="Offers"),
     }
 
