@@ -2,6 +2,7 @@
 from django.conf import settings
 
 from .models import Organization
+from app.shop.models import Category
 
 
 def provider(request):
@@ -24,20 +25,22 @@ def provider(request):
         "heading": "Useful Links",
         "navlinks": [
             {"href": "/", "label": "Home"},
-            {"href": "/shop", "label": "Shop"},
+            {"href": "/shop/items/", "label": "Shop"},
             {"href": "/blog", "label": "Blog"},
             {"href": "#", "label": "Others to be added"},
             # {"href": "/admin", "label": ""},
         ],
     }
 
+    categories = Category.objects.all()
     footer_nav_column_2 = {
         "heading": "Our Services",
         "navlinks": [
-            {"href": "#", "label": "To be added"},
-            # {"href": "#", "label": "School Management System"},
-            # {"href": "#", "label": "Online Tutorial Classes"},
-            # {"href": "#", "label": "Food Supplies"},
+            {
+                "href": f"/shop/items/?category={category.name}",
+                "label": category.name,
+            }
+            for category in categories
         ],
     }
 
