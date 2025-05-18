@@ -17,18 +17,18 @@
       "zip_code": "",
       "map_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8076663249976!2d36.82049657404908!3d-1.2896488986980943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f11844258ce89%3A0x23bb9eb677a04c50!2sMfangano%20Trade%20centre%2C%20Nairobi%20CBD!5e0!3m2!1sen!2ske!4v1746029889664!5m2!1sen!2ske",
       "twitter": "",
-      "facebook": "",
+      "facebook": "https://www.facebook.com/onlinebigpen/",
       "instagram": "",
       "linkedin": "",
       "tiktok": "",
       "youtube": "",
-      "whatsapp": "http://code.treeolive.tech:8002/admin/home/company/1/change/",
+      "whatsapp": "https://wa.me/254725842443",
       "telegram": "",
       "snapchat": "",
       "pinterest": "",
-      "logo": "branding/logo_sX0pLU0.png",
-      "favicon": "branding/favicon_3RL9nsw.ico",
-      "apple_touch_icon": "branding/apple-touch-icon_eoqH140.png"
+      "logo": "home/org/logo.png",
+      "favicon": "home/org/favicon.ico",
+      "apple_touch_icon": "home/org/apple-touch-icon.png"
     }
   },
   {
