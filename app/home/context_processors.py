@@ -27,7 +27,6 @@ def provider(request):
             {"href": "/", "label": "Home"},
             {"href": "/shop/items/", "label": "Shop"},
             {"href": "/blog", "label": "Blog"},
-            {"href": "#", "label": "Others to be added"},
             # {"href": "/admin", "label": ""},
         ],
     }
