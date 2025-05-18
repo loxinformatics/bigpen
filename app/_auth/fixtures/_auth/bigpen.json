@@ -1,0 +1,60 @@
+[
+  {
+    "model": "_auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$LfJKSy039mKwuXZWwmIx0r$Qx9VRfpURTjTT0wci//AnhL6Zdg9Bk0krcJdqGdN4Tg=",
+      "last_login": "2025-05-18T19:38:33.433Z",
+      "is_superuser": true,
+      "first_name": "Kevin",
+      "last_name": "Wakhisi",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-05-18T19:38:00.861Z",
+      "username": "+254706965904",
+      "email": "christianwhocodes@outlook.com",
+      "image": "",
+      "title": "",
+      "description": "",
+      "twitter_x": "",
+      "facebook": "",
+      "instagram": "",
+      "linkedin": "",
+      "github": "",
+      "youtube": "",
+      "website": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "_auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$8aGFI7rKN0s6SlrDoTIOIk$9lWZhLROiZAplRkL5dg/MNQm5gqRi1VmQiXXIiUptUY=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "John",
+      "last_name": "Doe",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-05-18T19:50:48Z",
+      "username": "+254720000000",
+      "email": "",
+      "image": "",
+      "title": "",
+      "description": "",
+      "twitter_x": "",
+      "facebook": "",
+      "instagram": "",
+      "linkedin": "",
+      "github": "",
+      "youtube": "",
+      "website": "",
+      "groups": [
+        101
+      ],
+      "user_permissions": []
+    }
+  }
+]

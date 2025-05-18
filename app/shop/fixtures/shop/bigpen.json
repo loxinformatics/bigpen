@@ -106,6 +106,7 @@
       "category": 10,
       "name": "Boy shorts",
       "image": "/shop/items/default_item_image.jpg",
+      "bootstrap_icon": "",
       "description": "comfortable boys shorts longdescription",
       "quantity": 4,
       "is_featured": false,
