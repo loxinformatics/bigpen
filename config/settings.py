@@ -14,6 +14,17 @@ from pathlib import Path
 
 from decouple import Csv, config
 
+# Organization
+
+ORG_FULLNAME = config("ORG_FULLNAME", default="")
+
+ORG_SHORTNAME = config("ORG_SHORTNAME", default="")
+
+ORG_MOTTO = config("ORG_MOTTO", default="")
+
+ORG_ACCENT_COLOR = config("ORG_ACCENT_COLOR", default="")
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -35,20 +46,21 @@ ALLOWED_HOSTS = config(
 # Application definition
 
 INSTALLED_APPS = [
+    # django default apps
     "django.contrib.admin",
-    "django.contrib.auth",
+    "django.contrib.auth",  # this one here. (see the comment on the 'app._auth' app)
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # vendor
+    # vendor / third-party apps
     "django_browser_reload",
     "django_ckeditor_5",
     "django_recaptcha",
     "phonenumber_field",
-    # custom
+    # custom apps
     "app.home",
-    "app._auth",
+    "app._auth",  # the app is named '_auth' with underscore because django already comes with an 'auth' app as you can see above, and two django apps cannot have the same name.
     "app.blog",
     "app.shop",
 ]
@@ -93,17 +105,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# Organization
-
-ORG_FULLNAME = config("ORG_FULLNAME", default="")
-
-ORG_SHORTNAME = config("ORG_SHORTNAME", default="")
-
-ORG_MOTTO = config("ORG_MOTTO", default="")
-
-ORG_ACCENT_COLOR = config("ORG_ACCENT_COLOR", default="")
-
-
 # Database
 # https://docs.djangoproject.com/en/latest/ref/settings/#databases
 
@@ -130,8 +131,8 @@ DATABASES = {
 AUTH_USER_MODEL = "_auth.User"
 
 AUTHENTICATION_BACKENDS = [
-    # "app._auth.backends.UsernameOrEmailAuthBackend",  # Keep this as the first as it's needed in signup
-    "django.contrib.auth.backends.ModelBackend",  # Keep the default backend
+    "app._auth.backends.PhoneAuthBackend",  # Custom auth backend
+    "django.contrib.auth.backends.ModelBackend",  # Keep the default auth backend
 ]
 
 LOGOUT_REDIRECT_URL = "homepage"

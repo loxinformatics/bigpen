@@ -102,7 +102,7 @@
     </div>
   </div>
   <!-- Breadcrumbs -->
-  {% if has_breadcrumbs %}
+  {% if header_has_breadcrumbs %}
     <div id="breadcrumbs" class="breadcrumbs bg-image">
       <div class="container">
         <ol>
@@ -116,7 +116,7 @@
               {% else %}
                 {{ crumb.label }}
               {% endif %}
-            </li>
+            </li>has_breadcrumbs
           {% endfor %}
         </ol>
         {% with page_title|last as last_crumb %}<h2>{{ last_crumb.label }}</h2>{% endwith %}
