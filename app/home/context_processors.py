@@ -33,7 +33,7 @@ def provider(request):
 
     categories = Category.objects.all()
     footer_nav_column_2 = {
-        "heading": "Our Services",
+        "heading": "Our Products",
         "navlinks": [
             {
                 "href": f"/shop/items/?category={category.name}",
