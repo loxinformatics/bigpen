@@ -1,7 +1,0 @@
-- appropriate default item image
-- footer navlinks
-- manifest
-- working hours
-- profile update
-- each form message being specific
-- login via phone number instead

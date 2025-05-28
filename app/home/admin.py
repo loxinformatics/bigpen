@@ -5,6 +5,10 @@ from django.shortcuts import reverse
 
 from .models import ListCategory, ListItem, Organization
 
+# admin.site.site_header = settings.ORG_FULLNAME
+# admin.site.site_title = f"Admin | {settings.ORG_SHORTNAME if settings.ORG_SHORTNAME else settings.ORG_FULLNAME}"
+# admin.site.index_title = f"{settings.ORG_FULLNAME} Administration"
+
 
 class BaseSingletonAdmin(admin.ModelAdmin):
     """

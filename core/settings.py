@@ -14,16 +14,6 @@ from pathlib import Path
 
 from decouple import Csv, config
 
-# Organization
-
-ORG_FULLNAME = config("ORG_FULLNAME", default="")
-
-ORG_SHORTNAME = config("ORG_SHORTNAME", default="")
-
-ORG_MOTTO = config("ORG_MOTTO", default="")
-
-ORG_ACCENT_COLOR = config("ORG_ACCENT_COLOR", default="")
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY", default="Make sure to set your own secret key!
 DEBUG = config("DEBUG", default=True, cast=bool)
 
 ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS", cast=Csv(), default="localhost,127.0.0.1,dev.treeolive.tech"
+    "ALLOWED_HOSTS", cast=Csv(), default="localhost,127.0.0.1,dev.loxinformatics.space"
 )
 
 
