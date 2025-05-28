@@ -100,46 +100,16 @@ class Organization(models.Model):
         blank=True, help_text="Link to your Pinterest board or profile (optional)."
     )
 
-    # Branding & Icons
-    logo = models.ImageField(
-        upload_to="home/org/",
-        blank=True,
-        help_text="Upload your company logo (recommended size: 512x512px, transparent PNG).",
-    )
-    favicon = models.ImageField(
-        upload_to="home/org/",
-        blank=True,
-        help_text="Upload a small icon used in browser tabs (usually 32x32px .ico or .png).",
-    )
-    apple_touch_icon = models.ImageField(
-        upload_to="home/org/",
-        blank=True,
-        help_text="Upload an Apple touch icon (recommended 180x180px PNG) for iOS devices.",
-    )
-    # webmanifest = models.FileField(
-    #     upload_to="home/org/",
-    #     blank=True,
-    #     help_text="Upload a manifest.webmanifest file to support Progressive Web App (PWA) functionality.",
-    # )
-
-    @classmethod
-    def get_org_name(cls):
-        from django.conf import settings
-
-        return f"{settings.ORG_SHORTNAME if hasattr(settings, 'ORG_SHORTNAME') else settings.ORG_FULLNAME if hasattr(settings, 'ORG_FULLNAME') else 'Organization'}"
-
     def clean(self):
         if Organization.objects.exists() and not self.pk:
-            raise ValidationError(
-                f"There can be only one {self.get_org_name()} instance."
-            )
+            raise ValidationError("There can be only one Organization instance.")
 
     def save(self, *args, **kwargs):
         self.clean()
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.get_org_name()
+        return "Organization Settings"
 
 
 class ListCategory(models.Model):

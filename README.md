@@ -1,4 +1,4 @@
-![](base/assets/base/img/logo.png)
+![](./app/home/static/home/img/logo.png)
 
 # Online BigPen Kenya
 
@@ -7,13 +7,6 @@
 Below is the configuration required for the application. Copy these variables into your `.env` and update the values as needed:
 
 ```bash
-# -------------- Organization settings --------------
-
-# ORG_FULLNAME=""
-# ORG_SHORTNAME=""
-# ORG_MOTTO=""
-# ORG_ACCENT_COLOR=""
-
 # -------------- Debug setting --------------
 # The default is 'True' unless explicitly changed in settings.py
 # Ensure DEBUG is 'False' when in production.

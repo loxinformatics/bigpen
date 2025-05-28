@@ -12,12 +12,12 @@
     <meta name="twitter:site" content="{{ org.website }}" />
     <meta name="twitter:title" content="{{ company_fullname }}" />
     <meta name="twitter:description" content="{{ company_motto }}" />
-    <meta name="twitter:image" content="{{ org.logo.url }}" />
+    <meta name="twitter:image" content="{% static 'home/img/logo.png' %}" />
     <meta name="twitter:image:alt" content="{{ company_fullname }}" />
     <meta property="og:url" content="{{ org.website }}" />
     <meta property="og:site_name" content="{{ company_fullname }}" />
     <meta property="og:title" content="{{ company_fullname }}" />
-    <meta property="og:image" content="{{ org.logo.url }}" />
+    <meta property="og:image" content="{% static 'home/img/logo.png' %}" />
     <meta property="og:locale" content="en_GB" />
     <!-- title -->
     {% if page_title %}
@@ -32,8 +32,8 @@
       <title>{{ company_fullname }}</title>
     {% endif %}
     <!-- Favicons & Webmanifest -->
-    <link href="{{ org.favicon.url }}" rel="icon" />
-    <link href="{{ org.apple_touch_icon.url }}" rel="apple-touch-icon" />
+    <link href="{% static 'home/img/favicon.ico' %}" rel="icon" />
+    <link href="{% static 'home/img/apple.png' %}" rel="apple-touch-icon" />
     <!-- Vendor CSS Styles -->
     <link href="{% static 'home/vendor/bootstrap/css/bootstrap.min.css' %}"
           rel="stylesheet" />

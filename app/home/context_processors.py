@@ -1,6 +1,4 @@
 # from .forms import NewsletterForm
-from django.conf import settings
-
 from .models import Organization
 from app.shop.models import Category
 
@@ -44,10 +42,10 @@ def provider(request):
     }
 
     return {
-        "company_fullname": settings.ORG_FULLNAME,
-        "company_shortname": settings.ORG_SHORTNAME,
-        "company_motto": settings.ORG_MOTTO,
-        "company_accent_color": settings.ORG_ACCENT_COLOR,
+        "company_fullname": "Online BigPen Kenya",
+        "company_shortname": "BigPen",
+        "company_motto": "We Deliver Stationery In less than 24 hours",
+        "company_accent_color": "red",
         "org": org,
         "has_any_social_media_link": bool(has_any_social_media_link),
         "footer_nav_column_1": footer_nav_column_1,

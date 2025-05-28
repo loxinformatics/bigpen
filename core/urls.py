@@ -19,7 +19,3 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-admin.site.site_header = settings.ORG_FULLNAME
-admin.site.site_title = f"Admin | {settings.ORG_SHORTNAME if settings.ORG_SHORTNAME else settings.ORG_FULLNAME}"
-admin.site.index_title = f"{settings.ORG_FULLNAME} Administration"
