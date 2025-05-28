@@ -11,12 +11,12 @@ Below is the configuration required for the application. Copy these variables in
 # The default is 'True' unless explicitly changed in settings.py
 # Ensure DEBUG is 'False' when in production.
 
-# DEBUG=""
+# DEBUG="False"
 
 # -------------- Secret key setting --------------
 # The default is 'Make sure to set your own secret key!'
 
-# SECRET_KEY=""
+# SECRET_KEY="vdfasW^f34rewdfK3io2r230dbicndori329!3obsx"
 
 # -------------- Allowed hosts setting --------------
 # The default is 'localhost,127.0.0.1,dev.treeolive.tech'.
