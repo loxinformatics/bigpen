@@ -1,6 +1,6 @@
 ![](./app/home/static/home/img/logo.png)
 
-# Online BigPen Kenya
+# [Online BigPen Kenya](https://github.com/loxinformatics/bigpen)
 
 ## Environment Variables
 
