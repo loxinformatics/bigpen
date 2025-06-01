@@ -1,6 +1,18 @@
-/.vscode
-/lib
-/db.sqlite3
-*env
+# Byte-compiled / optimized / DLL files
 __pycache__/
-fixtures/
+
+# Media files
+lib/
+
+# Database files
+db.sqlite3
+db.sqlite3-journal
+
+# Seed data
+# Ignore all files in any fixtures/ directory in any subdirectory. But don't ignore seed_example.json in those fixtures/ directories
+**/fixtures/*
+!**/fixtures/seed_example.json
+
+# Environments
+.env
+.venv
