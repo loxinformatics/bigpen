@@ -19,15 +19,15 @@ DEBUG="False"
 SECRET_KEY="vdfasW^f34rewdfK3io2r230dbicndori329!3obsx"
 
 # -------------- Allowed hosts setting --------------
-# The default is 'localhost,127.0.0.1,dev.treeolive.tech'.
+# The default is 'localhost,127.0.0.1,dev.tawalabora.space'.
 # Ensure you still include 'localhost' and '127.0.0.1' as well, together with your site domain
 # when in production.
 
 ALLOWED_HOSTS="localhost,127.0.0.1,example.com,www.example.com"
 
-# -------------- Database settings --------------
-# When DEBUG is 'True' it uses a sqlite database with a file named `db.sqlite3`.
-# The below settings only apply when DEBUG is 'False' unless explicitly changed in `settings.py`.
+# -------------- Database settings --------------.
+# The default database used is SQLite.
+# Below is an example of configuring Postgre.
 
 DB_ENGINE="django.db.backends.postgresql"
 DB_USER=""
@@ -37,9 +37,8 @@ DB_PORT="5432"
 DB_NAME=""
 
 # -------------- Email settings --------------
-# When DEBUG is 'True' it uses the console as an email backend
-# therefore any email sent is printed out in the console / terminal.
-# The below settings only apply when DEBUG is 'False' unless explicitly changed in settings.py.
+# The default configuration prints emails to the console / terminal when sent.
+# Below is an example of using gmail smtp serve to actually send an email.
 
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST_USER=""
