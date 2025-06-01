@@ -100,17 +100,12 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-    if DEBUG
-    else {
-        "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql"),
+        "ENGINE": config("DB_ENGINE", default="django.db.backends.sqlite3"),
         "USER": config("DB_USER", default=""),
         "PASSWORD": config("DB_PASSWORD", default=""),
-        "HOST": config("DB_HOST", default="localhost"),
-        "PORT": config("DB_PORT", default="5432"),
-        "NAME": config("DB_NAME", default=""),
+        "HOST": config("DB_HOST", default=""),
+        "PORT": config("DB_PORT", default=""),
+        "NAME": config("DB_NAME", default=f"{BASE_DIR / 'db.sqlite3'}"),
     }
 }
 
@@ -184,11 +179,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Email
 # https://docs.djangoproject.com/en/latest/topics/email/
 
-EMAIL_BACKEND = (
-    "django.core.mail.backends.console.EmailBackend"
-    if DEBUG
-    else config("EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
-)
+EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
 
 EMAIL_USE_TLS = True
 
