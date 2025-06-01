@@ -1,0 +1,7 @@
+<!-- templates/orders/place_order.html -->
+<h1>Place an Order</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit Order</button>
+</form>

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -37,7 +38,7 @@ class Item(models.Model):
     image = models.ImageField(
         upload_to="shop/items/",
         help_text="Main image for the item.",
-        default="/shop/items/default_item_image.jpg"
+        default="/shop/items/default_item_image.jpg",
     )
     bootstrap_icon = models.CharField(
         max_length=255,
@@ -99,3 +100,23 @@ class ItemImage(models.Model):
         help_text="Item this image belongs to.",
     )
     image = models.ImageField(upload_to="shop/items/", help_text="Image for the item.")
+
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    fulfilled = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Order #{self.id} by {self.user.username}"
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name="order_items"
+    )
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.item.name}"
