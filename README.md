@@ -1,52 +1,51 @@
-![](./app/home/static/home/img/logo.png)
+![](./apps/core/base/static/base/img/logo.png)
 
-# [Online BigPen Kenya](https://github.com/loxinformatics/bigpen)
+# [Online BigPen Kenya](https://github.com/tawalabora/bigpen)
 
-## Environment Variables
+A Django-based web application for **Online Bigpen Kenya**.
 
-During development, the `.env` file is optional as the system will use default values as `DEBUG`  settings will be **`True`**. However, if you need to customize any settings, copy these variables into your `.env` and update the values as needed:
+<!-- ## Features
+- Feature 1
+- Feature 2
+- [Add your key features here] -->
+
+## Development Setup
+
+### Prerequisites
+- Python 3.13 or higher
+- Poetry package manager
+
+### Environment Configuration
+
+The `.env` file is optional during development. Default values will be used if not specified.
 
 ```bash
-# -------------- Debug setting --------------
-# The default is 'True' unless explicitly changed in settings.py
-# Ensure DEBUG is 'False' when in production.
+# Development Defaults (ENVIRONMENT=development)
+ENVIRONMENT="development"
+SECRET_KEY="development-key"
+ALLOWED_HOSTS="localhost,127.0.0.1"
 
-DEBUG="False"
-
-# -------------- Secret key setting --------------
-# The default is 'Make sure to set your own secret key!'
-
-SECRET_KEY="vdfasW^f34rewdfK3io2r230dbicndori329!3obsx"
-
-# -------------- Allowed hosts setting --------------
-# The default is 'localhost,127.0.0.1,dev.tawalabora.space'.
-# Ensure you still include 'localhost' and '127.0.0.1' as well, together with your site domain
-# when in production.
-
+# Production Settings Example
+ENVIRONMENT="production"
+SECRET_KEY="your-secure-key-here"
 ALLOWED_HOSTS="localhost,127.0.0.1,example.com,www.example.com"
 
-# -------------- Database settings --------------.
-# The default database used is SQLite.
-# Below is an example of configuring Postgre.
-
+# Database Configuration (defaults to SQLite)
 DB_ENGINE="django.db.backends.postgresql"
-DB_USER=""
-DB_PASSWORD=""
+DB_NAME="mydb"
+DB_USER="myuser"
+DB_PASSWORD="mypassword"
 DB_HOST="localhost"
 DB_PORT="5432"
-DB_NAME=""
 
-# -------------- Email settings --------------
-# The default configuration prints emails to the console / terminal when sent.
-# Below is an example of using gmail smtp serve to actually send an email.
-
+# Email Configuration (defaults to console backend)
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST_USER=""
-EMAIL_HOST_PASSWORD=""
 EMAIL_HOST="smtp.gmail.com"
+EMAIL_HOST_USER="your-email@gmail.com"
+EMAIL_HOST_PASSWORD="your-app-password"
 ```
 
-## Poetry Setup
+### Poetry Installation
 
 1. Install Poetry using pip:
 ```bash
@@ -58,26 +57,36 @@ pip install poetry
 poetry config virtualenvs.in-project true
 ```
 
-3. Install project dependencies:
-```bash
-poetry install
-```
+3. Install dependencies based on your `ENVIRONMENT`:
+   - For `development` (includes dev tools like django-browser-reload):
+   ```bash
+   poetry install
+   ```
+   - For `production` (only main dependencies):
+   ```bash
+   poetry install --only main
+   ```
 
-This will create a virtual environment and install all dependencies specified in `pyproject.toml`.
+### Database Setup
 
-## Database Setup
-
-After installing dependencies, set up the database:
-
+1. Create database tables:
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-(Optional) If you want to populate the database with sample data:
+2. (Optional) Load sample data:
+   - Copy `seed_example.json` from any app's fixtures directory
+   - Create your own fixture file based on the example
+   - Load fixtures using:
+   ```bash
+   python manage.py seed
+   ```
 
-```bash
-python manage.py seed
-```
+**Note**: Only `seed_example.json` files are tracked in Git. All other fixture files are gitignored.
 
-This will seed the database with initial fixtures provided with the application.
+## Production Deployment
+- Set `ENVIRONMENT="production"` in your environment
+- Configure a secure `SECRET_KEY`
+- Set appropriate `ALLOWED_HOSTS`
+- Install only main dependencies: `poetry install --only main`

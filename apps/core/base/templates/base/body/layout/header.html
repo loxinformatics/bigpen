@@ -1,0 +1,25 @@
+{% load base_widgets %}
+
+{% if section_header %}
+  <header id="header" class="header {% if is_header_fixed %}fixed-top{% else %}sticky-top bg-black{% endif %}
+     ">
+    <!-- Main Header Widget -->
+    <div class="main-header d-flex align-items-center">
+      <div class="container-fluid position-relative d-flex align-items-center justify-content-center">
+        <!-- Logo -->
+        {% include 'base/body/widgets/header-logo.html' %}
+        <!-- Navigation -->
+        {% widget_header_navigation %}
+        <!-- Social/Shop Button -->
+        <!-- TODO: Make this into a widget, but be careful of the usage of the header-social-links class -->
+        <div class="header-social-links ms-auto">
+          <a href="" class="btn btn-redirect px-4 text-white">
+            <i class="bi bi-shop"></i><span class="ms-2">Shop Now</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Breadcrumbs Widget -->
+    {% include 'base/widgets/header_breadcrumbs.html' %}
+  </header>
+{% endif %}
