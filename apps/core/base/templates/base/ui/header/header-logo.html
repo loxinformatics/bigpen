@@ -1,9 +1,11 @@
+{% load site_tags %}
+
 {% if widget_header_logo %}
   <div class="d-flex align-items-center me-auto">
     <a href="{% url 'landing:index' %}"
        class="logo d-flex align-items-center">
       <!-- Uncomment the line below if you also wish to use an image logo -->
-      <img src="{{ SITE_LOGO }}" alt="logo" width="55" height="85" />
+      <img src="{% site_logo %}" alt="logo" width="55" height="85" />
       <!-- <h1 class="sitename">Bigpen</h1> -->
     </a>
   </div>

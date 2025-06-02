@@ -1,72 +1,47 @@
+{% load site_tags %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <!-- ======= Meta Tags, Favicon & Apple Touch Icon ======= -->
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta name="theme-color" content="{{ SITE_THEME_COLOR }}" />
-    <meta name="author" content="{{ SITE_NAME }}" />
-    <meta name="description" content="{{ SITE_DESCRIPTION }}" />
-    <meta name="keywords" content="{{ SITE_NAME }}" />
-    <meta name="twitter:card" content="{{ SITE_DESCRIPTION }}" />
-    <meta name="twitter:site" content="{{ SITE_URL }}" />
-    <meta name="twitter:title" content="{{ SITE_NAME }}" />
-    <meta name="twitter:description" content="{{ SITE_DESCRIPTION }}" />
-    <meta name="twitter:image" content="{{ SITE_LOGO }}" />
-    <meta name="twitter:image:alt" content="{{ SITE_NAME }}" />
-    <meta property="og:url" content="{{ SITE_URL }}" />
-    <meta property="og:site_name" content="{{ SITE_NAME }}" />
-    <meta property="og:title" content="{{ SITE_NAME }}" />
-    <meta property="og:image" content="{{ SITE_LOGO }}" />
-    <meta property="og:locale" content="en_GB" />
-    <link href="{{ SITE_FAVICON }}" rel="icon" />
-    <link href="{{ SITE_APPLE_TOUCH_ICON }}" rel="apple-touch-icon" />
-    {% block metatags %}
-    {% endblock metatags %}
-
+    <!-- ======= Meta Tags ======= -->
+    {% site_meta_tags %}
     <!-- ======= Title ======= -->
     {% if page_title %}
       <title>{{ page_title }} | {{ SITE_NAME }}</title>
     {% else %}
       <title>{{ SITE_NAME }}</title>
     {% endif %}
-
-    <!-- ======= Vendor assets ======= -->
-    {% include 'base/assets/vendors/bootstrap.html' %}
-    {% include 'base/assets/vendors/bootstrap-icons.html' %}
-    {% include 'base/assets/vendors/aos.html' %}
-    {% block vendor_assets %}
-    {% endblock vendor_assets %}
-
-    <!-- ======= Layout assets ======= -->
-    {% include 'base/assets/layout/global.html' %}
-    {% include 'base/assets/layout/header.html' %}
-    {% include 'base/assets/layout/footer.html' %}
-    {% block layout_assets %}
-    {% endblock layout_assets %}
-
-    <!-- ======= Widget assets ======= -->
-    {% include 'base/assets/widgets/back-to-top.html' %}
-    {% include 'base/assets/widgets/whatsapp-call-us.html' %}
-    {% include 'base/assets/widgets/preloader.html' %}
-    {% block widget_assets %}
-    {% endblock widget_assets %}
-
+    <!-- ======= Vendors static ======= -->
+    {% include 'base/static/vendors/bootstrap.html' %}
+    {% include 'base/static/vendors/bootstrap-icons.html' %}
+    {% include 'base/static/vendors/aos.html' %}
+    <!-- ======= Global static ======= -->
+    {% include 'base/static/global/index.html' %}
+    <!-- ======= Header static ======= -->
+    {% include 'base/static/header/index.html' %}
+    <!-- ======= Sections static ======= -->
+    {% block sections_static %}
+    {% endblock sections_static %}
+    <!-- ======= Footer static ======= -->
+    {% include 'base/static/footer/index.html' %}
+    <!-- ======= Overlay static ======= -->
+    {% include 'base/static/overlay/back-to-top.html' %}
+    {% include 'base/static/overlay/whatsapp-call-us.html' %}
+    {% include 'base/static/overlay/preloader.html' %}
   </head>
   <body>
-    <!-- ======= Layouts ======= -->
-    {% include 'base/body/layout//header.html' %}
-    {% include 'base/body/layout/main.html' %}
-    {% include 'base/body/layout/footer.html' %}
-    {% block layout_body %}
-    {% endblock layout_body %}
-
-    <!-- ======= Widgets ======= -->
-    {% include 'base/body/widgets/back-to-top.html' %}
-    {% include 'base/body/widgets/whatsapp-call-us.html' %}
-    {% include 'base/body/widgets/preloader.html' %}
-    {% block widgets_body %}
-    {% endblock widgets_body %}
-
+    <!-- ======= Header ======= -->
+    {% include 'base/ui/header/index.html' %}
+    <main>
+      <!-- ======= Sections ======= -->
+      {% block sections %}
+      {% endblock sections %}
+    </main>
+    <!-- ======= Footer ======= -->
+    {% include 'base/ui/footer/index.html' %}
+    <!-- ======= Overlay ======= -->
+    {% include 'base/ui/overlay/back-to-top.html' %}
+    {% include 'base/ui/overlay/whatsapp-call-us.html' %}
+    {% include 'base/ui/overlay/preloader.html' %}
   </body>
 </html>

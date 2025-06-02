@@ -1,11 +1,12 @@
 from django.contrib import admin
 
-from .forms import SiteDetailForm, SocialMediaLinkForm
+from .forms import SiteDetailForm, SiteGraphicForm, SocialMediaLinkForm
 from .models import (
     EmailAddress,
     PhoneNumber,
     PhysicalAddress,
     SiteDetail,
+    SiteGraphic,
     SocialMediaLink,
 )
 
@@ -25,6 +26,32 @@ class SiteDetailAdmin(admin.ModelAdmin):
                 "fields": (
                     "name",
                     "value",
+                )
+            },
+        ),
+    )
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # editing an existing object
+            return ("name",)
+        return ()
+
+
+@admin.register(SiteGraphic)
+class SiteGraphicAdmin(admin.ModelAdmin):
+    form = SiteGraphicForm
+    list_display = ("name", "image")
+    list_editable = ("image",)
+    list_filter = ("name",)
+    search_fields = ("name",)
+    ordering = ("name",)
+    fieldsets = (
+        (
+            "Site Graphic",
+            {
+                "fields": (
+                    "name",
+                    "image",
                 )
             },
         ),

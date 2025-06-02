@@ -1,4 +1,4 @@
-{% load base_widgets %}
+{% load navigation_tags %}
 
 {% if section_header %}
   <header id="header" class="header {% if is_header_fixed %}fixed-top{% else %}sticky-top bg-black{% endif %}
@@ -7,7 +7,7 @@
     <div class="main-header d-flex align-items-center">
       <div class="container-fluid position-relative d-flex align-items-center justify-content-center">
         <!-- Logo -->
-        {% include 'base/body/widgets/header-logo.html' %}
+        {% include 'base/ui/header/header-logo.html' %}
         <!-- Navigation -->
         {% widget_header_navigation %}
         <!-- Social/Shop Button -->
@@ -20,6 +20,6 @@
       </div>
     </div>
     <!-- Breadcrumbs Widget -->
-    {% include 'base/widgets/header_breadcrumbs.html' %}
+    {% include 'base/ui/header/header-breadcrumbs.html' %}
   </header>
 {% endif %}
