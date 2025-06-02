@@ -1,0 +1,12 @@
+{% load static %}
+
+{% if section_header %}
+  <link href="{% static 'base/header/style.css' %}" rel="stylesheet" />
+  <script defer src="{% static 'base/header/main.js' %}"></script>
+  <!-- Header Logo static-->
+  {% include 'base/static/header/header-logo.html' %}
+  <!-- Header Breadcrumbs static-->
+  {% include 'base/static/header/header-breadcrumbs.html' %}
+  <!-- Header Navigation static-->
+  {% include 'base/static/header/header-navigation.html' %}
+{% endif %}

@@ -6,7 +6,7 @@ from ..navigation import header_nav_registry
 register = template.Library()
 
 
-@register.inclusion_tag("base/widgets/header_navigation.html")
+@register.inclusion_tag("base/ui/header/header-navigation.html")
 def widget_header_navigation():
     nav_items = []
     for item in header_nav_registry.get_items():

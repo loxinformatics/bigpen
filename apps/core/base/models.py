@@ -8,14 +8,6 @@ class SiteDetail(models.Model):
         ("site_description", "Site Description"),
         ("site_url", "Site URL"),
         ("site_theme_color", "Site Theme Color"),
-        ("site_logo", "Site Logo"),
-        ("site_favicon", "Site Favicon"),
-        ("site_apple_touch_icon", "Site Apple Touch Icon"),
-        # ("site_keywords", "Site Keywords"),
-        # ("site_author", "Site Author"),
-        # ("site_copyright", "Site Copyright"),
-        # ("site_terms_of_service", "Terms of Service"),
-        # ("site_privacy_policy", "Privacy Policy"),
     ]
 
     name = models.CharField(max_length=25, choices=SITE_DETAIL_CHOICES, unique=True)
@@ -24,8 +16,6 @@ class SiteDetail(models.Model):
         max_length=255,
         help_text="Value for the site detail (e.g., site name, description, etc.)",
     )
-
-    # Include an images field for logos, favicons, etc.
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -44,6 +34,40 @@ class SiteDetail(models.Model):
     @property
     def display_name(self):
         """Returns the human-readable name of the site detail"""
+        return self.get_name_display()
+
+
+class SiteGraphic(models.Model):
+    SITE_GRAPHIC_CHOICES = [
+        ("site_logo", "Site Logo"),
+        ("site_favicon", "Site Favicon"),
+        ("site_apple_touch_icon", "Site Apple Touch Icon"),
+    ]
+
+    name = models.CharField(max_length=25, choices=SITE_GRAPHIC_CHOICES, unique=True)
+
+    image = models.ImageField(
+        upload_to="base/site",
+        help_text="Image file for logos, favicons, etc.",
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Site Graphic"
+        verbose_name_plural = "Site Graphics"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.get_name_display()}"
+
+    @property
+    def display_name(self):
+        """Returns the human-readable name of the site graphic"""
         return self.get_name_display()
 
 

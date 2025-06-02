@@ -1,5 +1,6 @@
 from django import forms
-from .models import SiteDetail, SocialMediaLink
+
+from .models import SiteDetail, SiteGraphic, SocialMediaLink
 
 
 class UniqueChoiceFormMixin:
@@ -41,6 +42,14 @@ class SiteDetailForm(UniqueChoiceFormMixin, forms.ModelForm):
 
     class Meta:
         model = SiteDetail
+        fields = "__all__"
+
+
+class SiteGraphicForm(UniqueChoiceFormMixin, forms.ModelForm):
+    choices_attr = "SITE_GRAPHIC_CHOICES"
+
+    class Meta:
+        model = SiteGraphic
         fields = "__all__"
 
 

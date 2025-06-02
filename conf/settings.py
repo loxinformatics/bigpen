@@ -86,9 +86,10 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 # core
-                "apps.core.base.context_processors.site",
-                "apps.core.base.context_processors.sections",
-                "apps.core.base.context_processors.widgets",
+                "apps.core.base.context_processors.vendors",
+                "apps.core.base.context_processors.header",
+                "apps.core.base.context_processors.footer",
+                "apps.core.base.context_processors.overlay",
                 # custom
                 # "apps.core.home.context_processors.provider",
                 # "apps.core.blog.context_processors.provider",

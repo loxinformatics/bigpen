@@ -1,11 +1,71 @@
 [
   {
+    "model": "base.sitedetail",
+    "pk": 1,
+    "fields": {
+      "name": "site_name",
+      "value": "Lorem Ipsum Enterprises",
+      "created_at": "2025-06-02T18:50:04.127Z",
+      "updated_at": "2025-06-02T22:30:22.665Z"
+    }
+  },
+  {
+    "model": "base.sitedetail",
+    "pk": 2,
+    "fields": {
+      "name": "site_description",
+      "value": "We ship placeholder content globally in under 24 hours.",
+      "created_at": "2025-06-02T18:50:45.171Z",
+      "updated_at": "2025-06-02T18:50:45.171Z"
+    }
+  },
+  {
+    "model": "base.sitedetail",
+    "pk": 3,
+    "fields": {
+      "name": "site_url",
+      "value": "https://www.loremipsum.fake",
+      "created_at": "2025-06-02T18:51:06.914Z",
+      "updated_at": "2025-06-02T18:51:06.914Z"
+    }
+  },
+  {
+    "model": "base.sitegraphic",
+    "pk": 1,
+    "fields": {
+      "name": "site_logo",
+      "image": "base/site/logo.png",
+      "created_at": "2025-06-02T22:46:27.579Z",
+      "updated_at": "2025-06-02T22:48:28.390Z"
+    }
+  },
+  {
+    "model": "base.sitegraphic",
+    "pk": 2,
+    "fields": {
+      "name": "site_favicon",
+      "image": "base/site/favicon.ico",
+      "created_at": "2025-06-02T22:46:40.654Z",
+      "updated_at": "2025-06-02T22:48:28.388Z"
+    }
+  },
+  {
+    "model": "base.sitegraphic",
+    "pk": 3,
+    "fields": {
+      "name": "site_apple_touch_icon",
+      "image": "base/site/apple-touch-icon.png",
+      "created_at": "2025-06-02T22:46:48.646Z",
+      "updated_at": "2025-06-02T22:48:28.378Z"
+    }
+  },
+  {
     "model": "base.socialmedialink",
     "pk": 1,
     "fields": {
       "name": "facebook",
       "icon": "bi bi-facebook",
-      "url": "https://www.facebook.com/user/example",
+      "url": "https://www.facebook.com/loremipsum.corp",
       "is_active": true,
       "order": 0,
       "created_at": "2025-06-02T06:44:37.799Z",
@@ -55,7 +115,7 @@
     "model": "base.emailaddress",
     "pk": 1,
     "fields": {
-      "email": "lorem.ipsum@example.com",
+      "email": "hello@loremipsum.fake",
       "is_active": true,
       "is_primary": true,
       "order": 0,
