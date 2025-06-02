@@ -1,0 +1,21 @@
+{% load static %}
+
+{% if section_header %}
+  <link href="{% static 'base/layout/header.css' %}" rel="stylesheet" />
+  <script defer src="{% static 'base/layout/header.js' %}"></script>
+  <!-- Header Logo static-->
+  {% if widget_header_logo %}
+    <link href="{% static 'base/widgets/header-logo.css' %}" rel="stylesheet" />
+  {% endif %}
+
+  <!-- Header Breadcrumbs static-->
+  {% if widget_header_breadcrumbs %}
+    <link href="{% static 'base/widgets/header-breadcrumbs.css' %}"
+          rel="stylesheet" />
+  {% endif %}
+
+  <!-- Header Navigation static-->
+  {% if widget_header_navigation %}
+    <script defer src="{% static 'base/widgets/header-navigation.js' %}"></script>
+  {% endif %}
+{% endif %}

@@ -1,0 +1,15 @@
+.header .main-header .logo {
+  line-height: 1;
+}
+
+.header .main-header .logo img {
+  max-height: 36px;
+  margin-right: 8px;
+}
+
+.header .main-header .logo h1 {
+  font-size: 30px;
+  margin: 0;
+  font-weight: 700;
+  color: var(--heading-color);
+}
