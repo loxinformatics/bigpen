@@ -1,47 +1,42 @@
+{% load static %}
 {% load org %}
 {% load vendor %}
+{% load header %}
+{% load hero_or_breadcrumbs %}
+{% load footer %}
 {% load overlay %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <!-- meta -->
     {% org_meta %}
-    <!-- title -->
-    {% org_title %}
-    <!-- favicon & apple-touch-icon -->
     {% org_icons %}
-    <!-- vendors -->
-    {% bootstrap %}
-    {% bootstrap_icons %}
-    {% aos %}
-    <!-- ======= Global static ======= -->
-    {% include 'base/static/global/index.html' %}
-    <!-- ======= Header static ======= -->
-    {% include 'base/static/header/index.html' %}
-    <!-- ======= Sections static ======= -->
-    {% block sections_static %}
-    {% endblock sections_static %}
-    <!-- ======= Footer static ======= -->
-    {% include 'base/static/footer/index.html' %}
-    <!-- ======= Overlay static ======= -->
-    {% preloader_static %}
-    {% block overlay_static %}
-    {% endblock overlay_static %}
+    {% org_title %}
+    {% vendor_static %}
+    <link href="{% static 'base/index.css' %}" rel="stylesheet" />
+    <script defer src="{% static 'base/index.js' %}"></script>
+    {% header_static %}
+    {% hero_or_breadcrumbs_static %}
+    {% block main_static %}
+    {% endblock main_static %}
+    {% footer_static %}
+    {% overlay_static %}
   </head>
   <body>
-    <!-- ======= Header ======= -->
-    {% include 'base/ui/header/index.html' %}
+    <header id="header" class="header {% if is_header_fixed %}fixed-top{% else %}sticky-top bg-black{% endif %}
+       ">
+      <div class="main-header d-flex align-items-center">
+        <div class="container-fluid position-relative d-flex align-items-center justify-content-center">{% header_content %}</div>
+      </div>
+    </header>
+    {% hero_or_breadcrumbs_content %}
     <main>
-      <!-- ======= Sections ======= -->
-      {% block sections %}
-      {% endblock sections %}
+      {% block main_content %}
+      {% endblock main_content %}
     </main>
-    <!-- ======= Footer ======= -->
-    {% include 'base/ui/footer/index.html' %}
-    <!-- ======= Overlay template ======= -->
-    {% preloader_template %}
-    {% block overlay_template %}
-    {% endblock overlay_template %}
+    <footer id="footer" class="footer dark-background">
+      {% footer_content %}
+    </footer>
+    {% overlay_content %}
   </body>
 </html>

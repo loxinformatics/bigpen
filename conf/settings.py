@@ -76,22 +76,14 @@ if DEBUG:
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "conf" / "templates"],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
-                # django and third-party
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                # core
-                "apps.core.base.context_processors.header",
-                "apps.core.base.context_processors.footer",
-                "apps.core.base.context_processors.overlay",
-                # custom
-                # "apps.core.home.context_processors.provider",
-                # "apps.core.blog.context_processors.provider",
             ],
         },
     },

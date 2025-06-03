@@ -8,4 +8,8 @@ class LandingConfig(AppConfig):
     name = "apps.core.landing"
 
     def ready(self):
-        import_module(f"{self.name}.registry")
+        # Import nav_registry to ensure they are registered
+        try:
+            import_module(f"{self.name}.nav_registry")
+        except ImportError as e:
+            print(f"Error importing signals: {e}")
