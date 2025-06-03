@@ -1,20 +1,20 @@
-{% load site_tags %}
+{% load org %}
+{% load vendor %}
+{% load overlay %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <!-- ======= Meta Tags ======= -->
-    {% site_meta_tags %}
-    <!-- ======= Title ======= -->
-    {% if page_title %}
-      <title>{{ page_title }} | {{ SITE_NAME }}</title>
-    {% else %}
-      <title>{{ SITE_NAME }}</title>
-    {% endif %}
-    <!-- ======= Vendors static ======= -->
-    {% include 'base/static/vendors/bootstrap.html' %}
-    {% include 'base/static/vendors/bootstrap-icons.html' %}
-    {% include 'base/static/vendors/aos.html' %}
+    <!-- meta -->
+    {% org_meta %}
+    <!-- title -->
+    {% org_title %}
+    <!-- favicon & apple-touch-icon -->
+    {% org_icons %}
+    <!-- vendors -->
+    {% bootstrap %}
+    {% bootstrap_icons %}
+    {% aos %}
     <!-- ======= Global static ======= -->
     {% include 'base/static/global/index.html' %}
     <!-- ======= Header static ======= -->
@@ -25,9 +25,9 @@
     <!-- ======= Footer static ======= -->
     {% include 'base/static/footer/index.html' %}
     <!-- ======= Overlay static ======= -->
-    {% include 'base/static/overlay/back-to-top.html' %}
-    {% include 'base/static/overlay/whatsapp-call-us.html' %}
-    {% include 'base/static/overlay/preloader.html' %}
+    {% preloader_static %}
+    {% block overlay_static %}
+    {% endblock overlay_static %}
   </head>
   <body>
     <!-- ======= Header ======= -->
@@ -39,9 +39,9 @@
     </main>
     <!-- ======= Footer ======= -->
     {% include 'base/ui/footer/index.html' %}
-    <!-- ======= Overlay ======= -->
-    {% include 'base/ui/overlay/back-to-top.html' %}
-    {% include 'base/ui/overlay/whatsapp-call-us.html' %}
-    {% include 'base/ui/overlay/preloader.html' %}
+    <!-- ======= Overlay template ======= -->
+    {% preloader_template %}
+    {% block overlay_template %}
+    {% endblock overlay_template %}
   </body>
 </html>

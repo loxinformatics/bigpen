@@ -1,11 +1,3 @@
-def vendors(request):
-    return {
-        "vendor_bootstrap": True,
-        "vendor_bootstrap_icons": True,
-        "vendor_aos": True,
-    }
-
-
 def header(request):
     return {
         "section_header": True,
@@ -28,11 +20,3 @@ def overlay(request):
         "overlay_preloader": True,
     }
 
-
-# def user_preferences(request):
-#     if request.user.is_authenticated:
-#         return {
-#             "user_theme": getattr(request.user, "theme", "default"),
-#             "user_timezone": getattr(request.user, "timezone", "UTC"),
-#         }
-#     return {}

@@ -1,35 +1,36 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta name="theme-color" content="{{ SITE_THEME_COLOR }}" />
-    <meta name="author" content="{{ SITE_NAME }}" />
-    <meta name="description" content="{{ SITE_DESCRIPTION }}" />
-    <meta name="keywords" content="{{ SITE_NAME }}" />
-    <meta name="twitter:card" content="{{ SITE_DESCRIPTION }}" />
-    <meta name="twitter:site" content="{{ SITE_URL }}" />
-    <meta name="twitter:title" content="{{ SITE_NAME }}" />
-    <meta name="twitter:description" content="{{ SITE_DESCRIPTION }}" />
+    <meta name="theme-color" content="{{ ORG_THEME_COLOR }}" />
+    <meta name="author" content="{{ ORG_NAME }}" />
+    <meta name="description" content="{{ ORG_DESCRIPTION }}" />
+    <meta name="keywords" content="{{ ORG_NAME }}" />
+    <meta name="twitter:card" content="{{ ORG_DESCRIPTION }}" />
+    <meta name="twitter:site" content="{{ ORG_URL }}" />
+    <meta name="twitter:title" content="{{ ORG_NAME }}" />
+    <meta name="twitter:description" content="{{ ORG_DESCRIPTION }}" />
     <meta name="twitter:image" content="{% static 'home/img/logo.png' %}" />
-    <meta name="twitter:image:alt" content="{{ SITE_NAME }}" />
-    <meta property="og:url" content="{{ SITE_URL }}" />
-    <meta property="og:site_name" content="{{ SITE_NAME }}" />
-    <meta property="og:title" content="{{ SITE_NAME }}" />
+    <meta name="twitter:image:alt" content="{{ ORG_NAME }}" />
+    <meta property="og:url" content="{{ ORG_URL }}" />
+    <meta property="og:org_name" content="{{ ORG_NAME }}" />
+    <meta property="og:title" content="{{ ORG_NAME }}" />
     <meta property="og:image" content="{% static 'home/img/logo.png' %}" />
     <meta property="og:locale" content="en_GB" />
     <!-- title -->
     {% if page_title %}
       {% with page_title|last as last_crumb %}
         {% if last_crumb.label %}
-          <title>{{ last_crumb.label }} | {{ SITE_NAME }}</title>
+          <title>{{ last_crumb.label }} | {{ ORG_NAME }}</title>
         {% else %}
-          <title>{{ last_crumb }} | {{ SITE_NAME }}</title>
+          <title>{{ last_crumb }} | {{ ORG_NAME }}</title>
         {% endif %}
       {% endwith %}
     {% else %}
-      <title>{{ SITE_NAME }}</title>
+      <title>{{ ORG_NAME }}</title>
     {% endif %}
     <!-- Favicons & Webmanifest -->
     <link href="{% static 'home/img/favicon.ico' %}" rel="icon" />

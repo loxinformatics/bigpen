@@ -86,7 +86,6 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 # core
-                "apps.core.base.context_processors.vendors",
                 "apps.core.base.context_processors.header",
                 "apps.core.base.context_processors.footer",
                 "apps.core.base.context_processors.overlay",

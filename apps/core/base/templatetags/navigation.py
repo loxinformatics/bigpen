@@ -1,13 +1,13 @@
 from django import template
 from django.urls import NoReverseMatch, reverse
 
-from ..navigation import header_nav_registry
+from ..registry import header_nav_registry
 
 register = template.Library()
 
 
 @register.inclusion_tag("base/ui/header/header-navigation.html")
-def widget_header_navigation():
+def header_navigation():
     nav_items = []
     for item in header_nav_registry.get_items():
         try:
