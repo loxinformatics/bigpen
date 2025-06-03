@@ -1,0 +1,110 @@
+{% if footer_newsletter %}
+  <div class="footer-newsletter">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-6">
+          <h4>Join Our Newsletter</h4>
+          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+          <form action="" method="post" class="php-email-form">
+            <div class="newsletter-form">
+              <input type="email"
+                     name="email"
+                     placeholder="Feature Coming Soon :)"
+                     disabled />
+              <input type="submit" value="Subscribe" class="btn btn-primary" disabled />
+            </div>
+            <!-- <div class="loading">Loading</div> -->
+            <!-- <div class="error-message"></div> -->
+            <!-- <div class="sent-message">Your subscription request has been sent. Thank you!</div> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if footer_top %}
+  <div class="container footer-top">
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6 footer-about">
+        <a href="index.html" class="d-flex align-items-center">
+          <span class="sitename">{{ ORG_NAME }}</span>
+        </a>
+        <div class="footer-contact pt-3">
+          <p>
+            {{ org.building }}
+            {% if org.street %}, {{ org.street }}{% endif %}
+
+          </p>
+          <p>
+            {{ org.city_name }}
+            {% if org.PO_Box %}, {{ org.PO_Box }}{% endif %}
+
+          </p>
+        </div>
+      </div>
+      <div class="{% if has_any_social_media_link %}col-lg-2{% else %}col-lg-4{% endif %}
+         col-md-3 footer-links">
+        <h4>{{ footer_nav_column_1.heading }}</h4>
+        <ul class="list-unstyled">
+          {% for link in footer_nav_column_1.navlinks %}
+            <li>
+              <i class="bi bi-chevron-right"></i> <a href="{{ link.href }}">{{ link.label }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="{% if has_any_social_media_link %}col-lg-2{% else %}col-lg-4{% endif %}
+         col-md-3 footer-links">
+        <h4>{{ footer_nav_column_2.heading }}</h4>
+        <ul class="list-unstyled">
+          {% for link in footer_nav_column_2.navlinks %}
+            <li>
+              <i class="bi bi-chevron-right"></i> <a href="{{ link.href }}">{{ link.label }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% if has_any_social_media_link %}
+        <div class="col-lg-4 col-md-12">
+          <h4>Follow Us</h4>
+          <p>Discover the latest deals, trends, and offers. Follow us for exclusive discounts and updates!</p>
+          <div class="social-links d-flex">
+            {% if org.twitter %}<a href="{{ org.twitter }}"><i class="bi bi-twitter-x"></i></a>{% endif %}
+
+            {% if org.facebook %}<a href="{{ org.facebook }}"><i class="bi bi-facebook"></i></a>{% endif %}
+
+            {% if org.instagram %}<a href="{{ org.instagram }}"><i class="bi bi-instagram"></i></a>{% endif %}
+
+            {% if org.linkedin %}<a href="{{ org.linkedin }}"><i class="bi bi-linkedin"></i></a>{% endif %}
+
+            {% if org.tiktok %}<a href="{{ org.tiktok }}"><i class="bi bi-tiktok"></i></a>{% endif %}
+
+            {% if org.youtube %}<a href="{{ org.youtube }}"><i class="bi bi-youtube"></i></a>{% endif %}
+
+            {% if org.whatsapp %}<a href="{{ org.whatsapp }}"><i class="bi bi-whatsapp"></i></a>{% endif %}
+
+            {% if org.telegram %}<a href="{{ org.telegram }}"><i class="bi bi-telegram"></i></a>{% endif %}
+
+            {% if org.snapchat %}<a href="{{ org.snapchat }}"><i class="bi bi-snapchat"></i></a>{% endif %}
+
+            {% if org.pinterest %}<a href="{{ org.pinterest }}"><i class="bi bi-pinterest"></i></a>{% endif %}
+
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+{% endif %}
+
+{% if footer_copyright %}
+  <div class="container copyright text-center mt-4">
+    <p>
+      © <span>Copyright</span> <strong class="px-1 sitename">{{ ORG_NAME }}</strong> <span>All Rights Reserved</span>
+    </p>
+    <div class="credits">
+      Designed by <a href="https://loxinformatics.space/" target="_blank" rel="noopener">Lox Informatics</a>
+    </div>
+  </div>
+{% endif %}

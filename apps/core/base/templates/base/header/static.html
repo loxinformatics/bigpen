@@ -1,0 +1,18 @@
+{% load static %}
+
+{% if header_logo %}
+  <link href="{% static 'base/header/logo/styles.css' %}" rel="stylesheet" />
+{% endif %}
+
+{% if header_navigation %}
+  <link href="{% static 'base/header/navigation/styles.css' %}"
+        rel="stylesheet" />
+  <script defer src="{% static 'base/header/navigation/main.js' %}"></script>
+{% endif %}
+
+{% if header_cta_button %}
+  <!-- Social/CTA Button -->
+  <!-- TODO: Make this into a widget, but be careful of the usage of the header-social-links class -->
+  <link href="{% static 'base/header/cta-button/styles.css' %}"
+        rel="stylesheet" />
+{% endif %}

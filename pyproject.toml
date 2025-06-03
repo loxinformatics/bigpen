@@ -29,7 +29,7 @@ format_css = true
 format_js = true
 ignore="T002,H016,H021,H030,H031"
 blank_line_before_tag=""
-blank_line_after_tag="load"
+blank_line_after_tag="load,endif"
 
 [tool.djlint.css]
 indent_size = 4

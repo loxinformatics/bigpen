@@ -1,0 +1,19 @@
+{% load static %}
+
+{% if overlay_back_to_top %}
+  <link href="{% static 'base/overlay/back-to-top/styles/.css' %}"
+        rel="stylesheet" />
+  <script defer src="{% static 'base/overlay/back-to-top/main.js' %}"></script>
+{% endif %}
+
+{% if overlay_whatsapp_call_us %}
+  <link href="{% static 'base/overlay/whatsapp-call-us/styles.css' %}"
+        rel="stylesheet" />
+  <script defer src="{% static 'base/overlay/whatsapp-call-us/main.js' %}"></script>
+{% endif %}
+
+{% if overlay_preloader %}
+  <link href="{% static 'base/overlay/preloader/styles.css' %}"
+        rel="stylesheet" />
+  <script defer src="{% static 'base/overlay/preloader/main.js' %}"></script>
+{% endif %}

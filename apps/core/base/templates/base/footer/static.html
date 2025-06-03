@@ -1,0 +1,15 @@
+{% load static %}
+
+{% if footer_newsletter %}
+  <link href="{% static 'base/footer/newsletter/styles.css' %}"
+        rel="stylesheet" />
+{% endif %}
+
+{% if footer_top %}
+  <link href="{% static 'base/footer/top/styles.css' %}" rel="stylesheet" />
+{% endif %}
+
+{% if footer_copyright %}
+  <link href="{% static 'base/footer/copyright/styles.css' %}"
+        rel="stylesheet" />
+{% endif %}

@@ -1,0 +1,20 @@
+{% load static %}
+
+{% if vendor_bootstrap %}
+  <link href="{% static 'base/vendor/bootstrap/css/bootstrap.min.css' %}"
+        rel="stylesheet" />
+  <script defer
+          src="{% static 'base/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+{% endif %}
+
+{% if vendor_bootstrap_icons %}
+  <link href="{% static 'base/vendor/bootstrap-icons/bootstrap-icons.min.css' %}"
+        rel="stylesheet" />
+{% endif %}
+
+{% if vendor_aos %}
+  <link href="{% static 'base/vendor/aos/aos.css' %}" rel="stylesheet" />
+  <link href="{% static 'base/vendor/aos/init.css' %}" rel="stylesheet" />
+  <script defer src="{% static 'base/vendor/aos/aos.js' %}"></script>
+  <script defer src="{% static 'base/vendor/aos/init.js' %}"></script>
+{% endif %}
