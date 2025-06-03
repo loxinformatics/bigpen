@@ -1,59 +1,59 @@
 [
   {
-    "model": "base.sitedetail",
+    "model": "base.orgdetail",
     "pk": 1,
     "fields": {
-      "name": "site_name",
+      "name": "org_name",
       "value": "Lorem Ipsum Enterprises",
       "created_at": "2025-06-02T18:50:04.127Z",
       "updated_at": "2025-06-02T22:30:22.665Z"
     }
   },
   {
-    "model": "base.sitedetail",
+    "model": "base.orgdetail",
     "pk": 2,
     "fields": {
-      "name": "site_description",
+      "name": "org_description",
       "value": "We ship placeholder content globally in under 24 hours.",
       "created_at": "2025-06-02T18:50:45.171Z",
       "updated_at": "2025-06-02T18:50:45.171Z"
     }
   },
   {
-    "model": "base.sitedetail",
+    "model": "base.orgdetail",
     "pk": 3,
     "fields": {
-      "name": "site_url",
+      "name": "org_url",
       "value": "https://www.loremipsum.fake",
       "created_at": "2025-06-02T18:51:06.914Z",
       "updated_at": "2025-06-02T18:51:06.914Z"
     }
   },
   {
-    "model": "base.sitegraphic",
+    "model": "base.orggraphic",
     "pk": 1,
     "fields": {
-      "name": "site_logo",
+      "name": "org_logo",
       "image": "base/site/logo.png",
       "created_at": "2025-06-02T22:46:27.579Z",
       "updated_at": "2025-06-02T22:48:28.390Z"
     }
   },
   {
-    "model": "base.sitegraphic",
+    "model": "base.orggraphic",
     "pk": 2,
     "fields": {
-      "name": "site_favicon",
+      "name": "org_favicon",
       "image": "base/site/favicon.ico",
       "created_at": "2025-06-02T22:46:40.654Z",
       "updated_at": "2025-06-02T22:48:28.388Z"
     }
   },
   {
-    "model": "base.sitegraphic",
+    "model": "base.orggraphic",
     "pk": 3,
     "fields": {
-      "name": "site_apple_touch_icon",
+      "name": "org_apple_touch_icon",
       "image": "base/site/apple-touch-icon.png",
       "created_at": "2025-06-02T22:46:48.646Z",
       "updated_at": "2025-06-02T22:48:28.378Z"

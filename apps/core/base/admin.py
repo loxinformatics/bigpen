@@ -3,15 +3,15 @@ from django.contrib import admin
 from .forms import SiteDetailForm, SiteGraphicForm, SocialMediaLinkForm
 from .models import (
     EmailAddress,
+    OrgDetail,
+    OrgGraphic,
     PhoneNumber,
     PhysicalAddress,
-    SiteDetail,
-    SiteGraphic,
     SocialMediaLink,
 )
 
 
-@admin.register(SiteDetail)
+@admin.register(OrgDetail)
 class SiteDetailAdmin(admin.ModelAdmin):
     form = SiteDetailForm
     list_display = ("name", "value")
@@ -37,7 +37,7 @@ class SiteDetailAdmin(admin.ModelAdmin):
         return ()
 
 
-@admin.register(SiteGraphic)
+@admin.register(OrgGraphic)
 class SiteGraphicAdmin(admin.ModelAdmin):
     form = SiteGraphicForm
     list_display = ("name", "image")

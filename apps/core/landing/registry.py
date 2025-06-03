@@ -1,4 +1,4 @@
-from apps.core.base.navigation import header_nav_registry
+from apps.core.base.registry import header_nav_registry
 
 
 header_nav_registry.register("Home", "landing:index", order=0)

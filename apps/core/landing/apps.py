@@ -8,4 +8,4 @@ class LandingConfig(AppConfig):
     name = "apps.core.landing"
 
     def ready(self):
-        import_module(f"{self.name}.navigation")
+        import_module(f"{self.name}.registry")

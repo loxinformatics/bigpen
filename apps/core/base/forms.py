@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import SiteDetail, SiteGraphic, SocialMediaLink
+from .models import OrgDetail, OrgGraphic, SocialMediaLink
 
 
 class UniqueChoiceFormMixin:
@@ -9,7 +9,7 @@ class UniqueChoiceFormMixin:
 
     Requires:
     - model to have a 'name' field
-    - model to have a CHOICES constant (e.g., SITE_DETAIL_CHOICES)
+    - model to have a CHOICES constant (e.g., ORG_DETAIL_CHOICES)
     - choices_attr: string name of the choices constant
     """
 
@@ -38,18 +38,18 @@ class UniqueChoiceFormMixin:
 
 
 class SiteDetailForm(UniqueChoiceFormMixin, forms.ModelForm):
-    choices_attr = "SITE_DETAIL_CHOICES"
+    choices_attr = "ORG_DETAIL_CHOICES"
 
     class Meta:
-        model = SiteDetail
+        model = OrgDetail
         fields = "__all__"
 
 
 class SiteGraphicForm(UniqueChoiceFormMixin, forms.ModelForm):
-    choices_attr = "SITE_GRAPHIC_CHOICES"
+    choices_attr = "ORG_GRAPHIC_CHOICES"
 
     class Meta:
-        model = SiteGraphic
+        model = OrgGraphic
         fields = "__all__"
 
 

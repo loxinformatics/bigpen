@@ -2,19 +2,19 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-class SiteDetail(models.Model):
-    SITE_DETAIL_CHOICES = [
-        ("site_name", "Site Name"),
-        ("site_description", "Site Description"),
-        ("site_url", "Site URL"),
-        ("site_theme_color", "Site Theme Color"),
+class OrgDetail(models.Model):
+    ORG_DETAIL_CHOICES = [
+        ("org_name", "Organization Name"),
+        ("org_description", "Organization Description"),
+        ("org_url", "Organization URL"),
+        ("org_theme_color", "Organization Theme Color"),
     ]
 
-    name = models.CharField(max_length=25, choices=SITE_DETAIL_CHOICES, unique=True)
+    name = models.CharField(max_length=25, choices=ORG_DETAIL_CHOICES, unique=True)
 
     value = models.CharField(
         max_length=255,
-        help_text="Value for the site detail (e.g., site name, description, etc.)",
+        help_text="Value for the organization detail (e.g., name, description, etc.)",
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -22,8 +22,8 @@ class SiteDetail(models.Model):
 
     class Meta:
         ordering = ["name"]
-        verbose_name = "Site Detail"
-        verbose_name_plural = "Site Details"
+        verbose_name = "Organization Detail"
+        verbose_name_plural = "Organization Details"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -33,18 +33,18 @@ class SiteDetail(models.Model):
 
     @property
     def display_name(self):
-        """Returns the human-readable name of the site detail"""
+        """Returns the human-readable name of the organization detail"""
         return self.get_name_display()
 
 
-class SiteGraphic(models.Model):
-    SITE_GRAPHIC_CHOICES = [
-        ("site_logo", "Site Logo"),
-        ("site_favicon", "Site Favicon"),
-        ("site_apple_touch_icon", "Site Apple Touch Icon"),
+class OrgGraphic(models.Model):
+    ORG_GRAPHIC_CHOICES = [
+        ("org_logo", "Organization Logo"),
+        ("org_favicon", "Organization Favicon"),
+        ("org_apple_touch_icon", "Organization Apple Touch Icon"),
     ]
 
-    name = models.CharField(max_length=25, choices=SITE_GRAPHIC_CHOICES, unique=True)
+    name = models.CharField(max_length=25, choices=ORG_GRAPHIC_CHOICES, unique=True)
 
     image = models.ImageField(
         upload_to="base/site",
@@ -56,8 +56,8 @@ class SiteGraphic(models.Model):
 
     class Meta:
         ordering = ["name"]
-        verbose_name = "Site Graphic"
-        verbose_name_plural = "Site Graphics"
+        verbose_name = "Organization Graphic"
+        verbose_name_plural = "Organization Graphics"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -67,7 +67,7 @@ class SiteGraphic(models.Model):
 
     @property
     def display_name(self):
-        """Returns the human-readable name of the site graphic"""
+        """Returns the human-readable name of the organization graphic"""
         return self.get_name_display()
 
 
