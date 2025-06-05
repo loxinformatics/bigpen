@@ -108,31 +108,119 @@ h6 {
   color: var(--contrast-color) !important;
 }
 
-/*--------------------------------------------------------------
-# Global Header
---------------------------------------------------------------*/
-.header .main-header {
-  --background-color: rgba(0, 0, 0, 0);
-  --default-color: #ffffff;
-  --heading-color: #ffffff;
-  color: var(--default-color);
-  background-color: var(--background-color);
-  padding: 15px 0;
-  transition: all 0.5s;
-  z-index: 997;
-}
 
-/* Global Header on Scroll */
-.scrolled .header .main-header {
-  --background-color: rgba(0, 0, 0, 0.8);
-}
 
 /*--------------------------------------------------------------
-# Global Footer
+# Global Section Titles
 --------------------------------------------------------------*/
-.footer {
-  color: var(--default-color);
-  background-color: var(--background-color);
-  font-size: 14px;
+.section-title {
+  text-align: center;
+  padding-bottom: 60px;
   position: relative;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.section-title p {
+  margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# Global Sections
+--------------------------------------------------------------*/
+section,
+.section {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 60px 0;
+  scroll-margin-top: 90px;
+  overflow: clip;
+}
+
+@media (max-width: 1199px) {
+
+  section,
+  .section {
+    scroll-margin-top: 66px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Global modal
+--------------------------------------------------------------*/
+.modal-content {
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  background-color: var(--surface-color);
+}
+
+.modal-header {
+  color: var(--contrast-color);
+  border-radius: 12px 12px 0 0;
+  border-bottom: none;
+}
+
+.modal-title {
+  font-weight: 600;
+  font-family: var(--heading-font);
+  color: var(--default-color);
+}
+
+.modal-body {
+  padding: 2rem;
+  color: var(--default-color);
+}
+
+.modal-body .text-primary {
+  color: var(--accent-color) !important;
+}
+
+.modal-body .text-muted {
+  color: color-mix(in srgb, var(--default-color), transparent 40%) !important;
+}
+
+.btn-close {
+  color: var(--contrast-color);
+}
+
+.modal-footer {
+  background-color: var(--surface-color);
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
+}
+
+/* Override Bootstrap button colors to match your theme */
+.modal .btn-primary {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+.modal .btn-primary:hover,
+.modal .btn-primary:focus {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+  color: var(--contrast-color);
+}
+
+.modal .btn-outline-primary {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+  background-color: transparent;
+}
+
+.modal .btn-outline-primary:hover,
+.modal .btn-outline-primary:focus {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+@media (max-width: 576px) {
+  .modal-body {
+    padding: 1.5rem;
+  }
 }

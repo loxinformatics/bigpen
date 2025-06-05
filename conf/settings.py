@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     # core apps
     "apps.core.base",
+    "apps.core.authentication",
     "apps.core.landing",
     # "apps.core.blog",
     # custom apps
@@ -112,12 +113,13 @@ DATABASES = {
 # https://docs.djangoproject.com/en/latest/ref/settings/#auth
 
 AUTHENTICATION_BACKENDS = [
-    # "apps.core._auth.backends.PhoneAuthBackend",  # Custom auth backend
+    # "apps.core.authentication.backends.PhoneAuthBackend",  # Custom auth backend
     "django.contrib.auth.backends.ModelBackend",  # Keep the default auth backend
 ]
 
 LOGOUT_REDIRECT_URL = "landing:index"
 
+LOGIN_URL = "/auth/"
 
 # Password validation
 # https://docs.djangoproject.com/en/latest/ref/settings/#auth-password-validators

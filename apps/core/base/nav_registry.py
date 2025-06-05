@@ -2,13 +2,14 @@ class NavigationRegistry:
     def __init__(self):
         self._items = []
 
-    def register(self, name, url_name, order=0, fragment=None, **kwargs):
+    def register(self, name, url_name, order=0, fragment=None, type="", **kwargs):
         self._items.append(
             {
                 "name": name,
                 "url_name": url_name,
                 "order": order,
                 "fragment": fragment,
+                "type": type,
                 **kwargs,
             }
         )

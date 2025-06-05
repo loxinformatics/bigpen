@@ -12,4 +12,4 @@ class LandingConfig(AppConfig):
         try:
             import_module(f"{self.name}.nav_registry")
         except ImportError as e:
-            print(f"Error importing signals: {e}")
+            print(f"Error importing nav_registry: {e}")

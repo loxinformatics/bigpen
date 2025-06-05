@@ -1,10 +1,3 @@
-{% if overlay_back_to_top %}
-  <a href="#"
-     class="back-to-top d-flex align-items-center justify-content-center position-fixed end-0 bottom-0 mb-3 me-3">
-    <i class="bi bi-arrow-up-short"></i>
-  </a>
-{% endif %}
-
 {% if overlay_whatsapp_call_us %}
   {% if org.whatsapp %}
     <a href="{{ org.whatsapp }}"
@@ -22,5 +15,3 @@
     </a>
   {% endif %}
 {% endif %}
-
-{% if overlay_preloader %}<div id="preloader"></div>{% endif %}

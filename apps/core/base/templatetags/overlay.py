@@ -14,10 +14,11 @@ def overlay_static(context):
 
 
 # -- Content --
-@register.inclusion_tag("base/overlay/content.html", takes_context=True)
-def overlay_content(context):
+@register.inclusion_tag("base/overlay/component.html", takes_context=True)
+def overlay(context):
     return {
         "overlay_back_to_top": context.get("overlay_back_to_top", True),
         "overlay_whatsapp_call_us": context.get("overlay_whatsapp_call_us", True),
         "overlay_preloader": context.get("overlay_preloader", True),
+        "header_cta_btn_url_path": context.get("header_cta_btn_url_path", "#"),
     }

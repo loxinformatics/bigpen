@@ -1,0 +1,7 @@
+{% load static %}
+
+{% if header_navigation %}
+      <link href="{% static 'base/header/widgets/navigation/styles.css' %}"
+            rel="stylesheet" />
+      <script defer src="{% static 'base/header/widgets/navigation/main.js' %}"></script>
+{% endif %}

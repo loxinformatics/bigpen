@@ -1,6 +1,12 @@
 {% extends 'base/index.html' %}
-{% block main_content %}
-  <section>
-    Thank you Lord for being with me!
-  </section>
-{% endblock main_content %}
+
+{% load static %}
+
+{% block staticfiles %}
+  {% include 'landing/hero/static.html' %}
+{% endblock staticfiles %}
+
+{% block main %}
+  {% include 'landing/hero/component.html' %}
+  <!-- about -->
+{% endblock main %}

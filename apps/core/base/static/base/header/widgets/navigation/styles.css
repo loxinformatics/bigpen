@@ -16,6 +16,7 @@
     position: relative;
   }
 
+  .navmenu .logout-btn,
   .navmenu a,
   .navmenu a:focus {
     color: var(--nav-color);
@@ -28,6 +29,9 @@
     justify-content: space-between;
     white-space: nowrap;
     transition: 0.3s;
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 
   .navmenu a i,
@@ -43,9 +47,15 @@
   }
 
   .navmenu li:hover>a,
+  .navmenu li:hover>.logout-form>.logout-btn,
   .navmenu .active,
   .navmenu .active:focus {
     color: var(--nav-hover-color);
+  }
+
+  .navmenu .logout-btn:hover {
+    color: var(--nav-hover-color);
+    /* Ensure this is your 'red' color */
   }
 
   .navmenu .dropdown ul {
@@ -139,7 +149,8 @@
   }
 
   .navmenu a,
-  .navmenu a:focus {
+  .navmenu a:focus,
+  .navmenu .logout-btn {
     color: var(--nav-dropdown-color);
     padding: 10px 20px;
     font-family: var(--nav-font);
@@ -150,6 +161,11 @@
     justify-content: space-between;
     white-space: nowrap;
     transition: 0.3s;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
   }
 
   .navmenu a i,
@@ -173,8 +189,8 @@
     color: var(--contrast-color);
   }
 
-
   .navmenu a:hover,
+  .navmenu .logout-btn:hover,
   .navmenu .logout-form:hover,
   .navmenu .active,
   .navmenu .active:focus {

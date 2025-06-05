@@ -19,9 +19,9 @@ def get_org_config():
             "ORG_DESCRIPTION": "A 'Christian Who Codes' project built with Django.",
             "ORG_URL": "https://christianwhocodes.space",
             "ORG_THEME_COLOR": "green",
-            "ORG_LOGO": static("base/img/cwc-logo.png"),
-            "ORG_FAVICON": static("base/img/cwc-favicon.ico"),
-            "ORG_APPLE_TOUCH_ICON": static("base/img/cwc-apple-touch-icon.png"),
+            "ORG_LOGO": static("base/img/logo.png"),
+            "ORG_FAVICON": static("base/img/favicon.ico"),
+            "ORG_APPLE_TOUCH_ICON": static("base/img/apple-touch-icon.png"),
         }
 
         # Get database values

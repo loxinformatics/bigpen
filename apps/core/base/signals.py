@@ -9,8 +9,10 @@ def set_admin_site_titles():
     # Fetch OrgDetail values
     org_name = OrgDetail.objects.filter(name="org_name").first()
     org_description = OrgDetail.objects.filter(name="org_description").first()
-    admin.site.site_title = org_name.value if org_name else "Django site admin"
-    admin.site.site_header = org_name.value if org_name else "Django Administration"
+    admin.site.site_title = org_name.value if org_name else "Organisation site admin"
+    admin.site.site_header = (
+        org_name.value if org_name else "Organisation Administration"
+    )
     admin.site.index_title = (
         org_description.value if org_description else "Site administration"
     )
