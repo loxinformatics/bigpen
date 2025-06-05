@@ -1,0 +1,8 @@
+{% load static %}
+
+{% if show_footer %}
+  <link href="{% static 'base/layout/footer/layout.css' %}" rel="stylesheet" />
+  {% include 'base/widget/footer-newsletter/static.html' %}
+  {% include 'base/widget/footer-top/static.html' %}
+  {% include 'base/widget/footer-copyright/static.html' %}
+{% endif %}

@@ -1,0 +1,40 @@
+{% if header_auth_btn %}
+  {% if request.user.is_authenticated %}
+    <div class="dropdown">
+      <a href="#"
+         class="btn border-none px-4 text-white dropdown-toggle"
+         data-bs-toggle="dropdown"
+         aria-expanded="false">
+        <i class="bi bi-person-circle fs-5"></i>
+      </a>
+      <ul class="dropdown-menu">
+        {% if request.user.is_authenticated %}
+          {% if request.user.is_staff %}
+            <li>
+              <a class="dropdown-item" href="/admin">Admin</a>
+            </li>
+          {% endif %}
+          <li>
+            <form method="post" action="{% url 'base:signout' %}" class="d-inline">
+              {% csrf_token %}
+              <button type="submit" class="dropdown-item">Logout</button>
+            </form>
+          </li>
+        {% endif %}
+        {% comment %}
+          <li>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </li>
+        {% endcomment %}
+      </ul>
+    </div>
+  {% else %}
+    <button type="button"
+            class="btn btn-redirect px-4 text-white"
+            data-bs-toggle="modal"
+            data-bs-target="#loginSignupModal"
+            data-next="{{ header_cta_btn_url_path }}">
+      <i class="bi bi-box-arrow-in-right"></i><span class="ms-2">Account</span>
+    </button>
+  {% endif %}
+{% endif %}

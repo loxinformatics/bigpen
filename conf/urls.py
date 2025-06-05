@@ -7,8 +7,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("ckeditor5/", include("django_ckeditor_5.urls")),
     # core
-    path("auth/", include("apps.core.authentication.urls")),
-    path("", include("apps.core.landing.urls")),
+    path("", include("apps.base.urls")),
 ]
 
 if settings.DEBUG:

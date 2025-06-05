@@ -1,0 +1,155 @@
+[
+  {
+    "model": "base.orgdetail",
+    "pk": 1,
+    "fields": {
+      "name": "org_name",
+      "value": "Lorem Ipsum Enterprises",
+      "created_at": "2025-06-02T18:50:04.127Z",
+      "updated_at": "2025-06-02T22:30:22.665Z"
+    }
+  },
+  {
+    "model": "base.orgdetail",
+    "pk": 2,
+    "fields": {
+      "name": "org_description",
+      "value": "We ship placeholder content globally in under 24 hours.",
+      "created_at": "2025-06-02T18:50:45.171Z",
+      "updated_at": "2025-06-02T18:50:45.171Z"
+    }
+  },
+  {
+    "model": "base.orgdetail",
+    "pk": 3,
+    "fields": {
+      "name": "org_url",
+      "value": "https://www.loremipsum.fake",
+      "created_at": "2025-06-02T18:51:06.914Z",
+      "updated_at": "2025-06-02T18:51:06.914Z"
+    }
+  },
+  {
+    "model": "base.orggraphic",
+    "pk": 1,
+    "fields": {
+      "name": "org_logo",
+      "image": "base/site/logo.png",
+      "created_at": "2025-06-02T22:46:27.579Z",
+      "updated_at": "2025-06-02T22:48:28.390Z"
+    }
+  },
+  {
+    "model": "base.orggraphic",
+    "pk": 2,
+    "fields": {
+      "name": "org_favicon",
+      "image": "base/site/favicon.ico",
+      "created_at": "2025-06-02T22:46:40.654Z",
+      "updated_at": "2025-06-02T22:48:28.388Z"
+    }
+  },
+  {
+    "model": "base.orggraphic",
+    "pk": 3,
+    "fields": {
+      "name": "org_apple_touch_icon",
+      "image": "base/site/apple-touch-icon.png",
+      "created_at": "2025-06-02T22:46:48.646Z",
+      "updated_at": "2025-06-02T22:48:28.378Z"
+    }
+  },
+  {
+    "model": "base.orggraphic",
+    "pk": 4,
+    "fields": {
+      "name": "org_cover_image",
+      "image": "base/site/cover.jpg",
+      "created_at": "2025-06-05T15:08:17.610Z",
+      "updated_at": "2025-06-05T15:08:17.610Z"
+    }
+  },
+  {
+    "model": "base.socialmedialink",
+    "pk": 1,
+    "fields": {
+      "name": "facebook",
+      "icon": "bi bi-facebook",
+      "url": "https://www.facebook.com/loremipsum.corp",
+      "is_active": true,
+      "order": 0,
+      "created_at": "2025-06-02T06:44:37.799Z",
+      "updated_at": "2025-06-02T06:55:36.426Z"
+    }
+  },
+  {
+    "model": "base.phonenumber",
+    "pk": 1,
+    "fields": {
+      "number": "+123456789000",
+      "is_active": true,
+      "is_primary": true,
+      "use_for_whatsapp": true,
+      "order": 0,
+      "created_at": "2025-06-02T07:08:03.649Z",
+      "updated_at": "2025-06-02T07:08:48.576Z"
+    }
+  },
+  {
+    "model": "base.phonenumber",
+    "pk": 2,
+    "fields": {
+      "number": "+123456789001",
+      "is_active": true,
+      "is_primary": false,
+      "use_for_whatsapp": false,
+      "order": 1,
+      "created_at": "2025-06-02T07:08:18.232Z",
+      "updated_at": "2025-06-02T07:08:18.232Z"
+    }
+  },
+  {
+    "model": "base.phonenumber",
+    "pk": 3,
+    "fields": {
+      "number": "+123456789002",
+      "is_active": true,
+      "is_primary": false,
+      "use_for_whatsapp": false,
+      "order": 2,
+      "created_at": "2025-06-02T07:08:26.759Z",
+      "updated_at": "2025-06-02T07:08:33.287Z"
+    }
+  },
+  {
+    "model": "base.emailaddress",
+    "pk": 1,
+    "fields": {
+      "email": "hello@loremipsum.fake",
+      "is_active": true,
+      "is_primary": true,
+      "order": 0,
+      "created_at": "2025-06-02T07:16:19.032Z",
+      "updated_at": "2025-06-02T07:16:22.701Z"
+    }
+  },
+  {
+    "model": "base.physicaladdress",
+    "pk": 1,
+    "fields": {
+      "label": "Lorem HQ",
+      "building": "Dolor Sit Building",
+      "street_address": "Suite 42, Ipsum Avenue",
+      "city": "Loremville",
+      "state_province": "Dolore County",
+      "postal_code": "12345",
+      "country": "Fakeland",
+      "map_embed_url": "https://maps.example.com/embed?pb=!1m18!1m12!1m3!1d9999.9999!2d36.0000000!3d-1.0000000",
+      "is_active": true,
+      "is_primary": true,
+      "order": 0,
+      "created_at": "2025-06-02T07:32:59.225Z",
+      "updated_at": "2025-06-02T07:40:06.306Z"
+    }
+  }
+]
