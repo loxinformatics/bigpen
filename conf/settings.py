@@ -47,9 +47,7 @@ INSTALLED_APPS = [
     "django_recaptcha",
     "phonenumber_field",
     # core apps
-    "apps.core.base",
-    "apps.core.authentication",
-    "apps.core.landing",
+    "apps.base",
     # "apps.core.blog",
     # custom apps
     # "apps.custom.shop",
@@ -85,6 +83,12 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "apps.base.context_processors.navigation",
+                "apps.base.context_processors.header",
+                "apps.base.context_processors.hero",
+                "apps.base.context_processors.auth",
+                "apps.base.context_processors.footer",
+                "apps.base.context_processors.overlay",
             ],
         },
     },
@@ -117,7 +121,7 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",  # Keep the default auth backend
 ]
 
-LOGOUT_REDIRECT_URL = "landing:index"
+LOGOUT_REDIRECT_URL = "base:home"
 
 LOGIN_URL = "/auth/"
 
