@@ -27,9 +27,9 @@ djlint = "^1.36.4"
 [tool.djlint]
 format_css = true
 format_js = true
-ignore="T002,H016,H021,H030,H031"
-blank_line_before_tag=""
-blank_line_after_tag="load,endif"
+ignore = "T002,H016,H021,H023,H030,H031"
+blank_line_before_tag = ""
+blank_line_after_tag = "load,extends"
 
 [tool.djlint.css]
 indent_size = 4

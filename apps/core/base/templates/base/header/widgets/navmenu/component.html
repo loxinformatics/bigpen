@@ -1,0 +1,23 @@
+{% if header_navigation %}
+  <nav id="navmenu" class="navmenu">
+    <ul>
+      {% for item in nav_items %}
+        {% if item.type == "signout" %}
+          {% if user_is_authenticated %}
+            <li>
+              <form method="post" action="{{ item.url }}" style="display: inline;" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="header-navlink btn bg-none logout-btn">{{ item.name }}</button>
+              </form>
+            </li>
+          {% endif %}
+        {% else %}
+          <li>
+            <a href="{{ item.url }}" class="header-navlink">{{ item.name }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+  </nav>
+{% endif %}

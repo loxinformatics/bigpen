@@ -2,41 +2,50 @@
 {% load org %}
 {% load vendor %}
 {% load header %}
-{% load hero_or_breadcrumbs %}
 {% load footer %}
 {% load overlay %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+
     {% org_meta %}
+
     {% org_icons %}
+
     {% org_title %}
+
     {% vendor_static %}
+
     <link href="{% static 'base/index.css' %}" rel="stylesheet" />
     <script defer src="{% static 'base/index.js' %}"></script>
+
     {% header_static %}
-    {% hero_or_breadcrumbs_static %}
-    {% block main_static %}
-    {% endblock main_static %}
+
+    {% block staticfiles %}
+    {% endblock staticfiles %}
+
     {% footer_static %}
+
     {% overlay_static %}
+
+    {% block overlay_static %}
+    {% endblock overlay_static %}
+
   </head>
   <body>
-    <header id="header" class="header {% if is_header_fixed %}fixed-top{% else %}sticky-top bg-black{% endif %}
-       ">
-      <div class="main-header d-flex align-items-center">
-        <div class="container-fluid position-relative d-flex align-items-center justify-content-center">{% header_content %}</div>
-      </div>
-    </header>
-    {% hero_or_breadcrumbs_content %}
-    <main>
-      {% block main_content %}
-      {% endblock main_content %}
-    </main>
-    <footer id="footer" class="footer dark-background">
-      {% footer_content %}
-    </footer>
-    {% overlay_content %}
+
+    {% header %}
+
+    {% block main %}
+    {% endblock main %}
+
+    {% footer %}
+
+    {% overlay %}
+
+    {% block overlay %}
+    {% endblock overlay %}
+
   </body>
 </html>

@@ -1,0 +1,21 @@
+{% if header_cta_btn %}
+  {% if user_is_authenticated %}
+    <a href="{{ header_cta_btn_url_path }}"
+       class="btn btn-redirect px-4 text-white">
+      <i class="{{ header_cta_btn_icon }}"></i><span class="ms-2">{{ header_cta_btn_name }}</span>
+    </a>
+  {% elif header_cta_btn_login_required %}
+    <button type="button"
+            class="btn btn-redirect px-4 text-white"
+            data-bs-toggle="modal"
+            data-bs-target="#loginSignupModal"
+            data-next="{{ header_cta_btn_url_path }}">
+      <i class="{{ header_cta_btn_icon }}"></i><span class="ms-2">{{ header_cta_btn_name }}</span>
+    </button>
+  {% else %}
+    <a href="{{ header_cta_btn_url_path }}"
+       class="btn btn-redirect px-4 text-white">
+      <i class="{{ header_cta_btn_icon }}"></i><span class="ms-2">{{ header_cta_btn_name }}</span>
+    </a>
+  {% endif %}
+{% endif %}

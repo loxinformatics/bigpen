@@ -1,15 +1,19 @@
 {% load static %}
 
-{% if footer_newsletter %}
-  <link href="{% static 'base/footer/newsletter/styles.css' %}"
-        rel="stylesheet" />
-{% endif %}
+{% if show_footer %}
+  <link href="{% static 'base/footer/styles.css' %}" rel="stylesheet" />
+  <!-- widgets -->
+  {% if footer_newsletter %}
+    <link href="{% static 'base/footer/widgets/newsletter/styles.css' %}"
+          rel="stylesheet" />
+  {% endif %}
 
-{% if footer_top %}
-  <link href="{% static 'base/footer/top/styles.css' %}" rel="stylesheet" />
-{% endif %}
+  {% if footer_top %}
+    <link href="{% static 'base/footer/widgets/top/styles.css' %}" rel="stylesheet" />
+  {% endif %}
 
-{% if footer_copyright %}
-  <link href="{% static 'base/footer/copyright/styles.css' %}"
-        rel="stylesheet" />
+  {% if footer_copyright %}
+    <link href="{% static 'base/footer/widgets/copyright/styles.css' %}"
+          rel="stylesheet" />
+  {% endif %}
 {% endif %}

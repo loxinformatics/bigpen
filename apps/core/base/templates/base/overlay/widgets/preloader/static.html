@@ -1,0 +1,7 @@
+{% load static %}
+
+{% if overlay_preloader %}
+  <link href="{% static 'base/overlay/widgets/preloader/styles.css' %}"
+        rel="stylesheet" />
+  <script defer src="{% static 'base/overlay/widgets/preloader/main.js' %}"></script>
+{% endif %}
