@@ -1,0 +1,33 @@
+{% extends "home/layout.html" %}
+{% load static %}
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'blog/page.css' %}">
+  {% if single_article %}
+    <style>
+        .breadcrumbs.bg-image {
+            background: url("{{ single_article.image.url }}") no-repeat center / cover;
+        }
+    </style>
+  {% else %}
+    <style>
+        .breadcrumbs.bg-image {
+            background: url("{% static 'blog/img/breadcrumbs-blog.jpg' %}") no-repeat center / cover;
+        }
+    </style>
+  {% endif %}
+{% endblock styles %}
+{% block inner_main %}
+  <!-- ======= Blog Section ======= -->
+  <section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+        {% if blog_articles %}
+          {% include "blog/includes/list.html" %}
+        {% elif single_article %}
+          {% include "blog/includes/details.html" %}
+        {% endif %}
+        {% include "blog/includes/sidebar.html" %}
+      </div>
+    </div>
+  </section>
+{% endblock inner_main %}

@@ -1,5 +1,3 @@
-![](./apps/core/base/static/base/img/logo.png)
-
 # [Online BigPen Kenya](https://github.com/tawalabora/bigpen)
 
 A Django-based web application for **Online Bigpen Kenya**.

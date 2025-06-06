@@ -3,11 +3,9 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    # django and third-party
     path("admin/", admin.site.urls),
     path("ckeditor5/", include("django_ckeditor_5.urls")),
-    # core
-    path("", include("apps.base.urls")),
+    path("", include("app.base.urls")),
 ]
 
 if settings.DEBUG:
