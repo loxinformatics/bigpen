@@ -36,7 +36,6 @@ ALLOWED_HOSTS = config(
 
 # Application definition
 INSTALLED_APPS = [
-    # django and third-party apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -46,11 +45,7 @@ INSTALLED_APPS = [
     "django_ckeditor_5",
     "django_recaptcha",
     "phonenumber_field",
-    # core apps
-    "apps.base",
-    # "apps.core.blog",
-    # custom apps
-    # "apps.custom.shop",
+    "app.base",
 ]
 
 # Add django_browser_reload only in DEBUG mode
@@ -83,12 +78,12 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "apps.base.context_processors.navigation",
-                "apps.base.context_processors.header",
-                "apps.base.context_processors.hero",
-                "apps.base.context_processors.auth",
-                "apps.base.context_processors.footer",
-                "apps.base.context_processors.overlay",
+                "app.base.context_processors.navigation",
+                "app.base.context_processors.header",
+                "app.base.context_processors.hero",
+                "app.base.context_processors.auth",
+                "app.base.context_processors.footer",
+                "app.base.context_processors.overlay",
             ],
         },
     },
@@ -117,7 +112,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/latest/ref/settings/#auth
 
 AUTHENTICATION_BACKENDS = [
-    # "apps.core.authentication.backends.PhoneAuthBackend",  # Custom auth backend
+    # "app.core.authentication.backends.PhoneAuthBackend",  # Custom auth backend
     "django.contrib.auth.backends.ModelBackend",  # Keep the default auth backend
 ]
 

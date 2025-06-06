@@ -17,7 +17,6 @@ lib/
 
 # packages and vendor files
 .venv/
-node_modules/
 
 # Misc
 .vscode/

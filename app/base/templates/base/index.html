@@ -1,0 +1,37 @@
+{% load static %}
+{% load org %}
+{% load vendor %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    {% org_meta %}
+    {% org_icons %}
+    {% org_title %}
+    {% vendor_bootstrap %}
+    {% vendor_bootstrap_icons %}
+    {% vendor_aos %}
+    {% block vendor %}
+    {% endblock vendor %}
+    <link href="{% static 'base/index.css' %}" rel="stylesheet" />
+    <script defer src="{% static 'base/index.js' %}"></script>
+    {% include 'base/layout/header/static.html' %}
+    {% include 'base/layout/hero/static.html' %}
+    {% include 'base/layout/auth/static.html' %}
+    {% block staticfiles %}
+    {% endblock staticfiles %}
+    {% include 'base/layout/footer/static.html' %}
+    {% include 'base/layout/overlay/static.html' %}
+  </head>
+  <body>
+    {% include 'base/layout/header/layout.html' %}
+    <main>
+      {% include 'base/layout/hero/layout.html' %}
+      {% include 'base/layout/auth/layout.html' %}
+      {% block main %}
+      {% endblock main %}
+    </main>
+    {% include 'base/layout/footer/layout.html' %}
+    {% include 'base/layout/overlay/layout.html' %}
+  </body>
+</html>
