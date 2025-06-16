@@ -1,0 +1,5 @@
+{% load static %}
+{% if contact_info|default_if_none:True %}
+      <link href="{% static 'core/widget/contact-info/widget-v1.css' %}"
+            rel="stylesheet" />
+{% endif %}

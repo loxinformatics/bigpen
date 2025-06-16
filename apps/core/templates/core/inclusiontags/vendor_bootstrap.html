@@ -1,0 +1,14 @@
+{% load sass_tags %}
+{% load static %}
+<link href="{% sass_src 'core/init/bootstrap/init.scss' %}"
+      rel="stylesheet"
+      type="text/css" />
+{% if use_cdn %}
+  <script defer
+          src="{{ js_url }}"
+          integrity="{{ js_integrity }}"
+          crossorigin="anonymous"></script>
+{% else %}
+  <script defer src="{{ js_url }}"></script>
+{% endif %}
+<script defer src="{% static 'core/init/bootstrap/init.js' %}"></script>

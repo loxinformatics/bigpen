@@ -1,0 +1,54 @@
+<div class="col-lg-4 sidebar">
+  <div class="widgets-container">
+    <!-- Product Categories Widget -->
+    <div class="product-categories-widget widget-item">
+      <h3 class="widget-title">Categories</h3>
+      <ul class="category-tree list-unstyled mb-0">
+        <li class="category-item">
+          <div class="d-flex justify-content-between align-items-center category-header">
+            {% if category_param %}
+              <a href="{% url 'shop-dashboard' %}" class="category-link">All</a>
+            {% else %}
+              <a href="{% url 'shop-dashboard' %}" class="category-link active">All</a>
+            {% endif %}
+          </div>
+        </li>
+        {% for category in categories %}
+          <li class="category-item">
+            <div class="d-flex justify-content-between align-items-center category-header">
+              <a href="{% url 'shop-dashboard' %}?category={{ category.name }}"
+                 class="category-link{% if category_param == category.name %} active{% endif %}">{{ category.name }}</a>
+            </div>
+          </li>
+        {% endfor %}
+        <!-- TODO: To be used later -->
+        <!-- One that has subcategories -->
+        <!-- <li class="category-item">
+                <div class="d-flex justify-content-between align-items-center category-header collapsed" data-bs-toggle="collapse" data-bs-target="#categories-1-clothing-subcategories" aria-expanded="false" aria-controls="categories-1-clothing-subcategories">
+                  <a href="#" class="category-link">Clothing</a>
+                  <span class="category-toggle">
+                    <i class="bi bi-chevron-down"></i>
+                    <i class="bi bi-chevron-up"></i>
+                  </span>
+                </div>
+                <ul id="categories-1-clothing-subcategories" class="subcategory-list list-unstyled ps-3 mt-2 collapse">
+                  <li>
+                    <a href="https://bootstrapmade.com/content/demo/eStore/category.html#" class="subcategory-link">Men's Wear</a>
+                  </li>
+                  <li>
+                    <a href="https://bootstrapmade.com/content/demo/eStore/category.html#" class="subcategory-link">Women's Wear</a>
+                  </li>
+                  <li>
+                    <a href="https://bootstrapmade.com/content/demo/eStore/category.html#" class="subcategory-link">Kids' Clothing</a>
+                  </li>
+                  <li>
+                    <a href="https://bootstrapmade.com/content/demo/eStore/category.html#" class="subcategory-link">Accessories</a>
+                  </li>
+                </ul>
+              </li> -->
+      </ul>
+    </div>
+    <!--/Product Categories Widget -->
+    <!-- TODO: Add the other widgets from widgets-container_other_filters.html -->
+  </div>
+</div>

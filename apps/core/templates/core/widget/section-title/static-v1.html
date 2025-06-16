@@ -1,0 +1,5 @@
+{% load static %}
+{% if section_title|default_if_none:True %}
+  <link rel="stylesheet"
+        href="{% static 'core/widget/section-title/widget-v1.css' %}">
+{% endif %}

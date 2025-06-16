@@ -1,0 +1,10 @@
+{% if hero_btn_1|default_if_none:True %}
+  {% if hero_btn_1_login_required|default_if_none:False and not request.user.is_authenticated %}
+    <button type="button"
+            class="btn btn-get-started"
+            data-bs-toggle="modal"
+            data-bs-target="#loginSignupModal">{{ hero_btn_1_name|default:"Coming Soon!" }}</button>
+  {% else %}
+    <a href="{{ hero_btn_1_url|default:'#' }}" class="btn btn-get-started">{{ hero_btn_1_name|default:"Coming Soon!" }}</a>
+  {% endif %}
+{% endif %}

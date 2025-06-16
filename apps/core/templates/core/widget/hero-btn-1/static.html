@@ -1,0 +1,6 @@
+{% load static %}
+
+{% if hero_btn_1|default_if_none:True %}
+  <link rel="stylesheet"
+        href="{% static 'core/widget/hero-btn-1/widget.css' %}">
+{% endif %}

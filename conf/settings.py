@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/latest/ref/settings/
 from pathlib import Path
 
 from decouple import Csv, config
+from django.core.exceptions import ImproperlyConfigured
+from django.db.utils import OperationalError
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,11 +32,14 @@ DEBUG = config("ENVIRONMENT", default="development") == "development"
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
     cast=Csv(),
-    default="localhost,127.0.0.1,dev.tawalabora.space,stage.tawalabora.space",
+    default="localhost,127.0.0.1,dev.tawalabora.space",
 )
 
-
 # Application definition
+
+CUSTOM_APP_NAME = config("CUSTOM_APP_NAME", default="apps.custom")
+CUSTOM_APP_URL = config("CUSTOM_APP_URL", default="dashboard/")
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -42,11 +47,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_ckeditor_5",
-    "django_recaptcha",
+    "sass_processor",
     "phonenumber_field",
-    "app.base",
+    "apps.core",
+    "apps.home",
+    "apps.seed",
 ]
+
+# Add Custom app
+if CUSTOM_APP_NAME:
+    INSTALLED_APPS.append(CUSTOM_APP_NAME)
 
 # Add django_browser_reload only in DEBUG mode
 if DEBUG:
@@ -78,12 +88,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "app.base.context_processors.navigation",
-                "app.base.context_processors.header",
-                "app.base.context_processors.hero",
-                "app.base.context_processors.auth",
-                "app.base.context_processors.footer",
-                "app.base.context_processors.overlay",
             ],
         },
     },
@@ -94,34 +98,44 @@ WSGI_APPLICATION = "conf.wsgi.application"
 
 
 # Database
-# https://docs.djangoproject.com/en/latest/ref/settings/#databases
+# https://docs.djangoproject.com/en/stable/ref/settings/#databases
+# https://docs.djangoproject.com/en/stable/ref/databases/
 
 DATABASES = {
     "default": {
-        "NAME": config("DB_NAME", default=f"{BASE_DIR / 'db.sqlite3'}"),
-        "ENGINE": config("DB_ENGINE", default="django.db.backends.sqlite3"),
-        "USER": config("DB_USER", default=None),
-        "PASSWORD": config("DB_PASSWORD", default=None),
-        "HOST": config("DB_HOST", default=None),
-        "PORT": config("DB_PORT", default=None),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "lib" / f"{config('CUSTOM_APP_NAME', default='db')}.sqlite3",
     }
 }
 
+# Only use PostgreSQL if explicitly configured
+if config("DB_POSTGRESQL", default=False, cast=bool):
+    try:
+        DATABASES = {
+            "default": {
+                "ENGINE": "django.db.backends.postgresql",
+                "NAME": config("DB_NAME", default=None),
+                "USER": config("DB_USER", default=None),
+                "PASSWORD": config("DB_PASSWORD", default=None),
+                "HOST": config("DB_HOST", default="localhost"),
+                "PORT": config("DB_PORT", default="5432"),
+            }
+        }
+    except (ImproperlyConfigured, OperationalError, ModuleNotFoundError):
+        pass  # Falls back to SQLite
 
-# Authentication
+
+# Authentication & Password Validation
 # https://docs.djangoproject.com/en/latest/ref/settings/#auth
+# https://docs.djangoproject.com/en/latest/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = "custom.CustomUser"
 
 AUTHENTICATION_BACKENDS = [
-    # "app.core.authentication.backends.PhoneAuthBackend",  # Custom auth backend
+    # * Ensure your custom backend is the first in this list
+    # "app.core.authentication.backends.PhoneAuthBackend",
     "django.contrib.auth.backends.ModelBackend",  # Keep the default auth backend
 ]
-
-LOGOUT_REDIRECT_URL = "base:home"
-
-LOGIN_URL = "/auth/"
-
-# Password validation
-# https://docs.djangoproject.com/en/latest/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -151,8 +165,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/latest/howto/static-files/
 
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "sass_processor.finders.CssFinder",
+]
+
 STATIC_URL = "lib/static/"
 STATIC_ROOT = BASE_DIR / "lib" / "static"
+
+SASS_PRECISION = 8
 
 
 # Media files
@@ -182,165 +204,16 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default=None)
 EMAIL_HOST = config("EMAIL_HOST", default=None)
 
 
-# ckeditor 5
-# https://pypi.org/project/django-ckeditor-5/
+# Cache
+# https://docs.djangoproject.com/en/stable/topics/cache/
 
-CKEDITOR_5_CUSTOM_CSS = "home/vendor/ckeditor/custom.css"
-
-# Define a custom color palette for the editor
-customColorPalette = [
-    {"color": "hsl(4, 90%, 58%)", "label": "Red"},
-    {"color": "hsl(340, 82%, 52%)", "label": "Pink"},
-    {"color": "hsl(291, 64%, 42%)", "label": "Purple"},
-    {"color": "hsl(262, 52%, 47%)", "label": "Deep Purple"},
-    {"color": "hsl(231, 48%, 48%)", "label": "Indigo"},
-    {"color": "hsl(207, 90%, 54%)", "label": "Blue"},
-]
-
-# CKEditor 5 configurations
-CKEDITOR_5_CONFIGS = {
+CACHES = {
     "default": {
-        "toolbar": {
-            "items": [
-                "heading",
-                "|",
-                "bold",
-                "italic",
-                "link",
-                "bulletedList",
-                "numberedList",
-                "blockQuote",
-                "imageUpload",
-                "|",
-                "fontColor",
-                "fontBackgroundColor",
-                "|",
-                "undo",
-                "redo",
-            ],
-            "shouldNotGroupWhenFull": True,  # Ensure this setting is correctly applied
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "django_cache",
+        "TIMEOUT": 300,  # Optional: Default cache timeout in seconds (e.g., 5 minutes)
+        "OPTIONS": {
+            "MAX_ENTRIES": 1000  # Optional: Max number of entries in the cache table
         },
-        "fontColor": {
-            "colors": customColorPalette,
-            "defaultColor": "hsl(0, 0%, 0%)",  # Default text color
-        },
-        "fontBackgroundColor": {
-            "colors": customColorPalette,
-        },
-    },
-    "extends": {
-        "toolbar": {
-            "items": [
-                "heading",
-                "|",
-                "outdent",
-                "indent",
-                "|",
-                "bold",
-                "italic",
-                "link",
-                "underline",
-                "strikethrough",
-                "code",
-                "subscript",
-                "superscript",
-                "highlight",
-                "|",
-                "codeBlock",
-                "sourceEditing",
-                "insertImage",
-                "bulletedList",
-                "numberedList",
-                "todoList",
-                "|",
-                "blockQuote",
-                "imageUpload",
-                "|",
-                "fontSize",
-                "fontFamily",
-                "fontColor",
-                "fontBackgroundColor",
-                "mediaEmbed",
-                "removeFormat",
-                "insertTable",
-            ],
-            "shouldNotGroupWhenFull": True,  # Ensure this setting is correctly applied
-        },
-        "image": {
-            "toolbar": [
-                "imageTextAlternative",
-                "|",
-                "imageStyle:alignLeft",
-                "imageStyle:alignRight",
-                "imageStyle:alignCenter",
-                "imageStyle:side",
-                "|",
-            ],
-            "styles": [
-                "full",
-                "side",
-                "alignLeft",
-                "alignRight",
-                "alignCenter",
-            ],
-        },
-        "table": {
-            "contentToolbar": [
-                "tableColumn",
-                "tableRow",
-                "mergeTableCells",
-                "tableProperties",
-                "tableCellProperties",
-            ],
-            "tableProperties": {
-                "borderColors": customColorPalette,
-                "backgroundColors": customColorPalette,
-            },
-            "tableCellProperties": {
-                "borderColors": customColorPalette,
-                "backgroundColors": customColorPalette,
-            },
-        },
-        "heading": {
-            "options": [
-                {
-                    "model": "paragraph",
-                    "title": "Paragraph",
-                    "class": "ck-heading_paragraph",
-                },
-                {
-                    "model": "heading1",
-                    "view": "h1",
-                    "title": "Heading 1",
-                    "class": "ck-heading_heading1",
-                },
-                {
-                    "model": "heading2",
-                    "view": "h2",
-                    "title": "Heading 2",
-                    "class": "ck-heading_heading2",
-                },
-                {
-                    "model": "heading3",
-                    "view": "h3",
-                    "title": "Heading 3",
-                    "class": "ck-heading_heading3",
-                },
-            ]
-        },
-    },
-    "list": {
-        "properties": {
-            "styles": "true",
-            "startIndex": "true",
-            "reversed": "true",
-        }
-    },
+    }
 }
-
-
-# recaptcha
-# https://pypi.org/project/django-recaptcha/
-
-RECAPTCHA_PUBLIC_KEY = "MyRecaptchaKey123"
-RECAPTCHA_PRIVATE_KEY = "MyRecaptchaPrivateKey456"
