@@ -1,0 +1,42 @@
+{% load forms %}
+{% if contact_form|default_if_none:True %}
+  <div class="row contact-form-container justify-content-center"
+       data-aos="fade-up"
+       data-aos-delay="300">
+    <div class="col-xl-9 col-lg-12 mt-4">
+      <form method="post" role="form" id="contact-form" class="contact-form">
+        <div id="contact-form-alert-container"></div>
+        {% csrf_token %}
+        {# name and email #}
+        <div class="row">
+          <div class="col-md-6 form-group">
+            {% contact_form "name" %}
+            <div class="invalid-feedback" id="name-error"></div>
+          </div>
+          <div class="col-md-6 form-group mt-3 mt-md-0">
+            {% contact_form "email" %}
+            <div class="invalid-feedback" id="email-error"></div>
+          </div>
+        </div>
+        {# subject #}
+        <div class="form-group mt-3">
+          {% contact_form "subject" %}
+          <div class="invalid-feedback" id="subject-error"></div>
+        </div>
+        {# message #}
+        <div class="form-group mt-3">
+          {% contact_form "message" %}
+          <div class="invalid-feedback" id="message-error"></div>
+        </div>
+        <div class="text-center">
+          <button id="contact-form-submit-btn" type="submit">
+            <span id="contact-form-submit-text">Send Message</span>
+            <span id="contact-form-submit-spinner"
+                  class="spinner-border spinner-border-sm ms-2"
+                  style="display: none"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endif %}

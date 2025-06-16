@@ -1,16 +1,12 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 
-# Media files and Static files from collectstatic
+# SQLite Database files, Media files, and Static files from collectstatic
 lib/
-
-# Sqlite database files
-*.sqlite3
+/apps/core/static/core/vendor
 
 # Seed data
-# Ignore all files in any fixtures/ directory in any subdirectory. But don't ignore seed_example.json in those fixtures/ directories
-**/fixtures/*
-!**/fixtures/seed_example.json
+/apps/seed/fixtures
 
 # Environments
 .env
@@ -20,4 +16,4 @@ lib/
 
 # Misc
 .vscode/
-.idea/
+.backup/

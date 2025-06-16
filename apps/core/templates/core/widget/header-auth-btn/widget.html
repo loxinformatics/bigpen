@@ -1,0 +1,63 @@
+{% load urls %}
+{% load auth %}
+
+{% has_signin as signin_enabled %}
+{% has_signup as signup_enabled %}
+{% has_logout as logout_enabled %}
+
+{% if signin_enabled or signup_enabled %}
+  {% if header_auth_btn|default_if_none:True %}
+    <div class="dropdown">
+      <a href="#"
+         class="btn border-none px-4 text-white dropdown-toggle"
+         data-bs-toggle="dropdown"
+         aria-expanded="false">
+        <i class="bi bi-person-circle fs-5"></i>
+      </a>
+      <ul class="dropdown-menu">
+
+        {% if request.user.is_authenticated %}
+          {% if request.user.is_staff %}
+            <li>
+              <a class="dropdown-item" href="{% portal_url %}">
+                <i class="bi bi-speedometer2 me-2"></i> Go to Management Portal
+              </a>
+            </li>
+          {% endif %}
+
+          {% if logout_enabled %}
+            <li>
+              <form method="post" action="{% auth_url 'logout' %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item">
+                  <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </button>
+              </form>
+            </li>
+          {% endif %}
+
+        {% else %}
+
+          {% if signin_enabled %}
+            <li>
+              <a class="dropdown-item"
+                 href="{% auth_url 'signin' %}?next={{ request.path|urlencode }}&back={{ request.path|urlencode }}">
+                <i class="bi bi-box-arrow-in-right me-2"></i> Login
+              </a>
+            </li>
+          {% endif %}
+
+          {% if signup_enabled %}
+            <li>
+              <a class="dropdown-item"
+                 href="{% auth_url 'signup' %}?next={{ request.path|urlencode }}&back={{ request.path|urlencode }}">
+                <i class="bi bi-person-plus me-2"></i> Sign up
+              </a>
+            </li>
+          {% endif %}
+        {% endif %}
+
+      </ul>
+    </div>
+  {% endif %}
+{% endif %}

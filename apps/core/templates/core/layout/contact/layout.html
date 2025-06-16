@@ -1,0 +1,13 @@
+{% load static %}
+<section id="contact" class="contact">
+  <div class="container">
+    {# Section Title #}
+    {% include "core/widget/section-title/widget.html" with section_title_heading="Contact" %}
+    {# Contact Map #}
+    {% include 'core/widget/contact-map/widget-v1.html' %}
+    {# Contact Info #}
+    {% include 'core/widget/contact-info/widget-v1.html' %}
+    {# Contact Form #}
+    {% include 'core/widget/contact-form/widget-v1.html' %}
+  </div>
+</section>

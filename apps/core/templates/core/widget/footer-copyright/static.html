@@ -1,0 +1,15 @@
+{% load static %}
+
+{% if footer_copyright|default_if_none:True %}
+  <link href="{% static 'core/widget/footer-copyright/widget.css' %}"
+        rel="stylesheet" />
+
+  {% if nav_items|length > 0 %}
+    <style>
+      .footer .copyright {
+        border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+        /* * see style.css for the other external styles */
+      }
+    </style>
+  {% endif %}
+{% endif %}

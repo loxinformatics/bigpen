@@ -1,0 +1,11 @@
+{% load base %}
+{% load urls %}
+{% if header_logo|default_if_none:True %}
+  <a href="{% landing_url %}" class="logo d-flex align-items-center">
+    {# Uncomment the line below if you also wish to use an image logo #}
+    <img src="{% base_logo %}" class="img-fluid" alt="logo" width="" height="" />
+    {% comment  %}
+    <h1 class="sitename">{% base_name %}</h1>
+    {% endcomment %}
+  </a>
+{% endif %}

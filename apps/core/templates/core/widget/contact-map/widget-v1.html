@@ -1,0 +1,16 @@
+{% load contacts %}
+{% if contact_map|default_if_none:True %}
+    <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
+        {% contact_form_address as main_address %}
+        {% if main_address %}
+            {% address_map_embed main_address "100%" "270" %}
+        {% else %}
+            {% get_physical_addresses as addresses %}
+            {% for address in addresses %}
+                {% if forloop.first %}
+                    {% address_map_embed address "100%" "270" %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endif %}

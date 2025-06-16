@@ -1,0 +1,10 @@
+{% load base %}
+
+{% if footer_copyright|default_if_none:True %}
+  <div class="container copyright text-center">
+    <p>
+      © <span>Copyright</span> <strong class="px-1 sitename">{% base_name %}</strong> <span>All Rights Reserved</span>
+    </p>
+    <div class="credits">{% base_credits %}</div>
+  </div>
+{% endif %}
