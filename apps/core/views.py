@@ -253,7 +253,6 @@ def signin(request):
     extra_context = {
         "page_title": "Login",
         "header_auth_btn": False,
-        "header_navigation": False,
         "show_auth": "signin",
     }
 
@@ -317,7 +316,6 @@ class SignUpView(CreateView):
     extra_context = {
         "page_title": "Sign up",
         "header_auth_btn": False,
-        "header_navigation": False,
         "show_auth": "signup",
     }
 

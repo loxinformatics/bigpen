@@ -15,6 +15,9 @@ class CustomConfig(AppConfig):
             # Only configure non-role related auth settings
             from apps.core.config.auth import auth_config
 
+            # Disable auth pages 
+            # auth_config.disable_page("signup")
+            # auth_config.disable_page("signin")
             # Configure page settings (no role management needed)
             auth_config.configure_username_field(
                 label="Phone Number", placeholder="Enter your Phone Number (with country code e.g. +254700000000)"

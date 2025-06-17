@@ -3,7 +3,6 @@
 
 {% has_signin as signin_enabled %}
 {% has_signup as signup_enabled %}
-{% has_logout as logout_enabled %}
 
 {% if signin_enabled or signup_enabled %}
   {% if header_auth_btn|default_if_none:True %}
@@ -25,17 +24,14 @@
             </li>
           {% endif %}
 
-          {% if logout_enabled %}
-            <li>
-              <form method="post" action="{% auth_url 'logout' %}" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="dropdown-item">
-                  <i class="bi bi-box-arrow-right me-2"></i> Logout
-                </button>
-              </form>
-            </li>
-          {% endif %}
-
+          <li>
+            <a href="#"
+               class="dropdown-item"
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              <i class="bi bi-box-arrow-right me-2"></i>
+              <span>Sign out</span>
+            </a>
+          </li>
         {% else %}
 
           {% if signin_enabled %}

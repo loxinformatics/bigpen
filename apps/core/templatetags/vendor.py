@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 
-@register.inclusion_tag("core/inclusiontags/vendor_bootstrap.html")
+@register.inclusion_tag("core/partials/vendor_bootstrap.html")
 def vendor_bootstrap():
     if not settings.DEBUG:
         # Use CDN in production

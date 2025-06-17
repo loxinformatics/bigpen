@@ -28,3 +28,23 @@ window.addEventListener('load', function (e) {
     }
   }
 });
+
+/**
+ * Apply .active class on Navlinks based on the current URL.
+ */
+function setActiveNavLink() {
+  const currentUrl = window.location.pathname;
+  const navLinks = document.querySelectorAll('.navlink');
+
+  navLinks.forEach(link => {
+    const linkPath = new URL(link.href, window.location.origin).pathname;
+
+    if (linkPath === currentUrl) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', setActiveNavLink);
