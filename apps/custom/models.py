@@ -1,10 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from apps.core.models import User
+from apps.core.models import BaseUser
 
 
-class CustomUser(User):
+class User(BaseUser):
     pass
 
 
@@ -109,7 +109,9 @@ class ItemImage(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, related_name="orders"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     fulfilled = models.BooleanField(default=False)
 

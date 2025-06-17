@@ -1,16 +1,33 @@
-{% if org.whatsapp %}
-  <a href="{{ org.whatsapp }}"
-     class="whatsapp-button d-flex align-items-center justify-content-center position-fixed start-0 bottom-0 mb-3 ms-3">
-    <i class="bi bi-whatsapp"></i>
-  </a>
-  <a href="tel:{{ org.primary_phone.as_e164 }}"
-     class="call-float {% if org.primary_phone %}d-flex{% else %}d-none{% endif %} align-items-center justify-content-center position-fixed start-0 bottom-0 ms-3"
-     style="margin-bottom: 4rem">
-    <i class="bi bi-telephone"></i>
-  </a>
-{% else %}
-  <a href="tel:{{ org.primary_phone.as_e164 }}"
-     class="call-float {% if org.primary_phone %}d-flex{% else %}d-none{% endif %} align-items-center justify-content-center position-fixed start-0 bottom-0 mb-3 ms-3">
-    <i class="bi bi-telephone"></i>
-  </a>
+{% load contacts %}
+
+{% if overlay_whatsapp_call_us|default_if_none:False %}
+  {% whatsapp_phone as whatsapp %}
+  {% primary_phone as primary_phone %}
+
+  {% if whatsapp and whatsapp.whatsapp_link %}
+    <a href="{{ whatsapp.whatsapp_link }}"
+       class="whatsapp-button d-flex align-items-center justify-content-center position-fixed start-0 bottom-0 mb-3 ms-3"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Contact us on WhatsApp">
+      <i class="bi bi-whatsapp"></i>
+    </a>
+  {% endif %}
+
+  {% if primary_phone %}
+    <a href="{{ primary_phone.tel_link }}"
+      class="call-float d-flex align-items-center justify-content-center position-fixed start-0 bottom-0 ms-3
+
+      {% if whatsapp and whatsapp.whatsapp_link %}
+        {# Position below WhatsApp button if both exist #}
+        mb-3" style="margin-bottom: 4rem !important;"
+      {% else %}
+        {# Position at bottom if no WhatsApp #}
+        mb-3"
+      {% endif %}
+
+      aria-label="Call us">
+      <i class="bi bi-telephone"></i>
+    </a>
+  {% endif %}
 {% endif %}

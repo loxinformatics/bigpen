@@ -32,6 +32,8 @@ djlint = "^1.36.4"
 format_css = true
 format_js = true
 ignore = "T002,H016,H021,H023,H030,H031"
+blank_line_before_tag="if"
+blank_line_after_tag="load,endif"
 
 [tool.djlint.css]
 indent_size = 2

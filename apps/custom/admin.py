@@ -1,6 +1,15 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
+
+from apps.core.admin import BaseUserAdmin
+from apps.core.admin_site import portal_site
 
 from .models import Category, Item, ItemImage, Order, OrderItem
+
+
+@admin.register(get_user_model(), site=portal_site)
+class UserAdmin(BaseUserAdmin):
+    pass
 
 
 class ItemImageInline(admin.TabularInline):
@@ -8,7 +17,7 @@ class ItemImageInline(admin.TabularInline):
     extra = 1  # Number of empty image fields shown by default
 
 
-@admin.register(Item)
+@admin.register(Item, site=portal_site)
 class ItemAdmin(admin.ModelAdmin):
     list_filter = ("category",)
     inlines = [ItemImageInline]
@@ -25,7 +34,7 @@ class ItemAdmin(admin.ModelAdmin):
         return f"-{obj.discount_percentage:.0f}%"
 
 
-@admin.register(Category)
+@admin.register(Category, site=portal_site)
 class CategoryAdmin(admin.ModelAdmin):
     pass
 
@@ -35,7 +44,7 @@ class OrderItemInline(admin.TabularInline):
     extra = 0
 
 
-@admin.register(Order)
+@admin.register(Order, site=portal_site)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ("id", "user", "created_at", "fulfilled")
     inlines = [OrderItemInline]

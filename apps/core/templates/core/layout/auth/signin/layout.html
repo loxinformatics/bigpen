@@ -1,0 +1,49 @@
+{% load auth %}
+
+{% if show_auth == "signin" and 'signin'|auth_enabled %}
+  {% has_signup as signup_enabled %}
+  <section class="registration pt-3">
+    <div class="container">
+      {% include "core/widget/section-title/widget.html" with section_title_heading="Login" section_title_paragraph="Enter your credentials below to sign in to your account." section_title_aos="" %}
+      <form method="post" role="form" class="mx-auto w-75 text-start email-form">
+
+        {% if messages %}
+          {% for message in messages %}
+
+            {% if "signin" in message.extra_tags %}
+              {% if "error" in message.tags %}
+                <div class="alert alert-danger text-center">{{ message }}</div>
+              {% elif "success" in message.tags %}
+                <div class="alert alert-success text-center">{{ message }}</div>
+              {% endif %}
+            {% endif %}
+
+          {% endfor %}
+        {% endif %}
+
+        {% csrf_token %}
+
+        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+
+        {% if back %}<input type="hidden" name="back" value="{{ back }}">{% endif %}
+
+        <div class="form-group mt-3">{{ loginform.username }}</div>
+        <div class="form-group mt-3">{{ loginform.password }}</div>
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary">Login</button>
+
+          {% if back %}<a href="{{ back }}" class="back-btn btn btn-secondary ms-2">Back</a>{% endif %}
+
+        </div>
+
+        {% if signup_enabled %}
+          <p class="mt-5">
+            Don't have an account yet? You can
+            <a href="{% auth_url 'signup' %}?next={{ next|urlencode }}&back={{ back|urlencode }}">sign up here</a>
+          </p>
+        {% endif %}
+
+      </form>
+    </div>
+  </section>
+{% endif %}

@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic.edit import CreateView
 
-from .config.urls import landing_url_config
+from .config.urls import urls_config
 from .decorators import (
     auth_page_required,
     auth_page_required_class,
@@ -175,7 +175,7 @@ def contact(request):
                     "subject": sender_subject,
                     "message": sender_message,
                     "url": request.build_absolute_uri(
-                        reverse(landing_url_config.get_landing_url_name())
+                        reverse(urls_config.get_landing_url_name())
                     ),
                 }
 
@@ -273,7 +273,7 @@ def signin(request):
                 next = request.POST.get("next", "")
                 if next:
                     return redirect(next)
-                return redirect(landing_url_config.get_landing_url_name())
+                return redirect(urls_config.get_landing_url_name())
             else:
                 messages.error(
                     request, "Invalid username or password.", extra_tags="signin"
@@ -297,7 +297,7 @@ def signout(request):
     """
     logout(request)
     messages.success(request, "You have been successfully logged out.")
-    return redirect(landing_url_config.get_landing_url_name())
+    return redirect(urls_config.get_landing_url_name())
 
 
 @auth_page_required_class("signup")

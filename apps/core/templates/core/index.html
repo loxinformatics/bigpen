@@ -1,79 +1,43 @@
-{% load static %}
+<!DOCTYPE html>
 {% load base %}
 {% load vendor %}
-{% load auth %}
-<!DOCTYPE html>
+
 <html lang="en" dir="ltr">
   <head>
+    {% base_title %}
     {% base_meta %}
     {% base_icons %}
     <link rel="manifest" href="{% url 'webmanifest' %}">
-    {% base_title %}
     {% vendor_bootstrap %}
     {% vendor_bootstrap_icons %}
     {% vendor_aos %}
-    {% if show_header|default_if_none:True %}
-      {% include 'core/layout/header/static.html' %}
-    {% endif %}
-    {% if show_hero|default_if_none:False %}
-      {% include 'core/layout/hero/static.html' %}
-    {% endif %}
-    {% if 'signin'|auth_enabled and show_auth == "signin" %}
-      {% include 'core/layout/signin/static.html' %}
-    {% endif %}
-    {% if 'signup'|auth_enabled and show_auth == "signup" %}
-      {% include 'core/layout/signup/static.html' %}
-    {% endif %}
-    {% if show_contact|default_if_none:False %}
-      {% include 'core/layout/contact/static.html' %}
-    {% endif %}
-    {% if show_footer|default_if_none:True %}
-      {% include 'core/layout/footer/static.html' %}
-    {% endif %}
-    {% if overlay_back_to_top|default_if_none:True %}
-      {% include 'core/overlay/back-to-top/static.html' %}
-    {% endif %}
-    {% if overlay_preloader|default_if_none:True %}
-      {% include 'core/overlay/preloader/static.html' %}
-    {% endif %}
-    {% if overlay_whatsapp_call_us|default_if_none:True %}
-      {% include 'core/overlay/whatsapp-call-us/static.html' %}
-    {% endif %}
-    {# Overlay Login Signup Modal #}
-    {% include 'core/overlay/login-signup-modal/static.html' %}
-    {# Extend Staticfiles #}
+    {% include "core/layout/navigation/header/static.html" %}
+    {% include "core/layout/navigation/aside/static.html" %}
+    {% include "core/layout/hero/static.html" %}
+    {% include "core/layout/auth/signin/static.html" %}
+    {% include "core/layout/auth/signup/static.html" %}
     {% block staticfiles %}{% endblock %}
+    {% include "core/layout/contact/static.html" %}
+    {% include "core/overlay/whatsapp-call-us/static.html" %}
+    {% include "core/overlay/back-to-top/static.html" %}
+    {% include "core/layout/footer/static.html" %}
+    {% include "core/overlay/login-signup-modal/static.html" %}
+    {% include "core/overlay/preloader/static.html" %}
   </head>
   <body>
-    {% if show_header|default_if_none:True %}
-      {% include 'core/layout/header/layout.html' %}
-    {% endif %}
-    {% if show_hero|default_if_none:False %}
-      {% include 'core/layout/hero/layout.html' %}
-    {% endif %}
-    {% if 'signin'|auth_enabled and show_auth == "signin" %}
-      {% include 'core/layout/signin/layout.html' %}
-    {% endif %}
-    {% if 'signup'|auth_enabled and show_auth == "signup" %}
-      {% include 'core/layout/signup/layout.html' %}
-    {% endif %}
-    {% block sections %}{% endblock %}
-    {% if show_contact|default_if_none:False %}
-      {% include 'core/layout/contact/layout.html' %}
-    {% endif %}
-    {% if show_footer|default_if_none:True %}
-      {% include 'core/layout/footer/layout.html' %}
-    {% endif %}
-    {% if overlay_back_to_top|default_if_none:True %}
-      {% include 'core/overlay/back-to-top/overlay.html' %}
-    {% endif %}
-    {% if overlay_whatsapp_call_us|default_if_none:True %}
-      {% include 'core/overlay/whatsapp-call-us/overlay.html' %}
-    {% endif %}
-    {% if overlay_preloader|default_if_none:True %}
-      {% include 'core/overlay/preloader/overlay.html' %}
-    {% endif %}
-    {# Overlay Login Signup Modal #}
-    {% include 'core/overlay/login-signup-modal/overlay.html' %}
+    {% include "core/layout/navigation/header/layout.html" %}
+    {% include "core/layout/navigation/aside/layout.html" %}
+    <main>
+      {% include "core/layout/hero/layout.html" %}
+      {% include "core/layout/auth/signin/layout.html" %}
+      {% include "core/layout/auth/signup/layout.html" %}
+      {% block sections %}{% endblock %}
+      {% include "core/layout/contact/layout.html" %}
+      {% include "core/overlay/whatsapp-call-us/overlay.html" %}
+      {% include "core/overlay/back-to-top/overlay.html" %}
+    </main>
+    {% include "core/layout/footer/layout.html" %}
+    {% include "core/overlay/login-signup-modal/overlay.html" %}
+    {% include "core/overlay/preloader/overlay.html" %}
   </body>
 </html>

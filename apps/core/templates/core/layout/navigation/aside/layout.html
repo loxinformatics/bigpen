@@ -1,0 +1,79 @@
+{% load base %}
+{% load urls %}
+{% load contacts %}
+{% load navigation %}
+
+{% if show_navigation == "aside" %}
+  <aside id="aside"
+         class="aside dark-background d-flex flex-column justify-content-center">
+    {% comment  %}
+         <i class="aside-toggle d-xl-none bi bi-list"></i>
+    {% endcomment %}
+    <a href="{% landing_url %}" class="logo mb-3">
+      {# Uncomment the line below if you also wish to use an image logo #}
+      <img src="{% base_logo %}"
+           class="img-fluid"
+           alt="logo"
+           width="40"
+           height="40" />
+      {% comment  %}
+      <h1 class="sitename">{% base_name %}</h1>
+      {% endcomment %}
+    </a>
+    <div class="aside-container d-flex flex-column align-items-start">
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          {% aside_navigation %}
+          {% comment  %}
+            <li class="dropdown">
+              <a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li>
+                  <a href="#">Dropdown 1</a>
+                </li>
+                <li class="dropdown">
+                  <a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                  <ul>
+                    <li>
+                      <a href="#">Deep Dropdown 1</a>
+                    </li>
+                    <li>
+                      <a href="#">Deep Dropdown 2</a>
+                    </li>
+                    <li>
+                      <a href="#">Deep Dropdown 3</a>
+                    </li>
+                    <li>
+                      <a href="#">Deep Dropdown 4</a>
+                    </li>
+                    <li>
+                      <a href="#">Deep Dropdown 5</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dropdown 2</a>
+                </li>
+                <li>
+                  <a href="#">Dropdown 3</a>
+                </li>
+                <li>
+                  <a href="#">Dropdown 4</a>
+                </li>
+              </ul>
+            </li>
+          {% endcomment %}
+        </ul>
+      </nav>
+      <div class="social-links text-center">
+        {% get_social_links as social_links %}
+        {% for link in social_links %}
+          <a href="{{ link.url }}"
+             class="{{ link.name }}"
+             target="_blank"
+             rel="noopener">{{ link.icon_html|safe }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </aside>
+{% endif %}

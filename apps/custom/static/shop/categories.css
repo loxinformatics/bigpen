@@ -44,7 +44,7 @@
 }
 
 .category-header .filter-container .filter-item.search-form .input-group .form-control:focus {
-  border-color: var(--accent-color);
+  border-color: var(--bs-primary);
   box-shadow: none;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .category-header .filter-container .filter-item.search-form .input-group .search-btn {
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
   color: var(--contrast-color);
   border: none;
   padding: 0.5rem 1rem;
@@ -62,7 +62,7 @@
 }
 
 .category-header .filter-container .filter-item.search-form .input-group .search-btn:hover {
-  background-color: color-mix(in srgb, var(--accent-color), var(--heading-color) 15%);
+  background-color: color-mix(in srgb, var(--bs-primary), var(--heading-color) 15%);
 }
 
 .category-header .filter-container .filter-item.search-form .input-group .search-btn i {
@@ -82,8 +82,8 @@
 }
 
 .category-header .filter-container .filter-item .form-select:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--accent-color), transparent 85%);
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--bs-primary), transparent 85%);
 }
 
 .category-header .filter-container .filter-item .form-select.form-select-sm {
@@ -112,16 +112,16 @@
 }
 
 .category-header .filter-container .filter-item .view-options .view-btn:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
-  border-color: var(--accent-color);
-  color: var(--accent-color);
+  background-color: color-mix(in srgb, var(--bs-primary), transparent 90%);
+  border-color: var(--bs-primary);
+  color: var(--bs-primary);
 }
 
 .category-header .filter-container .filter-item .view-options .view-btn.active {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
   color: var(--contrast-color);
-  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent-color), transparent 60%);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--bs-primary), transparent 60%);
 }
 
 .category-header .filter-container .filter-item .view-options .view-btn i {
@@ -159,8 +159,8 @@
 .category-header .filter-container .active-filters .filter-tag {
   display: inline-flex;
   align-items: center;
-  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
-  color: var(--accent-color);
+  background-color: color-mix(in srgb, var(--bs-primary), transparent 90%);
+  color: var(--bs-primary);
   font-size: 0.875rem;
   padding: 0.35rem 0.85rem;
   border-radius: 50px;
@@ -171,7 +171,7 @@
 .category-header .filter-container .active-filters .filter-tag .filter-remove {
   background: none;
   border: none;
-  color: var(--accent-color);
+  color: var(--bs-primary);
   margin-left: 0.35rem;
   padding: 0;
   display: inline-flex;
@@ -185,15 +185,15 @@
 }
 
 .category-header .filter-container .active-filters .filter-tag .filter-remove:hover {
-  color: color-mix(in srgb, var(--accent-color), var(--heading-color) 30%);
-  background-color: color-mix(in srgb, var(--accent-color), transparent 80%);
+  color: color-mix(in srgb, var(--bs-primary), var(--heading-color) 30%);
+  background-color: color-mix(in srgb, var(--bs-primary), transparent 80%);
   transform: scale(1.1);
 }
 
 .category-header .filter-container .active-filters .clear-all-btn {
   background: none;
-  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
-  color: var(--accent-color);
+  border: 1px solid color-mix(in srgb, var(--bs-primary), transparent 70%);
+  color: var(--bs-primary);
   font-size: 0.875rem;
   font-weight: 600;
   padding: 0.35rem 0.85rem;
@@ -204,9 +204,9 @@
 }
 
 .category-header .filter-container .active-filters .clear-all-btn:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
-  color: color-mix(in srgb, var(--accent-color), var(--heading-color) 15%);
-  border-color: var(--accent-color);
+  background-color: color-mix(in srgb, var(--bs-primary), transparent 90%);
+  color: color-mix(in srgb, var(--bs-primary), var(--heading-color) 15%);
+  border-color: var(--bs-primary);
 }
 
 @media (max-width: 767.98px) {
@@ -280,7 +280,7 @@
   top: 15px;
   left: 15px;
   z-index: 3;
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
   color: var(--contrast-color);
   font-size: 0.7rem;
   font-weight: 600;
@@ -340,7 +340,7 @@
 }
 
 .category-product-list .quick-action-btn:hover {
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
   color: var(--contrast-color);
   transform: translateY(-2px);
 }
@@ -352,7 +352,7 @@
 .category-product-list .add-to-cart-btn {
   width: 100%;
   padding: 0.8rem 1.5rem;
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
   color: var(--contrast-color);
   border: none;
   border-radius: 6px;
@@ -364,7 +364,7 @@
 }
 
 .category-product-list .add-to-cart-btn:hover {
-  background-color: color-mix(in srgb, var(--accent-color), #000 15%);
+  background-color: color-mix(in srgb, var(--bs-primary), #000 15%);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
@@ -403,7 +403,7 @@
 }
 
 .category-product-list .product-title a:hover {
-  color: var(--accent-color);
+  color: var(--bs-primary);
 }
 
 .category-product-list .product-price {
@@ -476,7 +476,7 @@
   left: -3px;
   right: -3px;
   bottom: -3px;
-  border: 2px solid var(--accent-color);
+  border: 2px solid var(--bs-primary);
   border-radius: 50%;
 }
 
@@ -559,14 +559,14 @@
 }
 
 .category-pagination li a.active {
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
   color: var(--contrast-color);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px color-mix(in srgb, var(--accent-color), transparent 70%);
+  box-shadow: 0 4px 8px color-mix(in srgb, var(--bs-primary), transparent 70%);
 }
 
 .category-pagination li a:hover:not(.active) {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+  background-color: color-mix(in srgb, var(--bs-primary), transparent 90%);
   transform: translateY(-1px);
   box-shadow: 0 3px 6px color-mix(in srgb, var(--default-color), transparent 85%);
 }
@@ -579,7 +579,7 @@
   margin: 0 4px;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .category-pagination ul {
     gap: 4px;
   }
@@ -638,11 +638,11 @@
 
 .product-categories-widget .category-tree .category-item .category-header .category-link.active,
 .product-categories-widget .category-tree .category-item .category-header:hover .category-link {
-  color: var(--accent-color);
+  color: var(--bs-primary);
 }
 
 .product-categories-widget .category-tree .category-item .category-header:hover .category-toggle {
-  color: var(--accent-color);
+  color: var(--bs-primary);
 }
 
 .product-categories-widget .category-tree .category-item .category-link {
@@ -692,7 +692,7 @@
 }
 
 .product-categories-widget .category-tree .category-item .subcategory-list .subcategory-link:hover {
-  color: var(--accent-color);
+  color: var(--bs-primary);
 }
 
 @media (max-width: 767.98px) {
@@ -732,7 +732,7 @@
   height: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
   border-radius: 0.25rem;
 }
 
@@ -752,7 +752,7 @@
   height: 1.25rem;
   width: 1.25rem;
   border-radius: 50%;
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
   cursor: pointer;
   pointer-events: auto;
   -webkit-appearance: none;
@@ -770,7 +770,7 @@
   width: 1.25rem;
   border: none;
   border-radius: 50%;
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
   cursor: pointer;
   pointer-events: auto;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
@@ -786,11 +786,11 @@
 }
 
 .pricing-range-widget .price-range-container .range-slider input[type=range]:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color), transparent 75%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--bs-primary), transparent 75%);
 }
 
 .pricing-range-widget .price-range-container .range-slider input[type=range]:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color), transparent 75%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--bs-primary), transparent 75%);
 }
 
 .pricing-range-widget .price-range-container .range-slider .min-range {
@@ -802,7 +802,7 @@
 }
 
 .pricing-range-widget .price-range-container .price-inputs .input-group-text {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 85%);
+  background-color: color-mix(in srgb, var(--bs-primary), transparent 85%);
   color: var(--heading-color);
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
@@ -814,7 +814,7 @@
 }
 
 .pricing-range-widget .price-range-container .price-inputs .form-control:focus {
-  border-color: var(--accent-color);
+  border-color: var(--bs-primary);
   box-shadow: none;
 }
 
@@ -823,8 +823,8 @@
 }
 
 .pricing-range-widget .price-range-container .filter-actions .btn-primary {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
   color: var(--contrast-color);
   transition: all 0.3s ease;
   font-size: 16px;
@@ -832,12 +832,12 @@
 }
 
 .pricing-range-widget .price-range-container .filter-actions .btn-primary:hover {
-  background-color: color-mix(in srgb, var(--accent-color), #000 10%);
-  border-color: color-mix(in srgb, var(--accent-color), #000 10%);
+  background-color: color-mix(in srgb, var(--bs-primary), #000 10%);
+  border-color: color-mix(in srgb, var(--bs-primary), #000 10%);
 }
 
 .pricing-range-widget .price-range-container .filter-actions .btn-primary:focus {
-  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--accent-color), transparent 75%);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--bs-primary), transparent 75%);
 }
 
 .brand-filter-widget .brand-filter-content {
@@ -860,7 +860,7 @@
 }
 
 .brand-filter-widget .brand-search input:focus {
-  border-color: var(--accent-color);
+  border-color: var(--bs-primary);
   box-shadow: none;
 }
 
@@ -923,13 +923,13 @@
 }
 
 .brand-filter-widget .brand-item .form-check-input:checked {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
   box-shadow: none;
 }
 
 .brand-filter-widget .brand-item .form-check-input:focus {
-  border-color: var(--accent-color);
+  border-color: var(--bs-primary);
   box-shadow: none;
 }
 
@@ -959,12 +959,12 @@
 }
 
 .brand-filter-widget .brand-actions .btn-outline-primary {
-  color: var(--accent-color);
-  border-color: var(--accent-color);
+  color: var(--bs-primary);
+  border-color: var(--bs-primary);
 }
 
 .brand-filter-widget .brand-actions .btn-outline-primary:hover {
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
   color: var(--contrast-color);
 }
 
@@ -1010,7 +1010,7 @@
 
 .color-filter-widget .color-filter-content .color-options .color-option .form-check-input:checked~.form-check-label .color-swatch {
   transform: scale(1.15);
-  border: 2px solid var(--accent-color);
+  border: 2px solid var(--bs-primary);
 }
 
 .color-filter-widget .color-filter-content .color-options .color-option .form-check-input:checked~.form-check-label .color-swatch::after {
@@ -1028,7 +1028,7 @@
 }
 
 .color-filter-widget .color-filter-content .color-options .color-option .form-check-input:checked~.form-check-label .color-swatch[style*="background-color: #ffffff"]::after {
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
 }
 
 .color-filter-widget .color-filter-content .color-options .color-option .form-check-input:checked~.form-check-label .color-swatch[style*="background-color: #f1c40f"]::after,
@@ -1058,7 +1058,7 @@
 
 .color-filter-widget .color-filter-content .color-options .color-option .color-swatch:hover {
   transform: scale(1.1);
-  border-color: var(--accent-color);
+  border-color: var(--bs-primary);
 }
 
 .color-filter-widget .color-filter-content .color-options .color-option .color-swatch[style*="background-color: #ffffff"] {
@@ -1078,17 +1078,17 @@
 }
 
 .color-filter-widget .color-filter-content .filter-actions .btn.btn-primary {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
 }
 
 .color-filter-widget .color-filter-content .filter-actions .btn.btn-primary:hover {
-  background-color: color-mix(in srgb, var(--accent-color), #000 10%);
-  border-color: color-mix(in srgb, var(--accent-color), #000 10%);
+  background-color: color-mix(in srgb, var(--bs-primary), #000 10%);
+  border-color: color-mix(in srgb, var(--bs-primary), #000 10%);
 }
 
 .color-filter-widget .color-filter-content .filter-actions .btn.btn-primary:focus {
-  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--accent-color), transparent 70%);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--bs-primary), transparent 70%);
 }
 
 .color-filter-widget .color-filter-content .filter-actions .btn.btn-outline-secondary {
@@ -1148,11 +1148,11 @@
 }
 
 .search-widget form button:hover {
-  color: var(--accent-color);
+  color: var(--bs-primary);
 }
 
 .search-widget form:is(:focus-within) {
-  border-color: var(--accent-color);
+  border-color: var(--bs-primary);
 }
 
 .categories-widget ul {
@@ -1175,7 +1175,7 @@
 }
 
 .categories-widget ul a:hover {
-  color: var(--accent-color);
+  color: var(--bs-primary);
 }
 
 .categories-widget ul a span {
@@ -1210,7 +1210,7 @@
 }
 
 .recent-posts-widget .post-item h4 a:hover {
-  color: var(--accent-color);
+  color: var(--bs-primary);
 }
 
 .recent-posts-widget .post-item time {
@@ -1242,7 +1242,7 @@
 }
 
 .tags-widget ul a:hover {
-  background: var(--accent-color);
+  background: var(--bs-primary);
   color: var(--contrast-color);
 }
 

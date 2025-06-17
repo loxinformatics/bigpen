@@ -11,14 +11,42 @@ class HomeConfig(AppConfig):
 
     def ready(self):
         try:
-            from apps.core.config.navigation import nav_config
-            from apps.core.config.urls import landing_url_config
+            from apps.core.config.navigation import header_nav_config, aside_nav_config
+            from apps.core.config.urls import urls_config
 
             # Configure landing url
-            landing_url_config.register_landing_url("landing", f"{self.name}")
+            urls_config.register_landing_url("landing", f"{self.name}")
 
-            # Add landing url to nav items
-            nav_config.register("Home", "landing", fragment="hero", order=0)
-            nav_config.register("Contact", "landing", fragment="contact", order=3)
+            # nav items
+            header_nav_config.register(
+                name="Home",
+                url_name="landing",
+                fragment="hero",
+                order=0,
+                icon="bi bi-house",
+            )
+            header_nav_config.register(
+                name="Contact",
+                url_name="landing",
+                fragment="contact",
+                order=3,
+                icon="bi bi-envelope",
+            )
+
+            # nav items
+            aside_nav_config.register(
+                name="Home",
+                url_name="landing",
+                fragment="hero",
+                order=0,
+                icon="bi bi-house",
+            )
+            aside_nav_config.register(
+                name="Contact",
+                url_name="landing",
+                fragment="contact",
+                order=3,
+                icon="bi bi-envelope",
+            )
         except Exception as e:
             logger.warning(f"Failed to configure core app settings: {e}")

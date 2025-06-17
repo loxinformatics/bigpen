@@ -1,0 +1,10 @@
+{% load static %}
+
+{% if show_navigation == "header" %}
+  <link href="{% static 'core/layout/navigation/header/layout.css' %}" rel="stylesheet" />
+  <script defer src="{% static 'core/layout/navigation/header/layout.js' %}"></script>
+  {# Logo #}
+  {% include 'core/widget/header-logo/static.html' %}
+  {# CTA Btn #}
+  {% include 'core/widget/header-auth-btn/static.html' %}
+{% endif %}

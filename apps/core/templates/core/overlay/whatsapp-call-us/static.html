@@ -1,4 +1,7 @@
 {% load static %}
-<link href="{% static 'core/overlay/whatsapp-call-us/overlay.css' %}"
-      rel="stylesheet" />
-<script defer src="{% static 'core/overlay/whatsapp-call-us/overlay.js' %}"></script>
+
+{% if overlay_whatsapp_call_us|default_if_none:False %}
+    <link href="{% static 'core/overlay/whatsapp-call-us/overlay.css' %}"
+          rel="stylesheet" />
+    <script defer src="{% static 'core/overlay/whatsapp-call-us/overlay.js' %}"></script>
+{% endif %}

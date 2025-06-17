@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "apps.core",
     "apps.home",
-    "apps.seed",
 ]
 
 # Add Custom app
@@ -129,7 +128,7 @@ if config("DB_POSTGRESQL", default=False, cast=bool):
 # https://docs.djangoproject.com/en/latest/ref/settings/#auth
 # https://docs.djangoproject.com/en/latest/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = "custom.CustomUser"
+AUTH_USER_MODEL = "custom.User"
 
 AUTHENTICATION_BACKENDS = [
     # * Ensure your custom backend is the first in this list

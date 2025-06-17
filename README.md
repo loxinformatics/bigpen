@@ -116,18 +116,6 @@ If using PostgreSQL:
     python manage.py createcachetable
     ```
 
-3. (Optional) Load sample data:
-
-    - 📄 Create a new `fixtures` folder out of the `examples` folder in the `seed` app.
-    - 📝 Edit the json files in the created `fixtures` folder tailoring it to your needs.
-    - 📤 Load fixtures using:
-
-    ```bash
-    python manage.py seed
-    ```
-
-**Note**: The `fixtures` folder inside the `apps/seed` directory is gitignored.
-
 ### E. 📦 Static Files (Production Only)
 
 If you're deploying to production and using a web server (like Nginx) to serve static files, collect them into a single location using:

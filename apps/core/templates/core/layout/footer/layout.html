@@ -1,5 +1,7 @@
-<footer id="footer" class="footer dark-background">
-  {% include 'core/widget/footer-newsletter/widget.html' %}
-  {% include 'core/widget/footer-top/widget.html' %}
-  {% include 'core/widget/footer-copyright/widget.html' %}
-</footer>
+{% if show_footer|default_if_none:True %}
+  <footer id="footer" class="footer dark-background">
+    {% include 'core/widget/footer-newsletter/widget.html' %}
+    {% include 'core/widget/footer-top/widget.html' %}
+    {% include 'core/widget/footer-copyright/widget.html' %}
+  </footer>
+{% endif %}

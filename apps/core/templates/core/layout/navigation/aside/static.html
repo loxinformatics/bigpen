@@ -1,0 +1,6 @@
+{% load static %}
+
+{% if show_navigation == "aside" %}
+  <link rel="stylesheet" href="{% static 'core/layout/navigation/aside/layout.css' %}">
+  <script defer src="{% static 'core/layout/navigation/aside/layout.js' %}"></script>
+{% endif %}

@@ -1,6 +1,5 @@
+from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
-
-from ...models import User
 
 
 class Command(BaseCommand):
@@ -21,7 +20,7 @@ class Command(BaseCommand):
         users_without_roles = []
         inconsistent_staff_status = []
 
-        for user in User.objects.all():
+        for user in get_user_model().objects.all():
             # Check for users without roles
             if not user.is_superuser:
                 role_obj = user.get_role_object()
@@ -29,12 +28,12 @@ class Command(BaseCommand):
                     users_without_roles.append(user.username)
                 else:
                     # Check staff status consistency
-                    if user.is_staff != role_obj.is_staff_role:
+                    if user.is_staff != role_obj.has_portal_access:
                         inconsistent_staff_status.append(
                             {
                                 "username": user.username,
                                 "current_staff": user.is_staff,
-                                "should_be_staff": role_obj.is_staff_role,
+                                "should_be_staff": role_obj.has_portal_access,
                                 "role": role_obj.name,
                             }
                         )
@@ -65,7 +64,7 @@ class Command(BaseCommand):
             self.stdout.write("Fixing staff status inconsistencies...")
 
             for user_data in inconsistent_staff_status:
-                User.objects.filter(username=user_data["username"]).update(
+                get_user_model().objects.filter(username=user_data["username"]).update(
                     is_staff=user_data["should_be_staff"]
                 )
 

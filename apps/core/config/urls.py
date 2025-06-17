@@ -6,7 +6,7 @@ from django.urls import reverse
 logger = logging.getLogger(__name__)
 
 
-class LandingURLConfig:
+class URLsConfig:
     """
     Registry for managing landing URL across Django apps.
     Allows apps to register themselves as the landing URL provider.
@@ -82,6 +82,4 @@ class LandingURLConfig:
 
 
 # Global config instance
-landing_url_config = LandingURLConfig()
-
-
+urls_config = URLsConfig()

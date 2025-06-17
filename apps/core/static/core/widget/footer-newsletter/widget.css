@@ -22,7 +22,7 @@
 }
 
 .footer .footer-newsletter .newsletter-form:focus-within {
-  border-color: var(--accent-color);
+  border-color: var(--bs-primary);
 }
 
 .footer .footer-newsletter .newsletter-form input[type=email] {
@@ -42,12 +42,12 @@
   font-size: 16px;
   padding: 0 20px;
   margin: -7px -8px -7px 0;
-  background: var(--accent-color);
+  background: var(--bs-primary);
   color: var(--contrast-color);
   transition: 0.3s;
   border-radius: 50px;
 }
 
 .footer .footer-newsletter .newsletter-form input[type=submit]:hover {
-  background: color-mix(in srgb, var(--accent-color), transparent 20%);
+  background: color-mix(in srgb, var(--bs-primary), transparent 20%);
 }

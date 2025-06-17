@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Permission
 from django.utils.html import format_html
 
@@ -17,7 +17,6 @@ from .models import (
     ContactEmail,
     ContactNumber,
     ContactSocialLink,
-    User,
     UserRole,
 )
 
@@ -309,21 +308,21 @@ class UserRoleAdmin(admin.ModelAdmin):
         "name",
         "display_name",
         "is_default_role",
-        "is_staff_role",
+        "has_portal_access",
         "user_count",
     ]
     list_editable = ["display_name", "is_default_role"]
-    list_filter = ["is_staff_role", "is_default_role"]
+    list_filter = ["has_portal_access", "is_default_role"]
     search_fields = ["name", "display_name"]
     filter_horizontal = ["permissions"]  # This makes permissions easier to manage
 
     fieldsets = (
         ("Basic Information", {"fields": ("name", "display_name", "description")}),
-        ("Role Settings", {"fields": ("is_staff_role", "is_default_role")}),
+        ("Role Settings", {"fields": ("has_portal_access", "is_default_role")}),
     )
     readonly_fields = (
         "name",
-        "is_staff_role",
+        "has_portal_access",
     )
 
     def user_count(self, obj):
@@ -362,8 +361,7 @@ class UserRoleAdmin(admin.ModelAdmin):
         return form
 
 
-@admin.register(User, site=portal_site)
-class UserAdmin(DjangoUserAdmin):
+class BaseUserAdmin(UserAdmin):
     form = UserChangeForm
     list_display = [
         "username",
