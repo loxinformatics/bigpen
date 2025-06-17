@@ -10,7 +10,7 @@
 }
 
 .back-to-top {
-  background: var(--accent-color);
+  background: var(--bs-primary);
 }
 
 .back-to-top i {
@@ -20,7 +20,7 @@
 }
 
 .back-to-top:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+  background-color: color-mix(in srgb, var(--bs-primary), transparent 20%);
   color: var(--contrast-color);
 }
 

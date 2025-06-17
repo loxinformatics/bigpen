@@ -1,3 +1,19 @@
+.header .main-header {
+  --background-color: rgba(0, 0, 0, 0);
+  --default-color: var(--bs-white);
+  --heading-color: var(--bs-white);
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 15px 0;
+  transition: all 0.5s;
+  z-index: 997;
+}
+
+/* Global Header on Scroll */
+.scrolled .header .main-header {
+  --background-color: rgba(0, 0, 0, 0.8);
+}
+
 /* Navmenu - Desktop */
 @media (min-width: 1200px) {
   .navmenu {
@@ -118,7 +134,7 @@
 }
 
 /* Navmenu - Mobile */
-@media (max-width: 1199px) {
+@media (max-width: 1199.98px) {
   .mobile-nav-toggle {
     color: var(--nav-color);
     font-size: 28px;
@@ -180,12 +196,12 @@
     justify-content: center;
     border-radius: 50%;
     transition: 0.3s;
-    background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+    background-color: color-mix(in srgb, var(--bs-primary), transparent 90%);
   }
 
   .navmenu a i:hover,
   .navmenu a:focus i:hover {
-    background-color: var(--accent-color);
+    background-color: var(--bs-primary);
     color: var(--contrast-color);
   }
 
@@ -199,7 +215,7 @@
 
   .navmenu .active i,
   .navmenu .active:focus i {
-    background-color: var(--accent-color);
+    background-color: var(--bs-primary);
     color: var(--contrast-color);
     transform: rotate(180deg);
   }
@@ -253,7 +269,7 @@
 }
 
 /* Ordering */
-@media (max-width: 1200px) {
+@media (max-width: 1198.98px) {
   .header .main-header .navmenu {
     order: 3;
   }

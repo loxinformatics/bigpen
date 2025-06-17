@@ -12,7 +12,7 @@
 
 .contact .contact-form input:focus,
 .contact .contact-form textarea:focus {
-  border-color: var(--accent-color);
+  border-color: var(--bs-primary);
 }
 
 .contact .contact-form input {
@@ -24,7 +24,7 @@
 }
 
 .contact .contact-form button[type="submit"] {
-  background: var(--accent-color);
+  background: var(--bs-primary);
   border: 0;
   padding: 10px 24px;
   color: var(--contrast-color);
@@ -32,7 +32,7 @@
 }
 
 .contact .contact-form button[type="submit"]:hover {
-  background: color-mix(in srgb, var(--accent-color), transparent 25%);
+  background: color-mix(in srgb, var(--bs-primary), transparent 25%);
 }
 
 @keyframes animate-loading {

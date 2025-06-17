@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth import password_validation
+from django.contrib.auth import password_validation, get_user_model
 from django.contrib.auth.forms import (
     AuthenticationForm,
     UserCreationForm,
@@ -10,7 +10,7 @@ from django.contrib.auth.forms import (
 )
 
 from .config.auth import auth_config
-from .models import BaseDetail, BaseImage, ContactSocialLink, User, UserRole
+from .models import BaseDetail, BaseImage, ContactSocialLink, UserRole
 
 # ============================================================================
 # BASE FORMS
@@ -218,13 +218,13 @@ class SignUpForm(UserCreationForm):
         )
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ("username",)
 
 
 class UserChangeForm(DjangoUserChangeForm):
     class Meta:
-        model = User
+        model = get_user_model()
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):

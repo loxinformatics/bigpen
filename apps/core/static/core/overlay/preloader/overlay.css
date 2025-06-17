@@ -12,8 +12,8 @@
   position: fixed;
   top: calc(50% - 30px);
   left: calc(50% - 30px);
-  border: 6px solid var(--accent-color);
-  border-top-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+  border: 6px solid var(--bs-primary);
+  border-top-color: color-mix(in srgb, var(--bs-primary), transparent 90%);
   border-radius: 50%;
   width: 60px;
   height: 60px;

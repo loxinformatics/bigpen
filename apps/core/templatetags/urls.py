@@ -3,7 +3,7 @@ import logging
 from django import template
 from django.core.exceptions import ImproperlyConfigured
 
-from ..config.urls import landing_url_config
+from ..config.urls import urls_config
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +20,7 @@ def landing_url():
         <a href="{% landing_url %}">Home</a>
     """
     try:
-        return landing_url_config.get_landing_url()
+        return urls_config.get_landing_url()
     except ImproperlyConfigured:
         logger.warning("No landing URL registered")
         return ""
@@ -36,7 +36,7 @@ def landing_url_name():
         <a href="{% url landing_url_name %}">Home</a>
     """
     try:
-        return landing_url_config.get_landing_url_name()
+        return urls_config.get_landing_url_name()
     except (ImproperlyConfigured, AttributeError):
         logger.warning("No landing URL name registered")
         return ""
@@ -53,7 +53,7 @@ def landing_url_with_fragment(fragment=None):
         <a href="{% landing_url_with_fragment %}">Home</a>
     """
     try:
-        base_url = landing_url_config.get_landing_url()
+        base_url = urls_config.get_landing_url()
     except ImproperlyConfigured:
         logger.warning("No landing URL registered")
         base_url = ""
@@ -75,7 +75,7 @@ def is_landing_url(url_name):
         {% endif %}
     """
     try:
-        registered_name = landing_url_config.get_landing_url_name()
+        registered_name = urls_config.get_landing_url_name()
         return url_name == registered_name
     except (ImproperlyConfigured, AttributeError):
         return False
@@ -94,11 +94,11 @@ def is_landing_page(context):
         {% endif %}
     """
     request = context.get("request")
-    if not request or not landing_url_config:
+    if not request or not urls_config:
         return False
 
     try:
-        landing_url = landing_url_config.get_landing_url()
+        landing_url = urls_config.get_landing_url()
         current_path = request.path
         return current_path == landing_url
     except (ImproperlyConfigured, AttributeError):

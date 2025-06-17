@@ -14,7 +14,7 @@
 }
 
 .hero .btn-get-started-2:hover {
-  border: 2px solid color-mix(in srgb, var(--accent-color) 90%, white 15%);
-  background-color: color-mix(in srgb, var(--accent-color) 90%, white 15%);
+  border: 2px solid color-mix(in srgb, var(--bs-primary) 90%, white 15%);
+  background-color: color-mix(in srgb, var(--bs-primary) 90%, white 15%);
   color: var(--contrast-color);
 }

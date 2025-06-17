@@ -29,7 +29,9 @@ class Command(BaseCommand):
             # Basic role info
             self.stdout.write(f"Name: {role.name}")
             self.stdout.write(f"Display Name: {role.get_display_name()}")
-            self.stdout.write(f"Staff Role: {'Yes' if role.is_staff_role else 'No'}")
+            self.stdout.write(
+                f"Staff Role: {'Yes' if role.has_portal_access else 'No'}"
+            )
             self.stdout.write(
                 f"Default Role: {'Yes' if role.is_default_role else 'No'}"
             )

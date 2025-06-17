@@ -1,11 +1,12 @@
 import logging
 
+from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.db.models.signals import m2m_changed, post_delete, post_save
 from django.dispatch import receiver
 from termcolor import colored
 
-from .models import BaseDetail, BaseImage, User
+from .models import BaseDetail, BaseImage
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +46,7 @@ def clear_base_config_cache(sender, **kwargs):
         logger.error(colored(f"Error clearing cache: {e}", "red"))
 
 
-@receiver(m2m_changed, sender=User.groups.through)
+@receiver(m2m_changed, sender=get_user_model().groups.through)
 def update_user_staff_status_on_group_change(
     sender, instance, action, pk_set, **kwargs
 ):
@@ -65,14 +66,16 @@ def update_user_staff_status_on_group_change(
 
         if role_obj:
             # Update staff status based on role
-            new_staff_status = role_obj.is_staff_role
+            new_staff_status = role_obj.has_portal_access
         else:
             # No role assigned, remove staff status
             new_staff_status = False
 
         # Update if changed
         if instance.is_staff != new_staff_status:
-            User.objects.filter(pk=instance.pk).update(is_staff=new_staff_status)
+            get_user_model().objects.filter(pk=instance.pk).update(
+                is_staff=new_staff_status
+            )
 
             action_desc = {
                 "post_add": "added to group",

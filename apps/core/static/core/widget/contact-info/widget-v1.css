@@ -19,7 +19,7 @@
 
 .contact-info-container .info-box i {
   font-size: 32px;
-  color: var(--accent-color);
+  color: var(--bs-primary);
   border-radius: 50%;
   padding: 8px;
   border: 2px dotted #ffded4;

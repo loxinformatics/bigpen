@@ -16,7 +16,7 @@
 }
 
 .registration .email-form input:focus {
-  border-color: var(--accent-color);
+  border-color: var(--bs-primary);
 }
 
 .registration .email-form input {
@@ -24,7 +24,7 @@
 }
 
 .registration .email-form button[type="submit"] {
-  background: var(--accent-color);
+  background: var(--bs-primary);
   border: 0;
   padding: 10px 35px;
   color: #fff;
@@ -42,5 +42,5 @@
 }
 
 .registration .email-form button[type="submit"]:hover {
-  background: color-mix(in srgb, var(--accent-color), transparent 20%);
+  background: color-mix(in srgb, var(--bs-primary), transparent 20%);
 }

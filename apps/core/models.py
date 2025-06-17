@@ -210,7 +210,9 @@ class ContactSocialLink(Contacts, Ordering):
     @property
     def icon_html(self):
         """Returns HTML for the Bootstrap icon"""
-        return f'<i class="{self.icon}"></i>' if self.icon else ""
+        if self.icon:
+            return f'<i class="{self.icon}"></i>'
+        return ""
 
 
 class ContactNumber(Contacts, Ordering):
@@ -437,7 +439,7 @@ class UserRole(Group):
     display_name = models.CharField(
         max_length=100, blank=True, help_text="Human-readable name for this role"
     )
-    is_staff_role = models.BooleanField(
+    has_portal_access = models.BooleanField(
         default=False,
         help_text="Designates whether users with this role can log into this management portal.",
     )
@@ -493,8 +495,8 @@ class UserRole(Group):
 
             updated_count = 0
             for user in users_with_role:
-                if user.is_staff != self.is_staff_role:
-                    user.is_staff = self.is_staff_role
+                if user.is_staff != self.has_portal_access:
+                    user.is_staff = self.has_portal_access
                     user.save(update_fields=["is_staff"])
                     updated_count += 1
 
@@ -589,7 +591,7 @@ class UserRole(Group):
     def get_staff_roles(cls):
         """Get all roles that should have staff status"""
         try:
-            return cls.objects.filter(is_staff_role=True)
+            return cls.objects.filter(has_portal_access=True)
         except Exception as e:
             logger.error(f"Error getting staff roles: {e}")
             return cls.objects.none()
@@ -599,7 +601,7 @@ class UserRole(Group):
         """Get staff status for a specific role name"""
         try:
             role = cls.objects.get(name=role_name)
-            return role.is_staff_role
+            return role.has_portal_access
         except cls.DoesNotExist:
             logger.warning(f"Role '{role_name}' does not exist")
             return False
@@ -617,8 +619,14 @@ class UserRole(Group):
             return []
 
 
-class User(AbstractUser, Ordering):
+class BaseUser(AbstractUser, Ordering):
     """User model with simplified role management and permission checking"""
+
+    class Meta:
+        abstract = True
+
+    profile_image = models.ImageField(blank=True, null=True, upload_to="core/user")
+    title = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return self.username
@@ -669,7 +677,7 @@ class User(AbstractUser, Ordering):
             # Update staff status (but not for superusers)
             if not self.is_superuser:
                 old_staff_status = self.is_staff
-                self.is_staff = new_role.is_staff_role
+                self.is_staff = new_role.has_portal_access
                 if old_staff_status != self.is_staff:
                     self.save(update_fields=["is_staff"])
                     logger.info(
@@ -756,12 +764,6 @@ class User(AbstractUser, Ordering):
     def role(self):
         """Property to get role"""
         return self.get_role()
-
-    profile_image = models.ImageField(blank=True, null=True, upload_to="core/user")
-    title = models.CharField(
-        max_length=255,
-        blank=True,
-    )
 
     def save(self, *args, **kwargs):
         """Override save to assign default role, handle superusers, and update staff status"""

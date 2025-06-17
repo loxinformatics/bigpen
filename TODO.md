@@ -8,6 +8,7 @@ order systems
 ## Configuration
 - pyproject.toml
 - README.md
+- lib base media
 - seed fixtures
 - custom 0002_setup.py
 - .env

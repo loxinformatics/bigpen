@@ -1,6 +1,5 @@
 from django import template
 from django.utils.html import format_html
-from django.utils.safestring import mark_safe
 
 from ..models import ContactAddress, ContactEmail, ContactNumber, ContactSocialLink
 
@@ -20,41 +19,6 @@ def get_social_links():
     Usage: {% get_social_links as social_links %}
     """
     return ContactSocialLink.objects.filter(is_active=True)
-
-
-@register.simple_tag
-def social_icon(platform_name):
-    """
-    Returns the Bootstrap icon HTML for a given social media platform.
-
-    Usage: {% social_icon "facebook" %}
-    """
-    try:
-        social_link = ContactSocialLink.objects.get(name=platform_name, is_active=True)
-        return mark_safe(social_link.icon_html)
-    except ContactSocialLink.DoesNotExist:
-        return ""
-
-
-@register.simple_tag
-def social_link_html(platform_name, css_classes="", target="_blank"):
-    """
-    Returns a complete HTML link for a social media platform.
-
-    Usage: {% social_link_html "facebook" "btn btn-primary" %}
-    """
-    try:
-        social_link = ContactSocialLink.objects.get(name=platform_name, is_active=True)
-        return format_html(
-            '<a href="{}" class="{}" target="{}" rel="noopener noreferrer">{} {}</a>',
-            social_link.url,
-            css_classes,
-            target,
-            social_link.icon_html,
-            social_link.display_name,
-        )
-    except ContactSocialLink.DoesNotExist:
-        return ""
 
 
 # ============================================================================
@@ -96,50 +60,6 @@ def whatsapp_phone():
         return ContactNumber.objects.get(use_for_whatsapp=True, is_active=True)
     except ContactNumber.DoesNotExist:
         return None
-
-
-@register.simple_tag
-def phone_link_html(phone_obj, format_type="international", css_classes=""):
-    """
-    Returns HTML link for a phone number with tel: protocol.
-
-    Usage: {% phone_link_html phone_obj "national" "btn btn-link" %}
-    """
-    if not phone_obj:
-        return ""
-
-    if format_type == "national":
-        display_number = phone_obj.national_format
-    else:
-        display_number = phone_obj.international_format
-
-    return format_html(
-        '<a href="{}" class="{}">{}</a>',
-        phone_obj.tel_link,
-        css_classes,
-        display_number,
-    )
-
-
-@register.simple_tag
-def whatsapp_link_html(phone_obj=None, text="Message on WhatsApp", css_classes=""):
-    """
-    Returns HTML link for WhatsApp if the phone supports it.
-
-    Usage: {% whatsapp_link_html phone_obj "Chat with us" "btn btn-success" %}
-    """
-    if not phone_obj:
-        phone_obj = whatsapp_phone()
-
-    if not phone_obj or not phone_obj.whatsapp_link:
-        return ""
-
-    return format_html(
-        '<a href="{}" class="{}" target="_blank" rel="noopener noreferrer">{}</a>',
-        phone_obj.whatsapp_link,
-        css_classes,
-        text,
-    )
 
 
 # ============================================================================

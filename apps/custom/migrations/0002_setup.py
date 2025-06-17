@@ -11,53 +11,34 @@ def setup_school_roles_and_permissions(apps, schema_editor):
     # Get model classes
     UserRole = apps.get_model("core", "UserRole")
 
-    # Define school roles
-    school_roles = [
+    # Define roles
+    roles = [
         {
-            "name": "student",
-            "display_name": "Student",
-            "is_staff_role": False,
+            "name": "client",
+            "display_name": "Client",
+            "has_portal_access": False,
             "is_default_role": True,
-            "description": "Standard student role with basic access for schools",
+            "description": "Regular customer with the ability to browse products, place orders, and manage their own account.",
         },
         {
-            "name": "instructor",
-            "display_name": "Instructor",
-            "is_staff_role": True,
+            "name": "staff_admin",
+            "display_name": "Staff",
+            "has_portal_access": True,
             "is_default_role": False,
-            "description": "Teaching staff with course management access for schools",
+            "description": "Store staff with limited administrative access to manage orders, view customers, and assist with support.",
         },
         {
-            "name": "admin",
-            "display_name": "Administrator",
-            "is_staff_role": True,
+            "name": "manager_admin",
+            "display_name": "Manager",
+            "has_portal_access": True,
             "is_default_role": False,
-            "description": "Full administrative access for schools",
+            "description": "Manager with full administrative privileges, including user management, product control, and site settings.",
         },
     ]
 
     # Define permissions for each role
-    role_permissions = {
-        "student": [
-            "core.view_user",  # Can view their own profile
-            # Add school-specific student permissions here
-            # "courses.view_course",
-            # "assignments.view_assignment",
-        ],
-        "instructor": [
-            "core.view_user",
-            "core.change_user",  # Can edit student profiles
-            # Add school-specific instructor permissions here
-            # "courses.add_course",
-            # "courses.change_course",
-            # "courses.view_course",
-            # "assignments.add_assignment",
-            # "assignments.change_assignment",
-            # "assignments.view_assignment",
-            # "grades.add_grade",
-            # "grades.change_grade",
-        ],
-        "admin": [
+    portal_site_role_permissions = {
+        "manager_admin": [
             "core.add_user",
             "core.change_user",
             "core.delete_user",
@@ -66,30 +47,21 @@ def setup_school_roles_and_permissions(apps, schema_editor):
             "core.change_userrole",
             "core.delete_userrole",
             "core.view_userrole",
-            # Add school-specific admin permissions here
-            # "courses.add_course",
-            # "courses.change_course",
-            # "courses.delete_course",
-            # "courses.view_course",
-            # "assignments.add_assignment",
-            # "assignments.change_assignment",
-            # "assignments.delete_assignment",
-            # "assignments.view_assignment",
-            # "grades.add_grade",
-            # "grades.change_grade",
-            # "grades.delete_grade",
-            # "grades.view_grade",
+            # Add custom app specific portal site permissions here
+        ],
+        "staff_admin": [
+            # Add custom app specific portal site permissions here
         ],
     }
 
     # Create or update roles
     created_roles = []
-    for role_data in school_roles:
+    for role_data in roles:
         role, created = UserRole.objects.get_or_create(
             name=role_data["name"],
             defaults={
                 "display_name": role_data["display_name"],
-                "is_staff_role": role_data["is_staff_role"],
+                "has_portal_access": role_data["has_portal_access"],
                 "is_default_role": role_data["is_default_role"],
                 "description": role_data["description"],
             },
@@ -98,7 +70,7 @@ def setup_school_roles_and_permissions(apps, schema_editor):
         if not created:
             # Update existing role if needed
             role.display_name = role_data["display_name"]
-            role.is_staff_role = role_data["is_staff_role"]
+            role.has_portal_access = role_data["has_portal_access"]
             role.is_default_role = role_data["is_default_role"]
             role.description = role_data["description"]
             role.save()
@@ -107,7 +79,7 @@ def setup_school_roles_and_permissions(apps, schema_editor):
 
     # Set up permissions for each role
     for role in created_roles:
-        permissions_list = role_permissions.get(role.name, [])
+        permissions_list = portal_site_role_permissions.get(role.name, [])
 
         if permissions_list:
             # Clear existing permissions
@@ -145,7 +117,7 @@ def reverse_school_roles_and_permissions(apps, schema_editor):
 class Migration(migrations.Migration):
     dependencies = [
         ("core", "0001_initial"),  # Make sure core app's UserRole model exists
-        ("schools", "0001_initial"),  # Your schools app's initial migration
+        ("custom", "0001_initial"),  # Your custom app's initial migration
         ("contenttypes", "0002_remove_content_type_name"),  # Needed for permissions
         ("auth", "0012_alter_user_first_name_max_length"),  # Needed for permissions
     ]

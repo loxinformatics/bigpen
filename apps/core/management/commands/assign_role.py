@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.contrib.auth import get_user_model
 
-from ...models import User, UserRole
+from ...models import UserRole
 
 
 class Command(BaseCommand):
@@ -29,10 +30,10 @@ class Command(BaseCommand):
 
             # Get or create user
             try:
-                user = User.objects.get(username=username)
-            except User.DoesNotExist:
+                user = get_user_model().objects.get(username=username)
+            except get_user_model().DoesNotExist:
                 if create_user:
-                    user = User.objects.create_user(username=username)
+                    user = get_user_model().objects.create_user(username=username)
                     self.stdout.write(f"Created user: {username}")
                 else:
                     raise CommandError(

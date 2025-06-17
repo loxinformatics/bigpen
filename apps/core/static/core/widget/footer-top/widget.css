@@ -17,8 +17,8 @@
 }
 
 .footer .social-links a:hover {
-  color: var(--accent-color);
-  border-color: var(--accent-color);
+  color: var(--bs-primary);
+  border-color: var(--bs-primary);
 }
 
 .footer h4 {
@@ -42,7 +42,7 @@
   margin-right: 3px;
   font-size: 12px;
   line-height: 0;
-  color: var(--accent-color);
+  color: var(--bs-primary);
 }
 
 .footer .footer-links ul li {
@@ -62,7 +62,7 @@
 }
 
 .footer .footer-links ul a:hover {
-  color: var(--accent-color);
+  color: var(--bs-primary);
 }
 
 .footer .footer-about a {

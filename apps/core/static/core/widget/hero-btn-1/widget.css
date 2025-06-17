@@ -1,6 +1,6 @@
 .hero .btn-get-started {
   color: var(--default-color);
-  background-color: var(--accent-color);
+  background-color: var(--bs-primary);
   font-weight: 400;
   font-size: 15px;
   letter-spacing: 1px;
@@ -13,5 +13,5 @@
 }
 
 .hero .btn-get-started:hover {
-  background-color: color-mix(in srgb, var(--accent-color) 90%, white 15%);
+  background-color: color-mix(in srgb, var(--bs-primary) 90%, white 15%);
 }

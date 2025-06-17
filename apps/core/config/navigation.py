@@ -2,11 +2,14 @@ class NavigationConfig:
     def __init__(self):
         self._items = []
 
-    def register(self, name, url_name, order=0, fragment=None, type="", **kwargs):
+    def register(
+        self, name, url_name, icon="", order=0, fragment=None, type="", **kwargs
+    ):
         self._items.append(
             {
                 "name": name,
                 "url_name": url_name,
+                "icon": icon,
                 "order": order,
                 "fragment": fragment,
                 "type": type,
@@ -19,7 +22,8 @@ class NavigationConfig:
 
 
 # Global config instances
-nav_config = NavigationConfig()
+header_nav_config = NavigationConfig()
+aside_nav_config = NavigationConfig()
 
 # Example usage:
 if __name__ == "__main__":
@@ -27,18 +31,20 @@ if __name__ == "__main__":
     print("=== NavigationRegistry Examples ===")
 
     # Register navigation items
-    nav_config.register("Home", "home", order=1, icon="house")
-    nav_config.register("About", "about", order=3, type="page")
-    nav_config.register(
+    header_nav_config.register("Home", "home", order=1, icon="house")
+    header_nav_config.register("About", "about", order=3, type="page")
+    header_nav_config.register(
         "Dashboard", "dashboard", order=2, fragment="overview", requires_auth=True
     )
-    nav_config.register("Contact", "contact", order=4, type="page", external=True)
-    nav_config.register(
+    header_nav_config.register(
+        "Contact", "contact", order=4, type="page", external=True
+    )
+    header_nav_config.register(
         "Admin", "admin", order=10, type="admin", permissions=["admin"]
     )
 
     # Get sorted navigation items
-    nav_items = nav_config.get_items()
+    nav_items = header_nav_config.get_items()
     print("Navigation items (sorted by order):")
     for item in nav_items:
         print(f"  - {item['name']} ({item['url_name']}) - Order: {item['order']}")
