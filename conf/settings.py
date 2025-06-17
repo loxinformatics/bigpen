@@ -94,7 +94,7 @@ TEMPLATES = [
 
 ROOT_URLCONF = "conf.urls"
 WSGI_APPLICATION = "conf.wsgi.application"
-NAVIGATION_TYPE = config("NAVIGATION_TYPE", default="navbar")
+NAVIGATION_TYPE = config("NAVIGATION_TYPE", default="sidebar")
 
 
 # Database

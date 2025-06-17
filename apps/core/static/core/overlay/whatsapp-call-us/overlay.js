@@ -1,27 +1,49 @@
-/**
- * Whatsapp button
- */
-let whatsappBtn = document.querySelector('.whatsapp-button');
+const asideElement = document.getElementById("aside");
+const mediaQuery = window.matchMedia("(min-width: 1200px)");
 
-function toggleWhatsappBtn() {
-  if (whatsappBtn) {
-    window.scrollY > 100 ? whatsappBtn.classList.add('active') : whatsappBtn.classList.remove('active');
-  }
-}
-
-window.addEventListener('load', toggleWhatsappBtn);
-document.addEventListener('scroll', toggleWhatsappBtn);
-
-/**
- * Call Float
- */
-let callFloat = document.querySelector('.call-float');
+/* ───── Call Float ───── */
+const callFloat = document.querySelector(".call-float");
 
 function toggleCallFloat() {
   if (callFloat) {
-    window.scrollY > 100 ? callFloat.classList.add('active') : callFloat.classList.remove('active');
+    callFloat.classList.toggle("active", window.scrollY > 100);
   }
 }
 
-window.addEventListener('load', toggleCallFloat);
-document.addEventListener('scroll', toggleCallFloat);
+function updateCallFloatLeftValue() {
+  if (!callFloat) return;
+  // Shift if screen is wide (desktop), otherwise hug the edge
+  callFloat.style.left = mediaQuery.matches ? "316px" : "1rem";
+}
+
+/* ───── Whatsapp Float ───── */
+const whatsappFloat = document.querySelector(".whatsapp-float");
+
+function toggleWhatsappFloat() {
+  if (whatsappFloat) {
+    whatsappFloat.classList.toggle("active", window.scrollY > 100);
+  }
+}
+
+function updateWhatsAppFloatLeftValue() {
+  if (!whatsappFloat) return;
+  // Shift if screen is wide (desktop), otherwise hug the edge
+  whatsappFloat.style.left = mediaQuery.matches ? "316px" : "1rem";
+}
+
+/* ───── Initial Setup ───── */
+toggleCallFloat();
+toggleWhatsappFloat();
+updateCallFloatLeftValue();
+updateWhatsAppFloatLeftValue();
+
+/* ───── Listeners ───── */
+document.addEventListener("scroll", () => {
+  toggleCallFloat();
+  toggleWhatsappFloat();
+});
+
+mediaQuery.addEventListener("change", () => {
+  updateCallFloatLeftValue();
+  updateWhatsAppFloatLeftValue();
+});

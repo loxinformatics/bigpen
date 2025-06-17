@@ -10,6 +10,7 @@ def landing(request):
         "hero_btn_1_name": "Dashboard",
         "hero_btn_1_login_required": True,
         "show_contact": True,
+        "overlay_whatsapp_call_us":True,
     }
 
     return render(request, "home/index.html", extra_context)

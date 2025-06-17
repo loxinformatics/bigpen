@@ -1,4 +1,4 @@
-.whatsapp-button,
+.whatsapp-float,
 .call-float {
   position: fixed;
   visibility: hidden;
@@ -14,25 +14,25 @@
   background: var(--bs-primary);
 }
 
-.whatsapp-button {
+.whatsapp-float {
   background: #25D366;
   /* WhatsApp green */
 }
 
-.whatsapp-button i,
+.whatsapp-float i,
 .call-float i {
   font-size: 24px;
   color: var(--contrast-color);
   line-height: 0;
 }
 
-.whatsapp-button:hover,
+.whatsapp-float:hover,
 .call-float:hover {
   background-color: color-mix(in srgb, var(--bs-primary), transparent 20%);
   color: var(--contrast-color);
 }
 
-.whatsapp-button.active,
+.whatsapp-float.active,
 .call-float.active {
   visibility: visible;
   opacity: 1;

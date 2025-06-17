@@ -6,24 +6,24 @@
 
   {% if whatsapp and whatsapp.whatsapp_link %}
     <a href="{{ whatsapp.whatsapp_link }}"
-       class="whatsapp-button d-flex align-items-center justify-content-center position-fixed start-0 bottom-0 mb-3 ms-3"
-       target="_blank"
-       rel="noopener noreferrer"
-       aria-label="Contact us on WhatsApp">
+      class="whatsapp-float d-flex align-items-center justify-content-center position-fixed bottom-0 mb-3"
+      {# the start css value is modified using javascript #}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contact us on WhatsApp">
       <i class="bi bi-whatsapp"></i>
     </a>
   {% endif %}
 
   {% if primary_phone %}
     <a href="{{ primary_phone.tel_link }}"
-      class="call-float d-flex align-items-center justify-content-center position-fixed start-0 bottom-0 ms-3
+      {# Position at bottom if no WhatsApp #}
+      class="call-float d-flex align-items-center justify-content-center position-fixed bottom-0 mb-3"
+      {# the start css value is modified using javascript #}
 
       {% if whatsapp and whatsapp.whatsapp_link %}
-        {# Position below WhatsApp button if both exist #}
-        mb-3" style="margin-bottom: 4rem !important;"
-      {% else %}
-        {# Position at bottom if no WhatsApp #}
-        mb-3"
+        {# Position below WhatsApp button if both exist (override margin-bottom) #}
+        style="margin-bottom: 4rem !important;"
       {% endif %}
 
       aria-label="Call us">
