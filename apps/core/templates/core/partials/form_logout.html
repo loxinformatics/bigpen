@@ -1,0 +1,10 @@
+{% load auth %}
+
+{% if request.user.is_authenticated %}
+  <form id="logout-form"
+        action="{% auth_url 'logout' %}"
+        method="post"
+        class="d-none">
+    {% csrf_token %}
+  </form>
+{% endif %}

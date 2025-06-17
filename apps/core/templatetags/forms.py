@@ -11,3 +11,8 @@ def contact_form(field):
 
     form = ContactUsForm()
     return form[field]
+
+
+@register.inclusion_tag("core/partials/form_logout.html")
+def logout_form():
+    pass

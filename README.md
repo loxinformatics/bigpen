@@ -82,6 +82,9 @@ EMAIL_HOST_PASSWORD="your-app-password"
 
 # Custom App URL Path Configuration (defaults to 'dashboard/')
 # CUSTOM_APP_URL=""
+
+# Navigation Type Configuration (defaults to 'navbar')
+# NAVIGATION_TYPE="sidebar" # either 'sidebar' or 'navbar'
 ```
 
 ### D. 🗄️ Database Setup

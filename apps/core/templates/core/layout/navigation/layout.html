@@ -1,0 +1,169 @@
+{% load base %}
+{% load urls %}
+{% load contacts %}
+{% load navigation %}
+{% load auth %}
+
+{% has_signin as signin_enabled %}
+{% has_signup as signup_enabled %}
+{% navigation_type as nav_type %}
+
+{% if nav_type == "sidebar" %}
+  <aside id="aside" class="aside dark-background d-flex flex-column py-3">
+    {# Aside Toggle #}
+    <i class="aside-toggle d-xl-none bi bi-list"></i>
+    {# Logo #}
+    <a href="{% landing_url %}" class="logo mb-3">
+      {# Uncomment the line below if you also wish to use an image logo #}
+      <img src="{% base_logo %}"
+           class="img-fluid"
+           alt="logo"
+           width="40"
+           height="40" />
+      {% comment  %}
+      <h1 class="sitename">{% base_name %}</h1>
+      {% endcomment %}
+    </a>
+    {# Navigation #}
+    <div class="aside-container d-flex flex-column align-items-start mb-3">
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          {% navmenu %}
+
+          {% if not request.user.is_authenticated %}
+            {% if signin_enabled and signup_enabled %}
+              <li class="dropdown open-by-default"">
+                <a href="#" class="toggle-dropdown-link">
+                  <i class="bi bi-person-circle navicon"></i>
+                  <span>Account</span>
+                  <i class="bi bi-chevron-down toggle-dropdown"></i>
+                </a>
+                <ul>
+                  <li>
+                    <a href="{% auth_url 'signin' %}?next=/&back={{ request.path|urlencode }}">
+                      <i class="bi bi-box-arrow-in-right navicon"></i>
+                      <span>Sign In</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% auth_url 'signup' %}?next=/&back={{ request.path|urlencode }}">
+                      <i class="bi bi-person-plus navicon"></i>
+                      <span>Create Account</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            {% elif signin_enabled and not signup_enabled %}
+              <li>
+                <a href="{% auth_url 'signin' %}?next=/&back={{ request.path|urlencode }}"
+                   class="navlink">
+                  <i class="bi bi-box-arrow-in-right navicon"></i>
+                  <span>Sign In</span>
+                </a>
+              </li>
+            {% elif not signin_enabled and signup_enabled %}
+              <li>
+                <a href="{% auth_url 'signup' %}?next=/&back={{ request.path|urlencode }}"
+                   class="navlink">
+                  <i class="bi bi-person-plus navicon"></i>
+                  <span>Create Account</span>
+                </a>
+              </li>
+            {% endif %}
+
+          {% else %}
+            <li>
+              <a href="#"
+                 class="navlink"
+                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="bi bi-box-arrow-right navicon"></i>
+                <span>Sign out</span>
+              </a>
+            </li>
+          {% endif %}
+
+          {# dropdown template #}
+          {% comment  %}
+            <li class="dropdown">
+              <a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li>
+                  <a href="#">Dropdown 1</a>
+                </li>
+                <li class="dropdown">
+                  <a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                  <ul>
+                    <li>
+                      <a href="#">Deep Dropdown 1</a>
+                    </li>
+                    <li>
+                      <a href="#">Deep Dropdown 2</a>
+                    </li>
+                    <li>
+                      <a href="#">Deep Dropdown 3</a>
+                    </li>
+                    <li>
+                      <a href="#">Deep Dropdown 4</a>
+                    </li>
+                    <li>
+                      <a href="#">Deep Dropdown 5</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#">Dropdown 2</a>
+                </li>
+                <li>
+                  <a href="#">Dropdown 3</a>
+                </li>
+                <li>
+                  <a href="#">Dropdown 4</a>
+                </li>
+              </ul>
+            </li>
+          {% endcomment %}
+        </ul>
+      </nav>
+    </div>
+    {# Social Links #}
+    <div class="mt-auto social-links text-center">
+      {% get_social_links as social_links %}
+      {% for link in social_links %}
+        <a href="{{ link.url }}"
+           class="{{ link.name }}"
+           target="_blank"
+           rel="noopener">{{ link.icon_html|safe }}</a>
+      {% endfor %}
+    </div>
+  </aside>
+{% elif nav_type == "navbar" %}
+  <header id="header" class="header d-flex align-items-center 
+    {% if show_hero|default_if_none:False %}fixed-top{% endif %}
+     ">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        {# Logo #}
+        <div class="col-4 d-flex align-items-center">
+          <a href="{% landing_url %}" class="logo d-flex align-items-center">
+            {# Uncomment the line below if you also wish to use an image logo #}
+            <img src="{% base_logo %}" class="img-fluid" alt="logo" width="" height="" />
+            {% comment  %}
+              <h1 class="sitename">{% base_name %}</h1>
+            {% endcomment %}
+          </a>
+        </div>
+        {# Navigation #}
+        <div class="col-4 d-flex justify-content-center">
+          <nav id="navmenu" class="navmenu">
+            <ul>
+              {% navmenu %}
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          </nav>
+        </div>
+        {# CTA Btn #}
+        <div class="col-4 d-flex justify-content-end">{% include 'core/widget/header-auth-btn/widget.html' %}</div>
+      </div>
+    </div>
+  </header>
+{% endif %}

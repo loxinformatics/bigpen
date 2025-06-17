@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 {% load base %}
 {% load vendor %}
+{% load forms %}
+{% load modals %}
 
 <html lang="en" dir="ltr">
   <head>
@@ -11,8 +13,8 @@
     {% vendor_bootstrap %}
     {% vendor_bootstrap_icons %}
     {% vendor_aos %}
-    {% include "core/layout/navigation/header/static.html" %}
-    {% include "core/layout/navigation/aside/static.html" %}
+    {% include "core/overlay/preloader/static.html" %}
+    {% include "core/layout/navigation/static.html" %}
     {% include "core/layout/hero/static.html" %}
     {% include "core/layout/auth/signin/static.html" %}
     {% include "core/layout/auth/signup/static.html" %}
@@ -21,23 +23,21 @@
     {% include "core/overlay/whatsapp-call-us/static.html" %}
     {% include "core/overlay/back-to-top/static.html" %}
     {% include "core/layout/footer/static.html" %}
-    {% include "core/overlay/login-signup-modal/static.html" %}
-    {% include "core/overlay/preloader/static.html" %}
   </head>
   <body>
-    {% include "core/layout/navigation/header/layout.html" %}
-    {% include "core/layout/navigation/aside/layout.html" %}
-    <main>
+    {% include "core/overlay/preloader/overlay.html" %}
+    {% include "core/layout/navigation/layout.html" %}
+    <main class="position-relative">
       {% include "core/layout/hero/layout.html" %}
       {% include "core/layout/auth/signin/layout.html" %}
       {% include "core/layout/auth/signup/layout.html" %}
       {% block sections %}{% endblock %}
       {% include "core/layout/contact/layout.html" %}
       {% include "core/overlay/whatsapp-call-us/overlay.html" %}
-      {% include "core/overlay/back-to-top/overlay.html" %}
     </main>
     {% include "core/layout/footer/layout.html" %}
-    {% include "core/overlay/login-signup-modal/overlay.html" %}
-    {% include "core/overlay/preloader/overlay.html" %}
+    {% include "core/overlay/back-to-top/overlay.html" %}
+    {% modal_auth %}
+    {% logout_form %}
   </body>
 </html>

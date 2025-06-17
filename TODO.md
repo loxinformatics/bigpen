@@ -1,4 +1,3 @@
-sidebar
 bottomnavbar
 auth using telephone
 blog (shows up in home)
