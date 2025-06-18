@@ -2,7 +2,7 @@
 
 {% if show_auth == "signin" and 'signin'|auth_enabled %}
   {% has_signup as signup_enabled %}
-  <section class="registration pt-3">
+  <section class="registration">
     <div class="container">
       {% include "core/widget/section-title/widget.html" with section_title_heading="Login" section_title_paragraph="Enter your credentials below to sign in to your account." section_title_aos="" %}
       <form method="post" role="form" class="mx-auto w-75 text-start email-form">

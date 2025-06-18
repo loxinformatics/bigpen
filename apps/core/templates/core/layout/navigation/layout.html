@@ -72,13 +72,32 @@
             {% endif %}
 
           {% else %}
-            <li>
-              <a href="#"
-                 class="navlink"
-                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="bi bi-box-arrow-right navicon"></i>
-                <span>Sign out</span>
+            <li class="dropdown">
+              <a href="#" class="toggle-dropdown-link">
+                <i class="bi bi-person-circle navicon"></i>
+                <span class="user-name text-truncate d-inline-block"
+                      style="max-width: 150px">{{ request.user.get_full_name|default:request.user.username }}</span>
+                <i class="bi bi-chevron-down toggle-dropdown"></i>
               </a>
+              <ul>
+
+                {% if request.user.is_staff %}
+                  <li>
+                    <a href="{% portal_url %}">
+                      <i class="bi bi-speedometer2 navicon"></i>
+                      <span>Go To Portal</span>
+                    </a>
+                  </li>
+                {% endif %}
+
+                <li>
+                  <a href="#"
+                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="bi bi-box-arrow-right navicon"></i>
+                    <span>Sign out</span>
+                  </a>
+                </li>
+              </ul>
             </li>
           {% endif %}
 

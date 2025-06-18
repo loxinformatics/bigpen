@@ -111,4 +111,4 @@ def portal_url():
     Return the portal URL path.
     Usage: {% portal_url %}
     """
-    return "core/portal/"
+    return "/core/portal/"

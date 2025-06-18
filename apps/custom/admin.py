@@ -4,8 +4,7 @@ from django.contrib.auth import get_user_model
 from apps.core.admin import BaseUserAdmin
 from apps.core.admin_site import portal_site
 
-from .models import Category, Item, ItemImage, Order, OrderItem
-
+from .models import Category, Item, ItemImage
 
 @admin.register(get_user_model(), site=portal_site)
 class UserAdmin(BaseUserAdmin):
@@ -39,12 +38,12 @@ class CategoryAdmin(admin.ModelAdmin):
     pass
 
 
-class OrderItemInline(admin.TabularInline):
-    model = OrderItem
-    extra = 0
+# class OrderItemInline(admin.TabularInline):
+#     model = OrderItem
+#     extra = 0
 
 
-@admin.register(Order, site=portal_site)
-class OrderAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "created_at", "fulfilled")
-    inlines = [OrderItemInline]
+# @admin.register(Order, site=portal_site)
+# class OrderAdmin(admin.ModelAdmin):
+#     list_display = ("id", "user", "created_at", "fulfilled")
+#     inlines = [OrderItemInline]

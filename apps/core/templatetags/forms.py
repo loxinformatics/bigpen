@@ -6,13 +6,13 @@ register = template.Library()
 
 
 @register.simple_tag
-def contact_form(field):
+def form_contact_field(field):
     """Contact Form"""
 
     form = ContactUsForm()
     return form[field]
 
 
-@register.inclusion_tag("core/partials/form_logout.html")
-def logout_form():
-    pass
+@register.inclusion_tag("core/partials/form_logout.html", takes_context=True)
+def form_logout(context):
+    return {"request": context["request"]}

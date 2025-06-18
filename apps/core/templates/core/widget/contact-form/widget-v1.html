@@ -1,4 +1,5 @@
 {% load forms %}
+
 {% if contact_form|default_if_none:True %}
   <div class="row contact-form-container justify-content-center"
        data-aos="fade-up"
@@ -10,22 +11,22 @@
         {# name and email #}
         <div class="row">
           <div class="col-md-6 form-group">
-            {% contact_form "name" %}
+            {% form_contact_field "name" %}
             <div class="invalid-feedback" id="name-error"></div>
           </div>
           <div class="col-md-6 form-group mt-3 mt-md-0">
-            {% contact_form "email" %}
+            {% form_contact_field "email" %}
             <div class="invalid-feedback" id="email-error"></div>
           </div>
         </div>
         {# subject #}
         <div class="form-group mt-3">
-          {% contact_form "subject" %}
+          {% form_contact_field "subject" %}
           <div class="invalid-feedback" id="subject-error"></div>
         </div>
         {# message #}
         <div class="form-group mt-3">
-          {% contact_form "message" %}
+          {% form_contact_field "message" %}
           <div class="invalid-feedback" id="message-error"></div>
         </div>
         <div class="text-center">

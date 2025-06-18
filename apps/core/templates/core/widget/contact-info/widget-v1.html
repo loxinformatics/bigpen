@@ -74,7 +74,7 @@
           <p>
             {% get_email_addresses as emails %}
             {% for email in emails %}
-              <a href="{{ email.mailto_link }}" class="text-reset">{{ email.email }}</a>
+              <a href="{{ email.mailto_link }}" class="text-reset text-break">{{ email.email }}</a>
               {% if not forloop.last %}<br>{% endif %}
             {% empty %}
               No email addresses available.
@@ -94,7 +94,7 @@
           <p>
             {% get_phone_numbers as phones %}
             {% for phone in phones %}
-              <a href="{{ phone.tel_link }}"  class="text-reset">{{ phone.international_format }}</a>
+              <a href="{{ phone.tel_link }}"  class="text-reset text-break">{{ phone.international_format }}</a>
               {% if not forloop.last %}<br>{% endif %}
             {% empty %}
               No phone numbers available.

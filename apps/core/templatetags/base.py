@@ -44,7 +44,6 @@ def base_meta():
     html = f"""
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta name="theme-color" content="{base_data("base_theme_color", "#000")}" />
     <meta name="author" content="{base_data("base_author")}" />
     <meta name="description" content="{base_data("base_description")}" />
     <meta name="keywords" content="{base_data("base_name")}" />
