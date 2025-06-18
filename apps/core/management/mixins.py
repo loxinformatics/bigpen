@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
-from apps.core.config.urls import urls_config
+
+from apps.core.management.config.urls import urls_config
 
 
 class AnonymousRequiredMixin:

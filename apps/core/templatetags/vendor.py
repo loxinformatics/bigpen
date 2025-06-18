@@ -64,3 +64,77 @@ def vendor_aos():
     """
 
     return mark_safe(html.strip())
+
+
+@register.simple_tag
+def vendor_waypoints():
+    if not settings.DEBUG:
+        # Use CDN in production
+        html = """
+        <script defer src="https://cdn.jsdelivr.net/npm/waypoints@4.0.1/lib/noframework.waypoints.min.js"></script>
+        """
+    else:
+        # Use local files in development
+        html = f"""
+        <script defer src="{static("core/vendor/node_modules/waypoints/lib/noframework.waypoints.min.js")}"></script>
+        """
+
+    return mark_safe(html.strip())
+
+
+@register.simple_tag
+def vendor_isotope_layout():
+    if not settings.DEBUG:
+        # Use CDN in production
+        html = """
+        <script defer src="https://cdn.jsdelivr.net/npm/isotope-layout@3.0.6/dist/isotope.pkgd.min.js"></script>
+        """
+    else:
+        # Use local files in development
+        html = f"""
+        <script defer src="{static("core/vendor/node_modules/isotope-layout/dist/isotope.pkgd.min.js")}"></script>
+        """
+
+    html += f"""
+    <script defer src="{static("core/init/isotope-layout/init.js")}"></script>
+    """
+
+    return mark_safe(html.strip())
+
+
+@register.simple_tag
+def vendor_imagesloaded():
+    if not settings.DEBUG:
+        # Use CDN in production
+        html = """
+        <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js"></script>
+        """
+    else:
+        # Use local files in development
+        html = f"""
+        <script defer src="{static("core/vendor/node_modules/imagesloaded/imagesloaded.pkgd.min.js")}"></script>
+        """
+
+    return mark_safe(html.strip())
+
+
+@register.simple_tag
+def vendor_glightbox():
+    if not settings.DEBUG:
+        # Use CDN in production
+        html = """
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/css/glightbox.min.css">
+        <script defer src="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/js/glightbox.min.js"></script>
+        """
+    else:
+        # Use local files in development
+        html = f"""
+        <link rel="stylesheet" href="{static("core/vendor/node_modules/glightbox/dist/css/glightbox.min.css")}"/>
+        <script defer src="{static("core/vendor/node_modules/glightbox/dist/js/glightbox.min.js")}"></script>
+        """
+
+    html += f"""
+    <script defer src="{static("core/init/glightbox/init.js")}"></script>
+    """
+
+    return mark_safe(html.strip())

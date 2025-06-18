@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth import password_validation, get_user_model
+from django.contrib.auth import get_user_model, password_validation
 from django.contrib.auth.forms import (
     AuthenticationForm,
     UserCreationForm,
@@ -9,12 +9,37 @@ from django.contrib.auth.forms import (
     UserChangeForm as DjangoUserChangeForm,
 )
 
-from .config.auth import auth_config
+from .management.config.auth import auth_config
 from .models import BaseDetail, BaseImage, ContactSocialLink, UserRole
 
-# ============================================================================
-# BASE FORMS
-# ============================================================================
+
+class MailUsForm(forms.Form):
+    name = forms.CharField(
+        label="Your Name",
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Your Name"}
+        ),
+    )
+    email = forms.EmailField(
+        label="Your Email",
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": "Your Email"}
+        ),
+    )
+    subject = forms.CharField(
+        label="Subject",
+        max_length=200,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Subject"}
+        ),
+    )
+    message = forms.CharField(
+        label="Message",
+        widget=forms.Textarea(
+            attrs={"class": "form-control", "rows": "5", "placeholder": "Message"}
+        ),
+    )
 
 
 class UniqueChoiceFormMixin:
@@ -72,10 +97,6 @@ def generate_model_form(model_class, choices_attr_name):
 BaseDetailForm = generate_model_form(BaseDetail, "CHOICES")
 BaseImageForm = generate_model_form(BaseImage, "CHOICES")
 
-# ============================================================================
-# CONTACT FORMS
-# ============================================================================
-
 
 class ContactSocialLinkForm(UniqueChoiceFormMixin, forms.ModelForm):
     """
@@ -91,40 +112,6 @@ class ContactSocialLinkForm(UniqueChoiceFormMixin, forms.ModelForm):
         exclude = ("icon",)
 
 
-class ContactUsForm(forms.Form):
-    name = forms.CharField(
-        label="Your Name",
-        max_length=100,
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Your Name"}
-        ),
-    )
-    email = forms.EmailField(
-        label="Your Email",
-        widget=forms.EmailInput(
-            attrs={"class": "form-control", "placeholder": "Your Email"}
-        ),
-    )
-    subject = forms.CharField(
-        label="Subject",
-        max_length=200,
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Subject"}
-        ),
-    )
-    message = forms.CharField(
-        label="Message",
-        widget=forms.Textarea(
-            attrs={"class": "form-control", "rows": "5", "placeholder": "Message"}
-        ),
-    )
-
-
-# ============================================================================
-# USER FORMS
-# ============================================================================
-
-
 class SignInForm(AuthenticationForm):
     """
     Custom authentication form that applies dynamic labels and placeholders
@@ -132,9 +119,6 @@ class SignInForm(AuthenticationForm):
     """
 
     def __init__(self, *args, **kwargs):
-        """
-        Initializes the login form with custom field widgets and labels.
-        """
         super().__init__(*args, **kwargs)
 
         # Get username configuration from registry

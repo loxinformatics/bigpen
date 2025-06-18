@@ -1,19 +1,13 @@
 from django.urls import path
 
-from .admin_site import portal_site
-from .views import (
-    ManifestView,
-    SignUpView,
-    mail_contact_us,
-    signin,
-    signout,
-)
+from . import views
+from .site import portal_site
 
 urlpatterns = [
-    path("manifest.json", ManifestView.as_view(), name="webmanifest"),
+    path("manifest.json", views.ManifestFile.as_view(), name="webmanifest"),
     path("portal/", portal_site.urls, name="portal"),
-    path("mail/contact-us/", mail_contact_us, name="mail_contact_us"),
-    path("auth/signup/", SignUpView.as_view(), name="signup"),
-    path("auth/signin/", signin, name="signin"),
-    path("auth/signout/", signout, name="signout"),
+    path("mail/us/", views.MailUsAPIView.as_view(), name="mail_us"),
+    path("auth/signup/", views.SignUpView.as_view(), name="signup"),
+    path("auth/signin/", views.signin, name="signin"),
+    path("auth/signout/", views.signout, name="signout"),
 ]

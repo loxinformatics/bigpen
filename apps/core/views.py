@@ -1,5 +1,3 @@
-import json
-
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -11,26 +9,97 @@ from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic.edit import CreateView
+from rest_framework import permissions, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from .config.urls import urls_config
-from .decorators import (
+from .forms import SignInForm, SignUpForm
+from .management.config.urls import urls_config
+from .management.decorators import (
     auth_page_required,
     auth_page_required_class,
     redirect_authenticated_users,
     redirect_authenticated_users_class,
 )
-from .forms import ContactUsForm, SignInForm, SignUpForm
 from .models import BaseDetail, BaseImage, ContactEmail
-
-# ============================================================================
-# BASE VIEWS
-# ============================================================================
+from .serializers import ContactUsSerializer
 
 
-class ManifestView(View):
+class MailUsAPIView(APIView):
+    """Handle contact form submission"""
+
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        serializer = ContactUsSerializer(data=request.data)
+
+        if serializer.is_valid():
+            try:
+                # Extract validated data
+                sender_name = serializer.validated_data["name"]
+                sender_email = serializer.validated_data["email"]
+                sender_subject = serializer.validated_data["subject"]
+                sender_message = serializer.validated_data["message"]
+
+                recipient_email = (
+                    ContactEmail.objects.filter(is_primary=True).only("email")
+                    if ContactEmail._meta.db_table
+                    in connection.introspection.table_names()
+                    else None,
+                )
+
+                email_context = {
+                    "name": sender_name,
+                    "email": sender_email,
+                    "subject": sender_subject,
+                    "message": sender_message,
+                    "url": request.build_absolute_uri(
+                        reverse(urls_config.get_landing_url_name())
+                    ),
+                }
+
+                text_content = render_to_string("core/mail/contact.txt", email_context)
+                html_content = render_to_string("core/mail/contact.html", email_context)
+
+                msg = EmailMultiAlternatives(
+                    sender_subject,
+                    text_content,
+                    sender_email,
+                    [recipient_email],
+                )
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+
+                return Response(
+                    {
+                        "success": True,
+                        "message": "Thank you for your message! We will get back to you soon.",
+                    },
+                    status=status.HTTP_200_OK,
+                )
+
+            except Exception:
+                return Response(
+                    {
+                        "success": False,
+                        "message": "There was an error sending your message. Please try again later.",
+                    },
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+        else:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Please correct the errors below.",
+                    "errors": serializer.errors,
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
+class ManifestFile(View):
     """
     Returns a dynamically generated web manifest file.
     Cached for performance but always up-to-date.
@@ -136,106 +205,6 @@ class ManifestView(View):
                 continue
 
         return icons
-
-
-# ============================================================================
-# CONTACT VIEWS
-# ============================================================================
-
-
-@csrf_exempt
-@require_POST
-def mail_contact_us(request):
-    """Handle contact form submission via AJAX"""
-    try:
-        # Parse JSON data from request body
-        data = json.loads(request.body)
-
-        # Create form instance with the data
-        form = ContactUsForm(data)
-
-        if form.is_valid():
-            # Extract cleaned data
-            sender_name = form.cleaned_data["name"]
-            sender_email = form.cleaned_data["email"]
-            sender_subject = form.cleaned_data["subject"]
-            sender_message = form.cleaned_data["message"]
-
-            try:
-                recipient_email = (
-                    ContactEmail.objects.filter(is_primary=True).only("email")
-                    if ContactEmail._meta.db_table
-                    in connection.introspection.table_names()
-                    else None,
-                )
-
-                email_context = {
-                    "name": sender_name,
-                    "email": sender_email,
-                    "subject": sender_subject,
-                    "message": sender_message,
-                    "url": request.build_absolute_uri(
-                        reverse(urls_config.get_landing_url_name())
-                    ),
-                }
-
-                text_content = render_to_string("core/mail/contact.txt", email_context)
-                html_content = render_to_string("core/mail/contact.html", email_context)
-
-                msg = EmailMultiAlternatives(
-                    sender_subject,
-                    text_content,
-                    sender_email,
-                    [recipient_email],
-                )
-                msg.attach_alternative(html_content, "text/html")
-                msg.send()
-
-                return JsonResponse(
-                    {
-                        "success": True,
-                        "message": "Thank you for your message! We will get back to you soon.",
-                    }
-                )
-
-            except Exception:
-                return JsonResponse(
-                    {
-                        "success": False,
-                        "message": "There was an error sending your message. Please try again later.",
-                    },
-                    status=500,
-                )
-
-        else:
-            # Form is not valid, return errors
-            return JsonResponse(
-                {
-                    "success": False,
-                    "message": "Please correct the errors below.",
-                    "errors": form.errors,
-                },
-                status=400,
-            )
-
-    except json.JSONDecodeError:
-        return JsonResponse(
-            {"success": False, "message": "Invalid JSON data."}, status=400
-        )
-
-    except Exception:
-        return JsonResponse(
-            {
-                "success": False,
-                "message": "An unexpected error occurred. Please try again.",
-            },
-            status=500,
-        )
-
-
-# ============================================================================
-# USER VIEWS
-# ============================================================================
 
 
 @auth_page_required("signin")

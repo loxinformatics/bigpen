@@ -3,7 +3,7 @@ import logging
 from django import template
 from django.core.exceptions import ImproperlyConfigured
 
-from ..config.urls import urls_config
+from ..management.config.urls import urls_config
 
 logger = logging.getLogger(__name__)
 

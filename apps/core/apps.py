@@ -14,7 +14,7 @@ class CoreConfig(AppConfig):
     def ready(self):
         try:
             # Import signals to ensure they are registered
-            import_module(f"{self.name}.signals")
+            import_module(f"{self.name}.management.signals")
 
         except Exception as e:
             logger.warning(f"Failed to configure core app settings: {e}")

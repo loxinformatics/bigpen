@@ -4,12 +4,6 @@ from django.db import models
 from apps.core.models import BaseUser, BootstrapIcon, DateFields, Ordering
 
 
-class User(BaseUser):
-    # profile_image = models.ImageField(blank=True, null=True, upload_to="core/user")
-    # title = models.CharField(max_length=255, blank=True)
-    pass
-
-
 class Category(Ordering, BootstrapIcon, DateFields):
     """Category model for organizing shop items."""
 
@@ -193,6 +187,12 @@ class ItemImage(DateFields):
 
     def __str__(self):
         return f"{self.item.name} - Image {self.id}"
+
+
+class User(BaseUser):
+    # profile_image = models.ImageField(blank=True, null=True, upload_to="core/user")
+    # title = models.CharField(max_length=255, blank=True)
+    pass
 
 
 # class Order(models.Model):

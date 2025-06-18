@@ -1,10 +1,11 @@
 # from django.shortcuts import render
+from django.conf import settings
 from django.urls import path
 
 # from .views import ItemDetailView, ShopDashboard, place_order,dashboard
 from . import views
 
-app_name = "custom"
+app_name = settings.CUSTOM_APP_LABEL
 
 urlpatterns = [
     # path("items/", ShopDashboard, name="shop-dashboard"),

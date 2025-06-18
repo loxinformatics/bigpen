@@ -47,7 +47,7 @@ These apply to **both** development and production setups:
 
 ### C. 🛠️ Environment Configuration
 
-Set up a `.env` file in your production environment (You can also setup in your development environment, though not required as defaults will be used):
+Set up a `.env` file in your production environment:
 
 ```bash
 # Environment (defaults to 'development')
@@ -77,10 +77,13 @@ EMAIL_HOST="smtp.gmail.com"
 EMAIL_HOST_USER="your-email@gmail.com"
 EMAIL_HOST_PASSWORD="your-app-password"
 
-# Custom App Name (defaults to 'apps.custom')
-# CUSTOM_APP_NAME=""
+# Home App Name (defaults to "apps.home")
+HOME_APP_NAME="apps.home"
 
-# Custom App URL Path Configuration (defaults to 'dashboard/')
+# Custom App Name (defaults to "apps.custom")
+CUSTOM_APP_NAME="apps.store"
+
+# Custom App URL Path Configuration (defaults to '/dashboard/')
 # CUSTOM_APP_URL=""
 
 # Navigation Type Configuration (defaults to 'navbar')
