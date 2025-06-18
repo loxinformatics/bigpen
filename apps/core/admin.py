@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Permission
 from django.utils.html import format_html
 
-from .admin_site import portal_site
+from .site import portal_site
 from .forms import (
     BaseDetailForm,
     BaseImageForm,

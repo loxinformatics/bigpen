@@ -1,7 +1,7 @@
 from django import template
 from django.urls import NoReverseMatch, reverse
 
-from ..config.auth import auth_config
+from ..management.config.auth import auth_config
 
 register = template.Library()
 

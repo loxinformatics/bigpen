@@ -1,12 +1,63 @@
-# schools/migrations/XXXX_setup_school_roles_and_permissions.py
+# custom 0002_setup.py
 # Generated manually
 
+from django.conf import settings
 from django.contrib.auth.models import Permission
-from django.db import migrations
+from django.core.management import call_command
+from django.db import migrations, transaction
 
 
-def setup_school_roles_and_permissions(apps, schema_editor):
-    """Set up school-specific roles and their permissions"""
+def setup_bigpen_npm_packages(apps, schema_editor):
+    """
+    Setup npm packages required for bigpen app.
+    """
+
+    # Use on_commit to run npm commands after the transaction commits
+    def run_npm_install():
+        try:
+            bigpen_packages = [
+                "glightbox",
+                "isotope-layout",
+                "imagesloaded",
+                "waypoints",
+            ]
+            call_command("npm", "install", "--packages", *bigpen_packages, verbosity=0)
+        except Exception as e:
+            # Log the error but don't fail the migration
+            print(f"Warning: Failed to install npm packages: {e}")
+            print(
+                "You can manually run: python manage.py npm install --packages glightbox isotope-layout imagesloaded waypoints"
+            )
+
+    transaction.on_commit(run_npm_install)
+
+
+def cleanup_bigpen_npm_packages(apps, schema_editor):
+    """
+    Cleanup npm packages for bigpen app by uninstalling them.
+    """
+
+    # Use on_commit to run npm commands after the transaction commits
+    def run_npm_uninstall():
+        try:
+            bigpen_packages = [
+                "glightbox",
+                "isotope-layout",
+                "imagesloaded",
+                "waypoints",
+            ]
+            call_command(
+                "npm", "uninstall", "--packages", *bigpen_packages, verbosity=0
+            )
+        except Exception as e:
+            # Log the error but don't fail the migration rollback
+            print(f"Warning: Failed to uninstall npm packages: {e}")
+
+    transaction.on_commit(run_npm_uninstall)
+
+
+def setup_roles_and_permissions(apps, schema_editor):
+    """Set up roles and their permissions"""
 
     # Get model classes
     UserRole = apps.get_model("core", "UserRole")
@@ -47,11 +98,8 @@ def setup_school_roles_and_permissions(apps, schema_editor):
             "core.change_userrole",
             "core.delete_userrole",
             "core.view_userrole",
-            # Add custom app specific portal site permissions here
         ],
-        "staff_admin": [
-            # Add custom app specific portal site permissions here
-        ],
+        "staff_admin": [],
     }
 
     # Create or update roles
@@ -105,26 +153,46 @@ def setup_school_roles_and_permissions(apps, schema_editor):
                 role.permissions.add(*valid_permissions)
 
 
-def reverse_school_roles_and_permissions(apps, schema_editor):
-    """Remove school-specific roles and permissions"""
+def reverse_roles_and_permissions(apps, schema_editor):
+    """Remove roles and permissions"""
     UserRole = apps.get_model("core", "UserRole")
 
     # Delete the roles we created
-    school_role_names = ["student", "instructor", "admin"]
-    UserRole.objects.filter(name__in=school_role_names).delete()
+    role_names = ["client", "staff_admin", "manager_admin"]
+    UserRole.objects.filter(name__in=role_names).delete()
+
+
+def forward_migration(apps, schema_editor):
+    """
+    Combined forward migration: Setup npm packages and create roles.
+    """
+    # First, setup roles and permissions (database operations)
+    setup_roles_and_permissions(apps, schema_editor)
+    # Then, setup npm packages (will run after transaction commits)
+    setup_bigpen_npm_packages(apps, schema_editor)
+
+
+def reverse_migration(apps, schema_editor):
+    """
+    Combined reverse migration: Remove roles and cleanup npm packages.
+    """
+    # First, remove roles and permissions
+    reverse_roles_and_permissions(apps, schema_editor)
+    # Then, cleanup npm packages (will run after transaction commits)
+    cleanup_bigpen_npm_packages(apps, schema_editor)
 
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("core", "0001_initial"),  # Make sure core app's UserRole model exists
-        ("custom", "0001_initial"),  # Your custom app's initial migration
+        ("core", "0002_setup"),
+        (settings.CUSTOM_APP_LABEL, "0001_initial"),
         ("contenttypes", "0002_remove_content_type_name"),  # Needed for permissions
         ("auth", "0012_alter_user_first_name_max_length"),  # Needed for permissions
     ]
 
     operations = [
         migrations.RunPython(
-            setup_school_roles_and_permissions,
-            reverse_school_roles_and_permissions,
+            forward_migration,
+            reverse_migration,
         ),
     ]

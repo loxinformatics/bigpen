@@ -1,7 +1,7 @@
 # from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
-from apps.core.mixins import AnonymousRequiredMixin
+from apps.core.management.mixins import AnonymousRequiredMixin
 
 
 class LandingView(AnonymousRequiredMixin, TemplateView):

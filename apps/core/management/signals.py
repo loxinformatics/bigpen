@@ -6,7 +6,7 @@ from django.db.models.signals import m2m_changed, post_delete, post_save
 from django.dispatch import receiver
 from termcolor import colored
 
-from .models import BaseDetail, BaseImage
+from ..models import BaseDetail, BaseImage
 
 logger = logging.getLogger(__name__)
 

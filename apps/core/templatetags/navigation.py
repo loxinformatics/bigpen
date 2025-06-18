@@ -4,7 +4,7 @@ from django.conf import settings
 from django.urls import NoReverseMatch, reverse
 from django.utils.safestring import mark_safe
 
-from ..config.navigation import nav_config
+from ..management.config.navigation import nav_config
 
 register = template.Library()
 

@@ -1,20 +1,22 @@
 import logging
 
 from django.apps import AppConfig
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
 
 class CustomConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.custom"
+    name = settings.CUSTOM_APP_NAME
     verbose_name = "Functional Modules"
+    label = settings.CUSTOM_APP_LABEL
 
     def ready(self):
         try:
-            from apps.core.config.urls import urls_config
-            from apps.core.config.auth import auth_config
-            from apps.core.config.navigation import nav_config
+            from apps.core.management.config.auth import auth_config
+            from apps.core.management.config.navigation import nav_config
+            from apps.core.management.config.urls import urls_config
 
             # Disable auth pages
             # auth_config.disable_page("signup")
@@ -29,23 +31,25 @@ class CustomConfig(AppConfig):
             # nav items
             nav_config.register(
                 name="Dashboard",
-                url_name="custom:dashboard",
+                url_name=f"{self.label}:dashboard",
                 order=4,
                 icon="bi bi-shop",
                 auth_status="private",
             )
             nav_config.register(
                 name="Contact",
-                url_name="custom:contact",
+                url_name=f"{self.label}:contact",
                 order=4,
                 icon="bi bi-envelope",
                 auth_status="private",
             )
 
             # Register dashboard as login redirect URL
-            urls_config.register_login_redirect_url("custom:dashboard", self.name)
+            urls_config.register_login_redirect_url(
+                f"{self.label}:dashboard", self.name
+            )
 
-            logger.info("custom app configured successfully")
+            logger.info(f"{self.name} configured successfully")
 
         except Exception as e:
-            logger.warning(f"Failed to configure custom app config: {e}")
+            logger.warning(f"Failed to configure {self.name} config: {e}")

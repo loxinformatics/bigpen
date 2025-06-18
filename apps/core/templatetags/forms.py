@@ -1,6 +1,6 @@
 from django import template
 
-from ..forms import ContactUsForm
+from ..forms import MailUsForm
 
 register = template.Library()
 
@@ -9,7 +9,7 @@ register = template.Library()
 def form_contact_field(field):
     """Contact Form"""
 
-    form = ContactUsForm()
+    form = MailUsForm()
     return form[field]
 
 

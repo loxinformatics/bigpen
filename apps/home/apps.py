@@ -11,8 +11,8 @@ class HomeConfig(AppConfig):
 
     def ready(self):
         try:
-            from apps.core.config.navigation import nav_config
-            from apps.core.config.urls import urls_config
+            from apps.core.management.config.navigation import nav_config
+            from apps.core.management.config.urls import urls_config
 
             # Configure landing url
             urls_config.register_landing_url("landing", self.name)
