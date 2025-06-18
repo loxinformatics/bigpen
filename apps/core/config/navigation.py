@@ -1,3 +1,6 @@
+# config/navigation.py
+
+
 class NavigationConfig:
     def __init__(self):
         self._items = []
@@ -11,6 +14,7 @@ class NavigationConfig:
         fragment=None,
         type="",
         dropdown_items=None,
+        auth_status="any",  # Changed from requires_auth
         **kwargs,
     ):
         """
@@ -24,6 +28,7 @@ class NavigationConfig:
             fragment: URL fragment (#section)
             type: Navigation type (page, admin, etc.)
             dropdown_items: List of child navigation items for dropdown
+            auth_status: Authentication requirement - "private", "public", or "any"
             **kwargs: Additional attributes
         """
         item = {
@@ -35,11 +40,14 @@ class NavigationConfig:
             "type": type,
             "dropdown_items": dropdown_items or [],
             "is_dropdown": bool(dropdown_items),
+            "auth_status": auth_status,
             **kwargs,
         }
         self._items.append(item)
 
-    def register_dropdown(self, name, icon="", order=0, type="", **kwargs):
+    def register_dropdown(
+        self, name, icon="", order=0, type="", auth_status="any", **kwargs
+    ):
         """
         Register a dropdown parent item without a direct URL.
 
@@ -54,13 +62,21 @@ class NavigationConfig:
             "type": type,
             "dropdown_items": [],
             "is_dropdown": True,
+            "auth_status": auth_status,
             **kwargs,
         }
         self._items.append(item)
         return item
 
     def add_dropdown_item(
-        self, parent_name, name, url_name, icon="", fragment=None, **kwargs
+        self,
+        parent_name,
+        name,
+        url_name,
+        icon="",
+        fragment=None,
+        auth_status="any",
+        **kwargs,
     ):
         """
         Add a child item to an existing dropdown parent.
@@ -71,6 +87,7 @@ class NavigationConfig:
             url_name: Django URL name for the child
             icon: Icon class string
             fragment: URL fragment (#section)
+            auth_status: Authentication requirement - "private", "public", or "any"
             **kwargs: Additional attributes
         """
         for item in self._items:
@@ -80,6 +97,7 @@ class NavigationConfig:
                     "url_name": url_name,
                     "icon": icon,
                     "fragment": fragment,
+                    "auth_status": auth_status,
                     **kwargs,
                 }
                 item["dropdown_items"].append(child_item)
@@ -92,6 +110,7 @@ class NavigationConfig:
             "url_name": url_name,
             "icon": icon,
             "fragment": fragment,
+            "auth_status": auth_status,
             **kwargs,
         }
         parent["dropdown_items"].append(child_item)
@@ -105,43 +124,67 @@ nav_config = NavigationConfig()
 
 # Example usage:
 if __name__ == "__main__":
-    print("=== NavigationRegistry Examples with Dropdown ===")
+    print("=== NavigationRegistry Examples with auth_status ===")
 
     # Register regular navigation items
-    nav_config.register("Home", "home", order=1, icon="bi bi-house")
+    nav_config.register("Home", "home", order=1, icon="bi bi-house", auth_status="any")
 
-    # Register dropdown items
-    # Method 1: Register with dropdown_items list
+    # Register dropdown items for unauthenticated users
     auth_dropdown_items = [
-        {"name": "Login", "url_name": "login", "icon": "bi bi-box-arrow-in-right"},
-        {"name": "Sign Up", "url_name": "signup", "icon": "bi bi-person-plus"},
+        {
+            "name": "Login",
+            "url_name": "login",
+            "icon": "bi bi-box-arrow-in-right",
+            "auth_status": "public",
+        },
+        {
+            "name": "Sign Up",
+            "url_name": "signup",
+            "icon": "bi bi-person-plus",
+            "auth_status": "public",
+        },
     ]
     nav_config.register(
         "Auth",
         dropdown_items=auth_dropdown_items,
         order=2,
         icon="bi bi-person",
-        requires_auth=False,
+        auth_status="public",  # Changed from requires_auth=False
     )
 
-    # Method 2: Register dropdown parent then add children
+    # Register dropdown for authenticated users
     profile_dropdown = nav_config.register_dropdown(
-        "Profile", order=3, icon="bi bi-person-circle", requires_auth=True
+        "Profile",
+        order=3,
+        icon="bi bi-person-circle",
+        auth_status="private",  # Changed from requires_auth=True
     )
     nav_config.add_dropdown_item(
-        "Profile", "Dashboard", "dashboard", icon="bi bi-speedometer2"
+        "Profile",
+        "Dashboard",
+        "dashboard",
+        icon="bi bi-speedometer2",
+        auth_status="private",
     )
-    nav_config.add_dropdown_item("Profile", "Portal", "portal", icon="bi bi-door-open")
+    nav_config.add_dropdown_item(
+        "Profile", "Portal", "portal", icon="bi bi-door-open", auth_status="private"
+    )
 
     # Get sorted navigation items
     nav_items = nav_config.get_items()
     print("Navigation items (sorted by order):")
     for item in nav_items:
         if item["is_dropdown"]:
-            print(f"  - {item['name']} (DROPDOWN) - Order: {item['order']}")
+            print(
+                f"  - {item['name']} (DROPDOWN) - Order: {item['order']} - Auth: {item['auth_status']}"
+            )
             for child in item["dropdown_items"]:
-                print(f"    * {child['name']} ({child['url_name']})")
+                print(
+                    f"    * {child['name']} ({child['url_name']}) - Auth: {child.get('auth_status', 'any')}"
+                )
         else:
-            print(f"  - {item['name']} ({item['url_name']}) - Order: {item['order']}")
+            print(
+                f"  - {item['name']} ({item['url_name']}) - Order: {item['order']} - Auth: {item['auth_status']}"
+            )
 
     print("\n" + "=" * 50 + "\n")

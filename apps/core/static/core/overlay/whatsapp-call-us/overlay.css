@@ -1,8 +1,6 @@
 .whatsapp-float,
 .call-float {
   position: fixed;
-  visibility: hidden;
-  opacity: 0;
   z-index: 996;
   width: 40px;
   height: 40px;
@@ -30,10 +28,4 @@
 .call-float:hover {
   background-color: color-mix(in srgb, var(--bs-primary), transparent 20%);
   color: var(--contrast-color);
-}
-
-.whatsapp-float.active,
-.call-float.active {
-  visibility: visible;
-  opacity: 1;
 }

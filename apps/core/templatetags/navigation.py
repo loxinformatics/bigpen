@@ -1,3 +1,4 @@
+# templatetags/navigation.py
 from django import template
 from django.conf import settings
 from django.urls import NoReverseMatch, reverse
@@ -8,6 +9,36 @@ from ..config.navigation import nav_config
 register = template.Library()
 
 
+def should_show_item(item, request):
+    """
+    Determine if an item should be shown based on auth_status and user authentication.
+
+    Args:
+        item: Navigation item dictionary
+        request: Django request object
+
+    Returns:
+        bool: True if item should be shown, False otherwise
+    """
+    auth_status = item.get("auth_status", "any")
+
+    if auth_status == "any":
+        return True
+
+    if not request:
+        return auth_status == "public"
+
+    is_authenticated = request.user.is_authenticated
+
+    if auth_status == "private":
+        return is_authenticated
+    elif auth_status == "public":
+        return not is_authenticated
+    else:
+        # Default to showing for any unrecognized auth_status
+        return True
+
+
 def build_nav_items(config_items, request=None):
     """
     Build navigation items from config, handling authentication logic.
@@ -15,17 +46,17 @@ def build_nav_items(config_items, request=None):
     nav_items = []
 
     for item in config_items:
-        # Check authentication requirements
-        if item.get("requires_auth") is not None:
-            is_authenticated = request and request.user.is_authenticated
-            if item["requires_auth"] and not is_authenticated:
-                continue
-            if not item["requires_auth"] and is_authenticated:
-                continue
+        # Check authentication requirements for the parent item
+        if not should_show_item(item, request):
+            continue
 
         if item["is_dropdown"]:
             dropdown_children = []
             for child in item["dropdown_items"]:
+                # Check authentication requirements for each child item
+                if not should_show_item(child, request):
+                    continue
+
                 try:
                     child_url = reverse(child["url_name"])
                     if child.get("fragment"):
@@ -36,11 +67,13 @@ def build_nav_items(config_items, request=None):
                             "url": child_url,
                             "icon": child.get("icon", ""),
                             "type": child.get("type", ""),
+                            "auth_status": child.get("auth_status", "any"),
                         }
                     )
                 except NoReverseMatch:
                     continue
 
+            # Only show dropdown if it has children
             if dropdown_children:
                 nav_items.append(
                     {
@@ -50,6 +83,7 @@ def build_nav_items(config_items, request=None):
                         "icon": item.get("icon", ""),
                         "is_dropdown": True,
                         "dropdown_items": dropdown_children,
+                        "auth_status": item.get("auth_status", "any"),
                     }
                 )
         else:
@@ -64,6 +98,7 @@ def build_nav_items(config_items, request=None):
                         "type": item.get("type", ""),
                         "icon": item.get("icon", ""),
                         "is_dropdown": False,
+                        "auth_status": item.get("auth_status", "any"),
                     }
                 )
             except NoReverseMatch:

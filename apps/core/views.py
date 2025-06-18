@@ -145,7 +145,7 @@ class ManifestView(View):
 
 @csrf_exempt
 @require_POST
-def contact(request):
+def mail_contact_us(request):
     """Handle contact form submission via AJAX"""
     try:
         # Parse JSON data from request body
@@ -254,6 +254,7 @@ def signin(request):
         "page_title": "Login",
         "header_auth_btn": False,
         "show_auth": "signin",
+        "overlay_whatsapp_call_us": False,
     }
 
     next = request.GET.get("next", "")
@@ -272,7 +273,7 @@ def signin(request):
                 next = request.POST.get("next", "")
                 if next:
                     return redirect(next)
-                return redirect(urls_config.get_landing_url_name())
+                return redirect(urls_config.get_login_redirect_url_safe())
             else:
                 messages.error(
                     request, "Invalid username or password.", extra_tags="signin"
@@ -317,6 +318,7 @@ class SignUpView(CreateView):
         "page_title": "Sign up",
         "header_auth_btn": False,
         "show_auth": "signup",
+        "overlay_whatsapp_call_us": False,
     }
 
     def get_context_data(self, **kwargs):

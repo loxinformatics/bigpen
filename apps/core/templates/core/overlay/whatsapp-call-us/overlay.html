@@ -1,6 +1,6 @@
 {% load contacts %}
 
-{% if overlay_whatsapp_call_us|default_if_none:False %}
+{% if overlay_whatsapp_call_us|default_if_none:True %}
   {% whatsapp_phone as whatsapp %}
   {% primary_phone as primary_phone %}
 
