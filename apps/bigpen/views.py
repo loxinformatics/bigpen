@@ -1,13 +1,58 @@
 from django.views.generic import TemplateView
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import action
+from rest_framework.filters import SearchFilter
+from rest_framework.response import Response
+from rest_framework.viewsets import ReadOnlyModelViewSet
+
+from .models import Category
+from .serializers import (
+    CategoryDetailSerializer,
+    CategoryListSerializer,
+    ItemListSerializer,
+)
+
+
+class CategoryViewSet(ReadOnlyModelViewSet):
+    queryset = Category.objects.all()
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ["is_active"]  # Allows usage of ?is_active=true
+    search_fields = ["name"]  # Allows usage of ?search=name
+
+    def get_serializer_class(self):
+        """
+        Return different serializers for different actions.
+
+        Actions and their corresponding HTTP methods:
+        - list: GET /categories/ - List all categories
+        - retrieve: GET /categories/{id}/ - Get specific category
+        """
+        if self.action == "list":
+            return CategoryListSerializer
+        elif self.action == "retrieve":
+            return CategoryDetailSerializer
+        return CategoryListSerializer  # Default fallback
+
+    @action(detail=True, methods=["get"])
+    def items(self, request, pk=None):
+        """
+        Custom action to return all active items in this category.
+
+        - GET /categories/{id}/items/
+        """
+        category = self.get_object()
+        items = category.items.filter(is_active=True)
+        serializer = ItemListSerializer(items, many=True, context={"request": request})
+        return Response(serializer.data)
 
 
 class Dashboard(TemplateView):
-    template_name = "custom/index.html"
+    template_name = "dashboard/index.html"
     extra_context = {"page_title": "Dashboard"}
 
 
 class ContactView(TemplateView):
-    template_name = "custom/index.html"
+    template_name = "dashboard/index.html"
     extra_context = {
         "page_title": "Contact",
         "show_contact": True,

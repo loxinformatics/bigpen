@@ -10,7 +10,6 @@ class CustomConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = settings.CUSTOM_APP_NAME
     verbose_name = "Functional Modules"
-    label = settings.CUSTOM_APP_LABEL
 
     def ready(self):
         try:
@@ -31,14 +30,14 @@ class CustomConfig(AppConfig):
             # nav items
             nav_config.register(
                 name="Dashboard",
-                url_name=f"{self.label}:dashboard",
+                url_name="dashboard",
                 order=4,
                 icon="bi bi-shop",
                 auth_status="private",
             )
             nav_config.register(
                 name="Contact",
-                url_name=f"{self.label}:contact",
+                url_name="contact",
                 order=4,
                 icon="bi bi-envelope",
                 auth_status="private",
@@ -46,7 +45,7 @@ class CustomConfig(AppConfig):
 
             # Register dashboard as login redirect URL
             urls_config.register_login_redirect_url(
-                f"{self.label}:dashboard", self.name
+                "dashboard", self.name
             )
 
             logger.info(f"{self.name} configured successfully")

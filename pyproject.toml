@@ -2,9 +2,7 @@
 name = "bigpen"
 version = "0.1.0"
 description = ""
-authors = [
-  { name = "Lox Informatics", email = "contact@loxinformatics.space" },
-]
+authors = [{ name = "Lox Informatics", email = "contact@loxinformatics.space" }]
 readme = "README.md"
 requires-python = ">=3.13"
 
@@ -14,6 +12,7 @@ package-mode = false
 [tool.poetry.dependencies]
 django = "^5.2.3"
 djangorestframework = "^3.16.0"
+django-filter = "^25.1"
 django-phonenumber-field = { extras = ["phonenumberslite"], version = "^8.1.0" }
 django-sass-processor = "^1.4.1"
 django-compressor = "^4.5.1"
@@ -21,7 +20,7 @@ libsass = "^0.23.0"
 python-decouple = "^3.8"
 tzdata = "^2025.2"
 pillow = "^11.2.1"
-psycopg = {extras = ["binary"], version = "^3.2.9"}
+psycopg = { extras = ["binary"], version = "^3.2.9" }
 gunicorn = "^23.0.0"
 termcolor = "^3.1.0"
 
@@ -33,8 +32,8 @@ djlint = "^1.36.4"
 format_css = true
 format_js = true
 ignore = "T002,H016,H021,H023,H030,H031"
-blank_line_before_tag="if"
-blank_line_after_tag="load,endif"
+blank_line_before_tag = "if"
+blank_line_after_tag = "load,endif"
 
 [tool.djlint.css]
 indent_size = 2

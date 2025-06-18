@@ -2,6 +2,7 @@ from django.conf import settings
 from django.urls import include, path
 
 urlpatterns = [
+    path("api-auth/", include("rest_framework.urls")),
     path("core/", include("apps.core.urls")),
     path("", include("apps.home.urls")),
 ]
@@ -19,7 +20,6 @@ if settings.DEBUG:
 
     urlpatterns += [
         path("__reload__/", include("django_browser_reload.urls")),
-        path("api-auth/", include("rest_framework.urls")),
         *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
         *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
     ]
