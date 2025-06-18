@@ -9,10 +9,7 @@ urlpatterns = [
 
 if settings.CUSTOM_APP_NAME:
     urlpatterns += [
-        path(
-            settings.CUSTOM_APP_URL.strip("/") + "/",
-            include(f"{settings.CUSTOM_APP_NAME}.urls"),
-        ),
+        path("dashboard/", include(f"{settings.CUSTOM_APP_NAME}.urls")),
     ]
 
 if settings.DEBUG:

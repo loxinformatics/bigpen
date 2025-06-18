@@ -13,12 +13,24 @@
     {% vendor_bootstrap %}
     {% vendor_bootstrap_icons %}
     {% vendor_aos %}
+
+    {% if show_portfolio|default_if_none:False %}
+      {% vendor_waypoints %}
+      {% vendor_imagesloaded %}
+      {% vendor_isotope_layout %}
+      {% vendor_glightbox %}
+    {% endif %}
+
     {% include "core/overlay/preloader/static.html" %}
     {% include "core/layout/navigation/static.html" %}
     {% include "core/layout/hero/static.html" %}
     {% include "core/layout/auth/signin/static.html" %}
     {% include "core/layout/auth/signup/static.html" %}
-    {% block staticfiles %}{% endblock %}
+    {% include "core/layout/portfolio/portfolio-static.html" %}
+
+    {% block static %}
+    {% endblock static %}
+
     {% include "core/layout/contact/static.html" %}
     {% include "core/overlay/whatsapp-call-us/static.html" %}
     {% include "core/overlay/back-to-top/static.html" %}
@@ -27,11 +39,15 @@
   <body>
     {% include "core/overlay/preloader/overlay.html" %}
     {% include "core/layout/navigation/layout.html" %}
-    <main class="position-relative">
+    <main>
       {% include "core/layout/hero/layout.html" %}
       {% include "core/layout/auth/signin/layout.html" %}
       {% include "core/layout/auth/signup/layout.html" %}
-      {% block sections %}{% endblock %}
+      {% include "core/layout/portfolio/portfolio-section.html" %}
+
+      {% block layout %}
+      {% endblock layout %}
+
       {% include "core/layout/contact/layout.html" %}
       {% include "core/overlay/whatsapp-call-us/overlay.html" %}
     </main>

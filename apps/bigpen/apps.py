@@ -14,8 +14,8 @@ class CustomConfig(AppConfig):
     def ready(self):
         try:
             from apps.core.management.config.auth import auth_config
-            from apps.core.management.config.navigation import nav_config
-            from apps.core.management.config.urls import urls_config
+            # from apps.core.management.config.navigation import nav_config
+            # from apps.core.management.config.urls import urls_config
 
             # Disable auth pages
             # auth_config.disable_page("signup")
@@ -28,25 +28,25 @@ class CustomConfig(AppConfig):
             )
 
             # nav items
-            nav_config.register(
-                name="Dashboard",
-                url_name="dashboard",
-                order=4,
-                icon="bi bi-shop",
-                auth_status="private",
-            )
-            nav_config.register(
-                name="Contact",
-                url_name="contact",
-                order=4,
-                icon="bi bi-envelope",
-                auth_status="private",
-            )
+            # nav_config.register(
+            #     name="Dashboard",
+            #     url_name="dashboard",
+            #     order=4,
+            #     icon="bi bi-shop",
+            #     auth_status="private",
+            # )
+            # nav_config.register(
+            #     name="Contact",
+            #     url_name="contact",
+            #     order=4,
+            #     icon="bi bi-envelope",
+            #     auth_status="private",
+            # )
 
             # Register dashboard as login redirect URL
-            urls_config.register_login_redirect_url(
-                "dashboard", self.name
-            )
+            # urls_config.register_login_redirect_url(
+            #     "dashboard", self.name
+            # )
 
             logger.info(f"{self.name} configured successfully")
 

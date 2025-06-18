@@ -83,26 +83,6 @@ def vendor_waypoints():
 
 
 @register.simple_tag
-def vendor_isotope_layout():
-    if not settings.DEBUG:
-        # Use CDN in production
-        html = """
-        <script defer src="https://cdn.jsdelivr.net/npm/isotope-layout@3.0.6/dist/isotope.pkgd.min.js"></script>
-        """
-    else:
-        # Use local files in development
-        html = f"""
-        <script defer src="{static("core/vendor/node_modules/isotope-layout/dist/isotope.pkgd.min.js")}"></script>
-        """
-
-    html += f"""
-    <script defer src="{static("core/init/isotope-layout/init.js")}"></script>
-    """
-
-    return mark_safe(html.strip())
-
-
-@register.simple_tag
 def vendor_imagesloaded():
     if not settings.DEBUG:
         # Use CDN in production
@@ -113,6 +93,22 @@ def vendor_imagesloaded():
         # Use local files in development
         html = f"""
         <script defer src="{static("core/vendor/node_modules/imagesloaded/imagesloaded.pkgd.min.js")}"></script>
+        """
+
+    return mark_safe(html.strip())
+
+
+@register.simple_tag
+def vendor_isotope_layout():
+    if not settings.DEBUG:
+        # Use CDN in production
+        html = """
+        <script defer src="https://cdn.jsdelivr.net/npm/isotope-layout@3.0.6/dist/isotope.pkgd.min.js"></script>
+        """
+    else:
+        # Use local files in development
+        html = f"""
+        <script defer src="{static("core/vendor/node_modules/isotope-layout/dist/isotope.pkgd.min.js")}"></script>
         """
 
     return mark_safe(html.strip())
@@ -132,9 +128,5 @@ def vendor_glightbox():
         <link rel="stylesheet" href="{static("core/vendor/node_modules/glightbox/dist/css/glightbox.min.css")}"/>
         <script defer src="{static("core/vendor/node_modules/glightbox/dist/js/glightbox.min.js")}"></script>
         """
-
-    html += f"""
-    <script defer src="{static("core/init/glightbox/init.js")}"></script>
-    """
 
     return mark_safe(html.strip())

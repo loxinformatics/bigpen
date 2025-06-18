@@ -13,7 +13,7 @@ from .serializers import (
 )
 
 
-class CategoryViewSet(ReadOnlyModelViewSet):
+class PortfolioViewSet(ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ["is_active"]  # Allows usage of ?is_active=true
@@ -46,9 +46,12 @@ class CategoryViewSet(ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class Dashboard(TemplateView):
+class Portfolio(TemplateView):
     template_name = "dashboard/index.html"
-    extra_context = {"page_title": "Dashboard"}
+    extra_context = {
+        "page_title": "Dashboard",
+        "show_hero": True,
+    }
 
 
 class ContactView(TemplateView):
