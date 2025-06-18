@@ -168,7 +168,7 @@ class URLsConfig:
 
         Returns:
             str: The login redirect URL path, with fallbacks to the registered
-                 landing URL or '/dashboard/' default
+                landing URL or '/' default
         """
         try:
             return self.get_login_redirect_url()

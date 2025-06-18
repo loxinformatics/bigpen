@@ -78,13 +78,10 @@ EMAIL_HOST_USER="your-email@gmail.com"
 EMAIL_HOST_PASSWORD="your-app-password"
 
 # Home App Name (defaults to "apps.home")
-HOME_APP_NAME="apps.home"
+# HOME_APP_NAME="apps.home"
 
-# Custom App Name (defaults to "apps.custom")
-CUSTOM_APP_NAME="apps.store"
-
-# Custom App URL Path Configuration (defaults to '/dashboard/')
-# CUSTOM_APP_URL=""
+# Custom App Name (defaults to "apps.dashboard")
+# CUSTOM_APP_NAME=""
 
 # Navigation Type Configuration (defaults to 'navbar')
 # NAVIGATION_TYPE="sidebar" # either 'sidebar' or 'navbar'

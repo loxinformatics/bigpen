@@ -14,6 +14,7 @@ class CategoryListSerializer(serializers.HyperlinkedModelSerializer):
         model = Category
         fields = [
             "url",
+            "id",
             "name",
             "image",
             "bootstrap_icon",

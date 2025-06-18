@@ -1,0 +1,76 @@
+.dashboard-hero .dashboard-hero-header {
+  margin-bottom: 60px;
+}
+
+.dashboard-hero .dashboard-hero-header .service-intro .service-heading {
+  font-size: 48px;
+  margin-bottom: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--heading-color);
+}
+
+.dashboard-hero .dashboard-hero-header .service-intro .service-heading div {
+  display: block;
+  position: relative;
+}
+
+.dashboard-hero .dashboard-hero-header .service-intro .service-heading span {
+  display: block;
+  color: var(--accent-color);
+}
+
+@media (max-width: 992px) {
+  .dashboard-hero .dashboard-hero-header .service-intro .service-heading {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-hero .dashboard-hero-header .service-intro .service-heading {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+}
+
+.dashboard-hero .dashboard-hero-header .service-summary p {
+  margin-bottom: 25px;
+  color: var(--default-color);
+}
+
+.dashboard-hero .dashboard-hero-header .service-summary .service-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 30px;
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.dashboard-hero .dashboard-hero-header .service-summary .service-btn i {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.dashboard-hero .dashboard-hero-header .service-summary .service-btn:hover {
+  background-color: color-mix(in srgb, var(--accent-color), transparent 15%);
+  color: var(--contrast-color);
+}
+
+.dashboard-hero .dashboard-hero-header .service-summary .service-btn:hover i {
+  transform: translateX(5px);
+}
+
+@media (max-width: 992px) {
+  .dashboard-hero .dashboard-hero-header .service-summary {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-hero {
+    padding: 70px 0 50px;
+  }
+}

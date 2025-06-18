@@ -1,0 +1,10 @@
+{% load static %}
+
+{% if show_portfolio|default_if_none:False %}
+  {# Layout Title #}
+  {% include 'core/widget/section-title/static-v1.html' %}
+  {# Portfolio Layout #}
+  <link rel="stylesheet"
+        href="{% static 'core/layout/portfolio/portfolio-styles.css' %}">
+  <script defer src="{% static 'core/layout/portfolio/portfolio-main.js' %}"></script>
+{% endif %}

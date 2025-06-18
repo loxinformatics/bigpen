@@ -50,7 +50,8 @@ class Item(Ordering, BootstrapIcon, DateFields):
     main_image = models.ImageField(
         upload_to="shop/items/",
         help_text="Main image for the item.",
-        default="/shop/items/default_item_image.jpg",
+        blank=True,
+        null=True,
     )
     description = models.TextField(
         blank=True,

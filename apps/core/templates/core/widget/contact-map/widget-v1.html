@@ -1,6 +1,6 @@
 {% load contacts %}
 {% if contact_map|default_if_none:True %}
-    <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
+    <div class="mb-4">
         {% contact_form_address as main_address %}
         {% if main_address %}
             {% address_map_embed main_address "100%" "270" %}

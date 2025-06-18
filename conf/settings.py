@@ -48,11 +48,9 @@ HOME_APP_LABEL = HOME_APP_NAME.split(".")[-1]
 
 # Custom App Configurations
 
-CUSTOM_APP_NAME = config("CUSTOM_APP_NAME", default="apps.custom")
+CUSTOM_APP_NAME = config("CUSTOM_APP_NAME", default="apps.dashboard")
 
 CUSTOM_APP_LABEL = CUSTOM_APP_NAME.split(".")[-1]
-
-CUSTOM_APP_URL = config("CUSTOM_APP_URL", default="/dashboard/")
 
 
 # Databases

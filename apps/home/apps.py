@@ -24,7 +24,13 @@ class HomeConfig(AppConfig):
                 fragment="hero",
                 order=0,
                 icon="bi bi-house",
-                auth_status="public",
+            )
+            nav_config.register(
+                name="Products",
+                url_name="landing",
+                fragment="portfolio",
+                order=2,
+                icon="bi bi-grid",
             )
             nav_config.register(
                 name="Contact",
@@ -32,7 +38,6 @@ class HomeConfig(AppConfig):
                 fragment="contact",
                 order=3,
                 icon="bi bi-envelope",
-                auth_status="public",
             )
 
         except Exception as e:
