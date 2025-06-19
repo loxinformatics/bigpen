@@ -6,8 +6,6 @@ let portfolioData = {
   isotopeInstance: null,
 };
 
-let glightboxInstance = null;
-
 // Wait for all deferred scripts to load
 document.addEventListener("DOMContentLoaded", function () {
   // Add a small delay to ensure all deferred scripts are loaded
@@ -101,12 +99,11 @@ function renderPortfolioItems() {
     htmx.process(container);
   }
 
-  // Use your original isotope initialization approach
-  initializeIsotopeOriginal(container);
-  initializeGLightbox();
+  // Initialize Isotope
+  initializeIsotope(container);
 }
 
-function initializeIsotopeOriginal(container) {
+function initializeIsotope(container) {
   // Destroy existing instance
   if (portfolioData.isotopeInstance) {
     portfolioData.isotopeInstance.destroy();
@@ -125,39 +122,21 @@ function initializeIsotopeOriginal(container) {
   let filter = isotopeLayout?.getAttribute("data-default-filter") ?? "*";
   let sort = isotopeLayout?.getAttribute("data-sort") ?? "original-order";
 
-  // Use imagesLoaded before initializing Isotope (your original approach)
-  if (typeof imagesLoaded !== "undefined") {
-    imagesLoaded(container, function () {
-      portfolioData.isotopeInstance = new Isotope(container, {
-        itemSelector: ".isotope-item",
-        layoutMode: layout,
-        filter: filter,
-        sortBy: sort,
-        percentPosition: true,
-        masonry: {
-          columnWidth: ".isotope-item",
-          gutter: 0,
-        },
-        transitionDuration: "0.4s",
-      });
+  // Initialize Isotope with a small delay to ensure images are loaded
+  setTimeout(() => {
+    portfolioData.isotopeInstance = new Isotope(container, {
+      itemSelector: ".isotope-item",
+      layoutMode: layout,
+      filter: filter,
+      sortBy: sort,
+      percentPosition: true,
+      masonry: {
+        columnWidth: ".isotope-item",
+        gutter: 0,
+      },
+      transitionDuration: "0.4s",
     });
-  } else {
-    // Fallback if imagesLoaded is not available
-    setTimeout(() => {
-      portfolioData.isotopeInstance = new Isotope(container, {
-        itemSelector: ".isotope-item",
-        layoutMode: layout,
-        filter: filter,
-        sortBy: sort,
-        percentPosition: true,
-        masonry: {
-          columnWidth: ".isotope-item",
-          gutter: 0,
-        },
-        transitionDuration: "0.4s",
-      });
-    }, 500);
-  }
+  }, 200);
 }
 
 function createPortfolioItemElement(item) {
@@ -174,12 +153,14 @@ function createPortfolioItemElement(item) {
           <span class="category">${item.category_name}</span>
           <h4>${item.name}</h4>
           <div class="portfolio-links">
-            <a href="${mainImage}" 
-               class="portfolio-lightbox" 
+            <a href="#" 
+               class="portfolio-modal-toggle" 
                title="${item.name}"
                data-category="${item.category_id}"
-               data-item-id="${item.id}">
-               <i class="bi bi-plus-lg"></i>
+               data-item-id="${item.id}"
+               data-bs-toggle="modal" 
+               data-bs-target="#loginSignupModal">
+               <i class="bi bi-cart-plus"></i>
             </a>
             <a
               class="btn"
@@ -227,112 +208,7 @@ function attachPortfolioEventListeners() {
             const container = document.getElementById("categoryItemsContainer");
             htmx.process(container);
           }
-          initializeGLightbox();
         }, 400);
-      }
-    });
-  });
-}
-
-function initializeGLightbox() {
-  // Destroy previous instance
-  if (glightboxInstance && typeof glightboxInstance.destroy === "function") {
-    glightboxInstance.destroy();
-    glightboxInstance = null;
-  }
-
-  // Check if GLightbox is available
-  if (typeof GLightbox === "undefined") {
-    console.error("GLightbox is not loaded");
-    return;
-  }
-
-  // Build gallery data based on current filter
-  const galleryData = buildGalleryData();
-
-  if (galleryData.length === 0) {
-    console.log("No items to display in lightbox");
-    return;
-  }
-
-  // Initialize GLightbox with gallery data
-  glightboxInstance = GLightbox({
-    elements: galleryData,
-    touchNavigation: true,
-    loop: true,
-    autoplayVideos: true,
-    skin: "clean",
-    closeButton: true,
-    touchFollowAxis: true,
-    keyboardNavigation: true,
-  });
-
-  // Attach click events to portfolio lightbox links
-  attachLightboxEvents();
-}
-
-function buildGalleryData() {
-  let itemsToShow = [];
-
-  if (portfolioData.currentFilter === "*") {
-    // Show all items
-    itemsToShow = portfolioData.items;
-  } else {
-    // Show items from specific category
-    const categoryId = portfolioData.currentFilter.replace(
-      ".filter-category-",
-      ""
-    );
-    itemsToShow = portfolioData.items.filter(
-      (item) => item.category_id.toString() === categoryId
-    );
-  }
-
-  return itemsToShow.map((item, index) => {
-    const mainImage =
-      item.main_image || "/lib/static/core/img/placeholder-img.png";
-    return {
-      href: mainImage,
-      type: "image",
-      title: item.name,
-      description: `${item.category_name} - ${item.name}`,
-      alt: item.name,
-    };
-  });
-}
-
-function attachLightboxEvents() {
-  const lightboxLinks = document.querySelectorAll(".portfolio-lightbox");
-
-  lightboxLinks.forEach((link, index) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      const categoryId = this.getAttribute("data-category");
-      const itemId = this.getAttribute("data-item-id");
-
-      // Find the index of this item in the current gallery
-      let startIndex = 0;
-      const currentGallery = buildGalleryData();
-
-      if (portfolioData.currentFilter === "*") {
-        // Find index in all items
-        startIndex = portfolioData.items.findIndex(
-          (item) => item.id.toString() === itemId
-        );
-      } else {
-        // Find index in filtered category items
-        const filteredItems = portfolioData.items.filter(
-          (item) => item.category_id.toString() === categoryId
-        );
-        startIndex = filteredItems.findIndex(
-          (item) => item.id.toString() === itemId
-        );
-      }
-
-      // Open lightbox at the correct index
-      if (glightboxInstance && startIndex >= 0) {
-        glightboxInstance.openAt(startIndex);
       }
     });
   });
@@ -373,16 +249,7 @@ window.portfolioFunctions = {
       if (typeof aosInit === "function") {
         aosInit();
       }
-
-      setTimeout(() => {
-        initializeGLightbox();
-      }, 400);
     }
-  },
-
-  // Method to manually trigger lightbox reinitialization
-  reinitializeLightbox() {
-    initializeGLightbox();
   },
 
   // Get current portfolio state
@@ -392,7 +259,6 @@ window.portfolioFunctions = {
       totalItems: portfolioData.items.length,
       totalCategories: portfolioData.categories.length,
       isotopeReady: !!portfolioData.isotopeInstance,
-      lightboxReady: !!glightboxInstance,
     };
   },
 };

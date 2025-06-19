@@ -15,13 +15,13 @@ function updateOverlayHeadingParagraph() {
   let paragraphText = "";
 
   if (hasSignIn && hasSignUp) {
-    headingText = "Login or Sign up"
+    headingText = "Add to Cart"
     paragraphText = "Please sign in to your account or create a new one.";
   } else if (hasSignUp && !hasSignIn) {
-    headingText = "Sign up"
+    headingText = "Add to Cart";
     paragraphText = "Please create an account to continue.";
   } else if (hasSignIn && !hasSignUp) {
-    headingText = "Login"
+    headingText = "Add to Cart";
     paragraphText = "Please sign in to continue.";
   } else {
     // If neither component is available, hide the heading and paragraph
@@ -31,7 +31,7 @@ function updateOverlayHeadingParagraph() {
     return;
   }
 
-  overlayHeading.textContent = headingText;
+  overlayHeading = headingText;
   overlayHeading.style.display = 'block';
 
   overlayParagraph.textContent = paragraphText;
