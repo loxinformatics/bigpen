@@ -162,7 +162,7 @@ function initializeIsotopeOriginal(container) {
 
 function createPortfolioItemElement(item) {
   const mainImage =
-    item.main_image || "/lib/static/core/img/placeholder-img.png/";
+    item.main_image || "/lib/static/core/img/placeholder-img.png";
 
   const wrapper = document.createElement("div");
   wrapper.className = `col-lg-6 col-md-6 portfolio-item isotope-item filter-category-${item.category_id}`;
@@ -290,7 +290,7 @@ function buildGalleryData() {
 
   return itemsToShow.map((item, index) => {
     const mainImage =
-      item.main_image || "/lib/static/core/img/placeholder-img.png/";
+      item.main_image || "/lib/static/core/img/placeholder-img.png";
     return {
       href: mainImage,
       type: "image",
