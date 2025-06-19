@@ -8,6 +8,8 @@ api.register(r"portfolio", views.CategoryViewSet)
 
 urlpatterns = [
     path("", views.LandingView.as_view(), name="landing"),
+    path("contact/", views.ContactView.as_view(), name="contact"),
+    path("features", views.FeaturesView.as_view(), name="features"),
     path("api/", include(api.urls)),
     path(
         "swaps/portfolio/item/<int:id>/",

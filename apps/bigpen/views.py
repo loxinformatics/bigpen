@@ -17,11 +17,6 @@ from .serializers import (
 
 
 class LandingView(TemplateView):
-    """
-    Render the public landing page with hero section and minimal header navigation.
-    Only accessible to unauthenticated users.
-    """
-
     template_name = "home/index.html"
     extra_context = {
         # hero section
@@ -30,15 +25,27 @@ class LandingView(TemplateView):
         "hero_btn_1_url": "/#portfolio",
         # cta section
         "show_cta": True,
-        # features section
-        "show_features": True,
-        "features_title_paragraph": "What we offer",
         # portfolio section
         "show_portfolio": True,
         "portfolio_title_heading": "Our Products",
         "portfolio_title_paragraph": "Explore our curated collection of educational materials, school supplies, and academic resources designed to support learning and administration in every classroom. Quality, affordability, and purpose in every item.",
+    }
+
+
+class ContactView(TemplateView):
+    template_name = "home/index.html"
+    extra_context = {
         # contact section
         "show_contact": True,
+    }
+
+
+class FeaturesView(TemplateView):
+    template_name = "home/index.html"
+    extra_context = {
+        # features section
+        "show_features": True,
+        "features_title_paragraph": "What we offer",
     }
 
 

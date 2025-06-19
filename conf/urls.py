@@ -3,7 +3,9 @@ from django.urls import include, path
 
 urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
+    path("ckeditor5/", include("django_ckeditor_5.urls")),
     path("core/", include("apps.core.urls")),
+    path("blog/", include("apps.blog.urls")),
     path("", include(f"{settings.HOME_APP_NAME}.urls")),
 ]
 

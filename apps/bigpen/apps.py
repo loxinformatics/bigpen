@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class Homeonfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = settings.HOME_APP_NAME
-    verbose_name = "Functional Modules"
+    verbose_name = "Store"
 
     def ready(self):
         try:
@@ -47,16 +47,14 @@ class Homeonfig(AppConfig):
             )
             nav_config.register(
                 name="Features",
-                url_name="landing",
-                fragment="features",
-                order=2,
+                url_name="features",
+                order=3,
                 icon="bi-tags",
             )
             nav_config.register(
                 name="Contact",
-                url_name="landing",
-                fragment="contact",
-                order=3,
+                url_name="contact",
+                order=5,
                 icon="bi bi-envelope",
             )
 
