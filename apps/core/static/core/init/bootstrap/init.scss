@@ -1,6 +1,7 @@
 // Custom.scss
 // Include any default variable overrides here (though functions won’t be available)
 $primary: #ef4444;
+$modal-backdrop-opacity:  0.87;
 
 @import "../../vendor/node_modules/bootstrap/scss/bootstrap.scss";
 
@@ -39,10 +40,12 @@ $primary: #ef4444;
   --background-color: var(--bs-white);
   /* Background color for the entire website, including individual sections */
   --default-color: #555555;
+  --default-color-rgb: 85, 85, 85;
   /* Default color used for the majority of the text content across the entire website */
   --accent-color: var(--bs-primary);
   /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --heading-color: #151515;
+  --heading-color-rgb: 21, 21, 21;
   /* Color for headings, subheadings and title throughout the website */
   --surface-color: var(--bs-white);
   /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
@@ -171,6 +174,48 @@ section,
 }
 
 /*--------------------------------------------------------------
+# Modal Header
+--------------------------------------------------------------*/
+
+.modal-header {
+  color: var(--default-color);
+  padding: 25px 0 0 0;
+  position: relative;
+}
+
+.modal-header .container {
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--default-color), transparent 90%);
+  padding-bottom: 25px;
+}
+
+.modal-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.modal-header .breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.modal-header .breadcrumbs ol li + li {
+  padding-left: 10px;
+}
+
+.modal-header .breadcrumbs ol li + li::before {
+  content: "/";
+  display: inline-block;
+  padding-right: 10px;
+  color: color-mix(in srgb, var(--default-color), transparent 70%);
+}
+
+/*--------------------------------------------------------------
 # Global modal
 --------------------------------------------------------------*/
 .modal-open {
@@ -182,6 +227,8 @@ body.modal-open {
   overflow-y: scroll !important;
   position: fixed !important;
   width: 100% !important;
+  /* This will be set dynamically via JavaScript */
+  top: var(--scroll-top, 0);
 }
 
 .modal-content {
@@ -190,25 +237,9 @@ body.modal-open {
   background-color: var(--surface-color);
 }
 
-.modal-header {
-  color: var(--contrast-color);
-  border-radius: 12px 12px 0 0;
-  border-bottom: none;
-}
-
-.modal-title {
-  font-weight: 600;
-  font-family: var(--heading-font);
-  color: var(--default-color);
-}
-
 .modal-body {
   padding: 2rem;
   color: var(--default-color);
-}
-
-.modal-body .text-primary {
-  color: var(--bs-primary) !important;
 }
 
 .modal-body .text-muted {
@@ -227,8 +258,6 @@ body.modal-open {
 
 /* Override Bootstrap button colors to match your theme */
 .modal .btn-primary {
-  background-color: var(--bs-primary);
-  border-color: var(--bs-primary);
   color: var(--contrast-color);
 }
 
@@ -236,7 +265,6 @@ body.modal-open {
 .modal .btn-primary:focus {
   background-color: color-mix(in srgb, var(--bs-primary), transparent 20%);
   border-color: color-mix(in srgb, var(--bs-primary), transparent 20%);
-  color: var(--contrast-color);
 }
 
 .modal .btn-outline-primary {

@@ -2,7 +2,7 @@ let portfolioData = {
   categories: [],
   items: [],
   currentFilter: "*",
-  apiBaseUrl: "/dashboard/api",
+  apiBaseUrl: "/api",
   isotopeInstance: null,
 };
 
@@ -96,6 +96,11 @@ function renderPortfolioItems() {
     container.appendChild(el);
   });
 
+  // Process HTMX attributes on the new content
+  if (typeof htmx !== "undefined") {
+    htmx.process(container);
+  }
+
   // Use your original isotope initialization approach
   initializeIsotopeOriginal(container);
   initializeGLightbox();
@@ -176,7 +181,15 @@ function createPortfolioItemElement(item) {
                data-item-id="${item.id}">
                <i class="bi bi-plus-lg"></i>
             </a>
-            <a href="/items/${item.id}/" title="View Details"><i class="bi bi-arrow-right"></i></a>
+            <a
+              class="btn"
+              hx-get="/swaps/portfolio/item/${item.id}/"
+              hx-target="#portfolio-detail-modal-body"
+              data-bs-toggle="modal"
+              data-bs-target="#portfolio-detail-modal"
+              title="View Details">
+                <i class="bi bi-arrow-right"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -203,13 +216,17 @@ function attachPortfolioEventListeners() {
       if (portfolioData.isotopeInstance) {
         portfolioData.isotopeInstance.arrange({ filter: filterValue });
 
-        // Call aosInit if available (like in your original code)
+        // Call aosInit if available
         if (typeof aosInit === "function") {
           aosInit();
         }
 
-        // Wait for isotope animation to complete before reinitializing lightbox
+        // Process HTMX attributes after filtering
         setTimeout(() => {
+          if (typeof htmx !== "undefined") {
+            const container = document.getElementById("categoryItemsContainer");
+            htmx.process(container);
+          }
           initializeGLightbox();
         }, 400);
       }

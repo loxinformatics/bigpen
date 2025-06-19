@@ -3,57 +3,7 @@
 
 from django.conf import settings
 from django.contrib.auth.models import Permission
-from django.core.management import call_command
-from django.db import migrations, transaction
-
-
-def setup_bigpen_npm_packages(apps, schema_editor):
-    """
-    Setup npm packages required for bigpen app.
-    """
-
-    # Use on_commit to run npm commands after the transaction commits
-    def run_npm_install():
-        try:
-            bigpen_packages = [
-                "glightbox",
-                "isotope-layout",
-                "imagesloaded",
-                "waypoints",
-            ]
-            call_command("npm", "install", "--packages", *bigpen_packages, verbosity=0)
-        except Exception as e:
-            # Log the error but don't fail the migration
-            print(f"Warning: Failed to install npm packages: {e}")
-            print(
-                "You can manually run: python manage.py npm install --packages glightbox isotope-layout imagesloaded waypoints"
-            )
-
-    transaction.on_commit(run_npm_install)
-
-
-def cleanup_bigpen_npm_packages(apps, schema_editor):
-    """
-    Cleanup npm packages for bigpen app by uninstalling them.
-    """
-
-    # Use on_commit to run npm commands after the transaction commits
-    def run_npm_uninstall():
-        try:
-            bigpen_packages = [
-                "glightbox",
-                "isotope-layout",
-                "imagesloaded",
-                "waypoints",
-            ]
-            call_command(
-                "npm", "uninstall", "--packages", *bigpen_packages, verbosity=0
-            )
-        except Exception as e:
-            # Log the error but don't fail the migration rollback
-            print(f"Warning: Failed to uninstall npm packages: {e}")
-
-    transaction.on_commit(run_npm_uninstall)
+from django.db import migrations
 
 
 def setup_roles_and_permissions(apps, schema_editor):
@@ -168,8 +118,6 @@ def forward_migration(apps, schema_editor):
     """
     # First, setup roles and permissions (database operations)
     setup_roles_and_permissions(apps, schema_editor)
-    # Then, setup npm packages (will run after transaction commits)
-    setup_bigpen_npm_packages(apps, schema_editor)
 
 
 def reverse_migration(apps, schema_editor):
@@ -178,14 +126,12 @@ def reverse_migration(apps, schema_editor):
     """
     # First, remove roles and permissions
     reverse_roles_and_permissions(apps, schema_editor)
-    # Then, cleanup npm packages (will run after transaction commits)
-    cleanup_bigpen_npm_packages(apps, schema_editor)
 
 
 class Migration(migrations.Migration):
     dependencies = [
         ("core", "0002_setup"),
-        (settings.CUSTOM_APP_LABEL, "0001_initial"),
+        (settings.HOME_APP_LABEL, "0001_initial"),
         ("contenttypes", "0002_remove_content_type_name"),  # Needed for permissions
         ("auth", "0012_alter_user_first_name_max_length"),  # Needed for permissions
     ]

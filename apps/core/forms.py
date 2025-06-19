@@ -41,6 +41,12 @@ class MailUsForm(forms.Form):
         ),
     )
 
+    def clean_message(self):
+        message = self.cleaned_data.get("message", "")
+        if len(message.strip()) < 10:
+            raise forms.ValidationError("Message must be at least 10 characters long.")
+        return message
+
 
 class UniqueChoiceFormMixin:
     """

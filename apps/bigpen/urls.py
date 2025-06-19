@@ -4,10 +4,14 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 api = DefaultRouter()
-api.register(r"portfolio", views.PortfolioViewSet)
+api.register(r"portfolio", views.CategoryViewSet)
 
 urlpatterns = [
+    path("", views.LandingView.as_view(), name="landing"),
     path("api/", include(api.urls)),
-    path("", views.Portfolio.as_view(), name="dashboard"),
-    path("contact", views.ContactView.as_view(), name="contact"),
+    path(
+        "swaps/portfolio/item/<int:id>/",
+        views.ItemDetailView.as_view(),
+        name="item-detail",
+    ),
 ]

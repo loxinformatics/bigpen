@@ -1,0 +1,137 @@
+{% load static %}
+
+{% if show_cta|default_if_none:False %}
+  <style>
+    .dashboard-hero .dashboard-hero-header {
+      margin-bottom: 60px;
+    }
+
+    .dashboard-hero .dashboard-hero-header .service-intro .service-heading {
+      font-size: 48px;
+      margin-bottom: 0;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--heading-color);
+    }
+
+    .dashboard-hero .dashboard-hero-header .service-intro .service-heading div {
+      display: block;
+      position: relative;
+    }
+
+    .dashboard-hero .dashboard-hero-header .service-intro .service-heading span {
+      display: block;
+      color: var(--accent-color);
+    }
+
+    @media (max-width: 992px) {
+      .dashboard-hero .dashboard-hero-header .service-intro .service-heading {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-hero .dashboard-hero-header .service-intro .service-heading {
+        font-size: 30px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .dashboard-hero .dashboard-hero-header .service-summary p {
+      margin-bottom: 25px;
+      color: var(--default-color);
+    }
+
+    .dashboard-hero .dashboard-hero-header .service-summary .service-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 30px;
+      background-color: var(--accent-color);
+      color: var(--contrast-color);
+      border-radius: 4px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .dashboard-hero .dashboard-hero-header .service-summary .service-btn i {
+      margin-left: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .dashboard-hero .dashboard-hero-header .service-summary .service-btn:hover {
+      background-color: color-mix(in srgb, var(--accent-color), transparent 15%);
+      color: var(--contrast-color);
+    }
+
+    .dashboard-hero .dashboard-hero-header .service-summary .service-btn:hover i {
+      transform: translateX(5px);
+    }
+
+    @media (max-width: 992px) {
+      .dashboard-hero .dashboard-hero-header .service-summary {
+        margin-top: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-hero {
+        padding: 70px 0 50px;
+      }
+    }
+  </style>
+  <section id="dashboard-hero" class="dashboard-hero section px-3 pb-2">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="dashboard-hero-header">
+        <div class="row align-items-center">
+          <div class="col-lg-8 col-md-12">
+            <div class="service-intro">
+              <!-- <h2 class="service-heading">
+                <div>Innovative business</div>
+                <div>
+                  <span>performance solutions</span>
+                </div>
+              </h2> -->
+              <img src="{% static 'home/img/cta.jpg' %}" class="img-fluid" alt="" />
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <div class="service-summary">
+              <ul class="list-unstyled">
+                <li class="mb-2 d-flex align-items-start">
+                  <i class="bi bi-patch-check-fill text-primary me-2 fs-5"></i>
+                  <span>
+                    Trusted by
+                    <strong class="text-primary">over 2900+ <span class="text-uppercase">Primary Schools</span></strong>
+                    in Kenya
+                  </span>
+                </li>
+                <li class="mb-2 d-flex align-items-start">
+                  <i class="bi bi-truck text-success me-2 fs-5"></i>
+                  <span>
+                    We offer <span class="text-uppercase fw-bold">free</span> delivery
+                    <em class="text-primary">(within Nairobi)</em>
+                  </span>
+                </li>
+                <li class="d-flex align-items-start">
+                  <i class="bi bi-cash-coin text-warning me-2 fs-5"></i>
+                  <span>
+                    Accepting payment after delivery within Nairobi
+                  </span>
+                </li>
+              </ul>
+              
+              <!-- <p>
+                We integrate forward-thinking strategies, creative approaches, and state-of-the-art technologies to
+                deliver exceptional customer experiences that drive growth and engage target markets.
+              </p> -->
+              <a href="{% url 'landing' %}#features" class="service-btn">
+                View All Features
+                <i class="bi bi-arrow-down"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}

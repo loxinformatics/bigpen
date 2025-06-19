@@ -1,11 +1,14 @@
-from django.views.generic import TemplateView
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.views.generic import TemplateView, View
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from .models import Category
+from .models import Category, Item
 from .serializers import (
     CategoryDetailSerializer,
     CategoryListSerializer,
@@ -13,7 +16,33 @@ from .serializers import (
 )
 
 
-class PortfolioViewSet(ReadOnlyModelViewSet):
+class LandingView(TemplateView):
+    """
+    Render the public landing page with hero section and minimal header navigation.
+    Only accessible to unauthenticated users.
+    """
+
+    template_name = "home/index.html"
+    extra_context = {
+        # hero section
+        "show_hero": True,
+        "hero_btn_1_name": "Shop Online Now",
+        "hero_btn_1_url": "/#portfolio",
+        # cta section
+        "show_cta": True,
+        # features section
+        "show_features": True,
+        "features_title_paragraph": "What we offer",
+        # portfolio section
+        "show_portfolio": True,
+        "portfolio_title_heading": "Our Products",
+        "portfolio_title_paragraph": "Explore our curated collection of educational materials, school supplies, and academic resources designed to support learning and administration in every classroom. Quality, affordability, and purpose in every item.",
+        # contact section
+        "show_contact": True,
+    }
+
+
+class CategoryViewSet(ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ["is_active"]  # Allows usage of ?is_active=true
@@ -46,20 +75,13 @@ class PortfolioViewSet(ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class Portfolio(TemplateView):
-    template_name = "dashboard/index.html"
-    extra_context = {
-        "page_title": "Dashboard",
-        "show_hero": True,
-    }
+class ItemDetailView(View):
+    def get(self, request, id):
+        item = get_object_or_404(Item, pk=id)
+        extra_context = {"item": item}
 
-
-class ContactView(TemplateView):
-    template_name = "dashboard/index.html"
-    extra_context = {
-        "page_title": "Contact",
-        "show_contact": True,
-    }
+        html = render_to_string("home/swaps/item.html", extra_context)
+        return HttpResponse(html)
 
 
 # def ShopDashboard(request):

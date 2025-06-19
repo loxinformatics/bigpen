@@ -6,16 +6,19 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 
-class CustomConfig(AppConfig):
+class Homeonfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = settings.CUSTOM_APP_NAME
+    name = settings.HOME_APP_NAME
     verbose_name = "Functional Modules"
 
     def ready(self):
         try:
             from apps.core.management.config.auth import auth_config
-            # from apps.core.management.config.navigation import nav_config
-            # from apps.core.management.config.urls import urls_config
+            from apps.core.management.config.navigation import nav_config
+            from apps.core.management.config.urls import urls_config
+
+            # Configure landing url
+            urls_config.register_landing_url("landing", self.name)
 
             # Disable auth pages
             # auth_config.disable_page("signup")
@@ -28,25 +31,34 @@ class CustomConfig(AppConfig):
             )
 
             # nav items
-            # nav_config.register(
-            #     name="Dashboard",
-            #     url_name="dashboard",
-            #     order=4,
-            #     icon="bi bi-shop",
-            #     auth_status="private",
-            # )
-            # nav_config.register(
-            #     name="Contact",
-            #     url_name="contact",
-            #     order=4,
-            #     icon="bi bi-envelope",
-            #     auth_status="private",
-            # )
-
-            # Register dashboard as login redirect URL
-            # urls_config.register_login_redirect_url(
-            #     "dashboard", self.name
-            # )
+            nav_config.register(
+                name="Home",
+                url_name="landing",
+                fragment="hero",
+                order=0,
+                icon="bi bi-house",
+            )
+            nav_config.register(
+                name="Products",
+                url_name="landing",
+                fragment="portfolio",
+                order=2,
+                icon="bi bi-grid",
+            )
+            nav_config.register(
+                name="Features",
+                url_name="landing",
+                fragment="features",
+                order=2,
+                icon="bi-tags",
+            )
+            nav_config.register(
+                name="Contact",
+                url_name="landing",
+                fragment="contact",
+                order=3,
+                icon="bi bi-envelope",
+            )
 
             logger.info(f"{self.name} configured successfully")
 
