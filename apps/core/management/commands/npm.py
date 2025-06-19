@@ -25,7 +25,16 @@ class Command(BaseCommand):
     help = "Manage npm packages in a vendor directory"
 
     # Default packages to install
-    DEFAULT_PACKAGES = ["bootstrap", "bootstrap-icons", "aos"]
+    DEFAULT_PACKAGES = [
+        "bootstrap",
+        "bootstrap-icons",
+        "aos",
+        "htmx.org@2.0.4",
+        "glightbox",
+        "isotope-layout",
+        "imagesloaded",
+        "waypoints",
+    ]
 
     def add_arguments(self, parser):
         """Add command line arguments."""

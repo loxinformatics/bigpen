@@ -38,19 +38,11 @@ ROOT_URLCONF = "conf.urls"
 
 WSGI_APPLICATION = "conf.wsgi.application"
 
-
 # Home App Configurations
 
 HOME_APP_NAME = config("HOME_APP_NAME", default="apps.home")
 
 HOME_APP_LABEL = HOME_APP_NAME.split(".")[-1]
-
-
-# Custom App Configurations
-
-CUSTOM_APP_NAME = config("CUSTOM_APP_NAME", default="apps.dashboard")
-
-CUSTOM_APP_LABEL = CUSTOM_APP_NAME.split(".")[-1]
 
 
 # Databases
@@ -116,7 +108,6 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "apps.core",
     HOME_APP_NAME,
-    CUSTOM_APP_NAME,
 ]
 
 if DEBUG:
@@ -133,12 +124,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://www.django-rest-framework.org/
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",
-    ],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
-    ],
+    # "DEFAULT_AUTHENTICATION_CLASSES": [
+    #     "rest_framework.authentication.SessionAuthentication",
+    # ],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     # "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
+    # ],
 }
 
 
@@ -146,8 +137,8 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/stable/ref/settings/#auth
 # https://docs.djangoproject.com/en/stable/ref/settings/#auth-password-validators
 
-if CUSTOM_APP_LABEL:
-    AUTH_USER_MODEL = f"{CUSTOM_APP_LABEL}.User"
+if HOME_APP_LABEL:
+    AUTH_USER_MODEL = f"{HOME_APP_LABEL}.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {

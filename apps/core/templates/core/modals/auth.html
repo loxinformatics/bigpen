@@ -1,6 +1,7 @@
 {% load auth %}
 {% load static %}
 
+<script defer src="{% static 'core/modals/auth.js' %}"></script>
 <div class="modal fade"
      id="loginSignupModal"
      tabindex="-1"
@@ -8,11 +9,14 @@
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header border-0 pb-0">
-        <button type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"></button>
+      <div class="modal-header page-title border-0 pb-0">
+        <div class="container d-flex justify-content-between align-items-center">
+          <div class="flex-grow-1 d-flex justify-content-center">
+            <h1 class="text-center">
+              <i class="bi bi-lock-fill text-primary" style="font-size: 3rem;"></i>
+            </h1>
+          </div>
+        </div>
       </div>
       {% has_signin as signin_enabled %}
       {% has_signup as signup_enabled %}
@@ -21,7 +25,6 @@
         {# Only show modal if at least one auth page is available #}
         <div class="modal-body pt-2">
           <div class="text-center mb-4">
-            <i class="bi bi-lock-fill text-primary" style="font-size: 3rem;"></i>
             <p class="overlay-heading mt-3 mb-0 fw-bold fs-5">{# autofilled by javascript #}</p>
             <p class="overlay-paragraph text-muted small">{# autofilled by javascript #}</p>
           </div>
@@ -74,4 +77,3 @@
     </div>
   </div>
 </div>
-<script defer src="{% static 'core/partials/modal_auth.js' %}"></script>

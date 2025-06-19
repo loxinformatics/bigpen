@@ -149,3 +149,4 @@ def base_credits():
         f'Designed by <a href="{author_url}" class="{class_name}"><em>{author}</em></a>'
     )
     return mark_safe(html.strip())
+

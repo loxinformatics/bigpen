@@ -12,7 +12,7 @@ class Category(Ordering, BootstrapIcon, DateFields):
         ordering = ["order", "name"]
 
     image = models.ImageField(
-        upload_to="shop/categories/",
+        upload_to="portfolio/categories/",
         blank=True,
         null=True,
         help_text="Optional. Image representing the category.",
@@ -48,7 +48,7 @@ class Item(Ordering, BootstrapIcon, DateFields):
     )
     name = models.CharField(max_length=255, help_text="Name of the item.")
     main_image = models.ImageField(
-        upload_to="shop/items/",
+        upload_to="portfolio/items/",
         help_text="Main image for the item.",
         blank=True,
         null=True,
@@ -177,7 +177,7 @@ class ItemImage(DateFields):
         help_text="Item this image belongs to.",
     )
     image = models.ImageField(
-        upload_to="shop/items/", help_text="Additional image for the item."
+        upload_to="portfolio/items/other_images/", help_text="Additional image for the item."
     )
     alt_text = models.CharField(
         max_length=255, blank=True, help_text="Alternative text for accessibility."

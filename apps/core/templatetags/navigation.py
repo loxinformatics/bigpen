@@ -1,4 +1,3 @@
-# templatetags/navigation.py
 from django import template
 from django.conf import settings
 from django.urls import NoReverseMatch, reverse
@@ -154,7 +153,7 @@ def render_dropdown_item(item, icon_class=""):
 
 def render_regular_item(item, icon_class=""):
     """
-    Render a regular navigation item without active classes (handled by JavaScript).
+    Render a regular navigation item.
     """
     link_class = "navlink"
     icon_class_attr = f' class="{icon_class}"' if icon_class else ""

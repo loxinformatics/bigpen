@@ -1,0 +1,11 @@
+{% load sass_tags %}
+{% load static %}
+
+<link href="{% sass_src 'core/init/bootstrap/init.scss' %}"
+      rel="stylesheet"
+      type="text/css" />
+<script defer
+        src="{% static 'core/vendor/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script defer src="{% static 'core/init/bootstrap/init.js' %}"></script>
+<link rel="stylesheet"
+      href="{% static 'core/vendor/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}">

@@ -80,9 +80,6 @@ EMAIL_HOST_PASSWORD="your-app-password"
 # Home App Name (defaults to "apps.home")
 # HOME_APP_NAME="apps.home"
 
-# Custom App Name (defaults to "apps.dashboard")
-# CUSTOM_APP_NAME=""
-
 # Navigation Type Configuration (defaults to 'navbar')
 # NAVIGATION_TYPE="sidebar" # either 'sidebar' or 'navbar'
 ```

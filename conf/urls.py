@@ -4,13 +4,8 @@ from django.urls import include, path
 urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("core/", include("apps.core.urls")),
-    path("", include("apps.home.urls")),
+    path("", include(f"{settings.HOME_APP_NAME}.urls")),
 ]
-
-if settings.CUSTOM_APP_NAME:
-    urlpatterns += [
-        path("dashboard/", include(f"{settings.CUSTOM_APP_NAME}.urls")),
-    ]
 
 if settings.DEBUG:
     from django.conf.urls.static import static

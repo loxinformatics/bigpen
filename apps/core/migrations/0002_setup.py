@@ -1,6 +1,7 @@
+from django.conf import settings
 from django.core.management import call_command
 from django.db import migrations, transaction
-from django.conf import settings
+
 from ..models import BASE_DETAIL_CHOICES, BASE_IMAGE_CHOICES
 
 

@@ -36,3 +36,36 @@ window.addEventListener("load", function (e) {
     }
   }
 });
+
+// Store scroll position when modal opens
+let scrollPosition = 0;
+
+// Listen for modal show event
+document.addEventListener('show.bs.modal', function (event) {
+  // Get current scroll position
+  scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+  
+  // Set the scroll position as a CSS custom property
+  document.documentElement.style.setProperty('--scroll-top', `-${scrollPosition}px`);
+});
+
+// Listen for modal hidden event
+document.addEventListener('hidden.bs.modal', function (event) {
+  // Temporarily hide scroll transition
+  document.documentElement.style.scrollBehavior = 'auto';
+  
+  // Set scroll position immediately (while body is still fixed)
+  window.scrollTo(0, scrollPosition);
+  
+  // Remove the fixed positioning
+  document.documentElement.style.removeProperty('--scroll-top');
+  
+  // Ensure scroll position is maintained
+  window.scrollTo(0, scrollPosition);
+  
+  // Restore smooth scrolling after a brief delay
+  setTimeout(() => {
+    document.documentElement.style.scrollBehavior = '';
+    scrollPosition = 0;
+  }, 10);
+});

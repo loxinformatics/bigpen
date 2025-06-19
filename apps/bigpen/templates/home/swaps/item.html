@@ -1,0 +1,507 @@
+{% load static %}
+{% load lists %}
+
+<style>
+  .portfolio-details .portfolio-details-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(var(--default-color), 0.1);
+  }
+
+  .portfolio-details .portfolio-details-slider img {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Custom Bootstrap carousel indicators */
+  .portfolio-details .carousel-indicators {
+    bottom: 20px;
+    margin-bottom: 0;
+  }
+
+  .portfolio-details .carousel-indicators [data-bs-target] {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--contrast-color);
+    opacity: 0.5;
+    transition: 0.3s;
+    border: none;
+  }
+
+  .portfolio-details .carousel-indicators .active {
+    opacity: 1;
+    background-color: var(--accent-color);
+  }
+
+  /* Custom carousel controls */
+  .portfolio-details .carousel-control-prev,
+  .portfolio-details .carousel-control-next {
+    width: 8%;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .portfolio-details .portfolio-details-slider:hover .carousel-control-prev,
+  .portfolio-details .portfolio-details-slider:hover .carousel-control-next {
+    opacity: 1;
+  }
+
+  .portfolio-details .carousel-control-prev-icon,
+  .portfolio-details .carousel-control-next-icon {
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    background-size: 20px 20px;
+  }
+
+  .portfolio-details .carousel-control-prev:hover .carousel-control-prev-icon,
+  .portfolio-details .carousel-control-next:hover .carousel-control-next-icon {
+    background-color: color-mix(in srgb, var(--accent-color), white 20%);
+    border-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .portfolio-details .carousel-control-prev {
+    left: 15px;
+  }
+
+  .portfolio-details .carousel-control-next {
+    right: 15px;
+  }
+
+  /* Custom arrow icons */
+  .portfolio-details .carousel-control-prev-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 12px;
+    height: 12px;
+    border-left: 3px solid white;
+    border-top: 3px solid white;
+    background: none;
+  }
+
+  .portfolio-details .carousel-control-next-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(135deg);
+    width: 12px;
+    height: 12px;
+    border-left: 3px solid white;
+    border-top: 3px solid white;
+    background: none;
+  }
+
+  /* Hide default Bootstrap icons */
+  .portfolio-details .carousel-control-prev-icon,
+  .portfolio-details .carousel-control-next-icon {
+    background-image: none;
+  }
+
+  @media (max-width: 767.98px) {
+
+    .portfolio-details .carousel-control-prev-icon,
+    .portfolio-details .carousel-control-next-icon {
+      width: 35px;
+      height: 35px;
+      background-size: 14px 14px;
+      border-width: 2px;
+    }
+
+    .portfolio-details .carousel-control-prev-icon::before,
+    .portfolio-details .carousel-control-next-icon::before {
+      width: 8px;
+      height: 8px;
+      border-width: 2px;
+    }
+  }
+
+  .portfolio-details .portfolio-info {
+    padding: 30px;
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(var(--default-color), 0.1);
+  }
+
+  .portfolio-details .portfolio-info h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  }
+
+  .portfolio-details .portfolio-info ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  .portfolio-details .portfolio-info ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  }
+
+  .portfolio-details .portfolio-info ul li:last-child {
+    border-bottom: 0;
+  }
+
+  .portfolio-details .portfolio-info ul li strong {
+    font-weight: 600;
+    margin-right: 10px;
+    color: var(--heading-color);
+  }
+
+  .portfolio-details .portfolio-info ul li a {
+    color: var(--accent-color);
+    transition: 0.3s;
+  }
+
+  .portfolio-details .portfolio-info ul li a:hover {
+    color: color-mix(in srgb, var(--accent-color), transparent 25%);
+    text-decoration: underline;
+  }
+
+  .portfolio-details .portfolio-description h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .portfolio-details .portfolio-description p {
+    padding: 0;
+    margin-bottom: 20px;
+    color: color-mix(in srgb, var(--default-color), transparent 20%);
+  }
+
+  .portfolio-details .portfolio-description .features h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  .portfolio-details .portfolio-description .features .feature-item {
+    padding: 30px;
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    height: 100%;
+    transition: 0.3s;
+    box-shadow: 0 0 30px rgba(var(--default-color), 0.1);
+  }
+
+  .portfolio-details .portfolio-description .features .feature-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .portfolio-details .portfolio-description .features .feature-item i {
+    font-size: 32px;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .portfolio-details .portfolio-description .features .feature-item h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .portfolio-details .portfolio-description .features .feature-item p {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  /* Price styling */
+  .price-info {
+    margin: 15px 0;
+  }
+
+  .current-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent-color);
+  }
+
+  .original-price {
+    font-size: 18px;
+    color: #999;
+    text-decoration: line-through;
+    margin-left: 10px;
+  }
+
+  .discount-badge {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 10px;
+  }
+
+  /* Stock status styling */
+  .stock-status {
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 10px;
+  }
+
+  .stock-status.in-stock {
+    background-color: #d4edda;
+    color: #155724;
+  }
+
+  .stock-status.low-stock {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+
+  .stock-status.out-of-stock {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+
+  @media (max-width: 991px) {
+    .portfolio-details .portfolio-info {
+      margin-top: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .portfolio-details .portfolio-description h2 {
+      font-size: 24px;
+    }
+  }
+</style>
+<section id="portfolio-details" class="portfolio-details section">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-4">
+      <div class="col-lg-8">
+        <div class="portfolio-details-slider">
+          <!-- Bootstrap Carousel -->
+          <div id="portfolioCarousel"
+               class="carousel slide"
+               data-bs-ride="carousel"
+               data-bs-interval="5000">
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators">
+              <button type="button"
+                      data-bs-target="#portfolioCarousel"
+                      data-bs-slide-to="0"
+                      class="active"
+                      aria-current="true"
+                      aria-label="Slide 1"></button>
+
+              {% for image in item.other_images.all %}
+                <button type="button"
+                        data-bs-target="#portfolioCarousel"
+                        data-bs-slide-to="{{ forloop.counter }}"
+                        aria-label="Slide {{ forloop.counter|add:1 }}"></button>
+              {% endfor %}
+
+            </div>
+            <!-- Carousel Inner -->
+            <div class="carousel-inner">
+              <!-- First slide - Main Image -->
+              <div class="carousel-item active">
+
+                {% if item.main_image %}
+                  <img src="{{ item.main_image.url }}"
+                       alt="{{ item.name }} Image"
+                       class="d-block w-100"
+                       loading="lazy">
+                {% else %}
+                  <img src="{% static 'core/img/placeholder-img.png' %}"
+                       alt="Placeholder Image"
+                       class="d-block w-100"
+                       loading="lazy">
+                {% endif %}
+
+              </div>
+              <!-- Additional slides - Other Images -->
+
+              {% for image in item.other_images.all %}
+                <div class="carousel-item">
+
+                  {% if image.image %}
+                    <img src="{{ image.image.url }}"
+                         alt="{{ image.alt_text|default:"Project Image" }}"
+                         class="d-block w-100"
+                         loading="lazy">
+                  {% else %}
+                    <img src="{% static 'core/img/placeholder-img.png' %}"
+                         alt="Placeholder Image"
+                         class="d-block w-100"
+                         loading="lazy">
+                  {% endif %}
+
+                </div>
+              {% endfor %}
+
+            </div>
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#portfolioCarousel"
+                    data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#portfolioCarousel"
+                    data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="portfolio-info" data-aos="fade-left" data-aos-delay="200">
+          <h3>Product Information</h3>
+          <ul>
+            <li>
+              <strong>Category</strong>: {{ item.category.name }}
+            </li>
+            <li>
+              <strong>Item ID</strong>: #{{ item.pk }}
+            </li>
+            <li>
+              <strong>Added</strong>: {{ item.created_at|date:"F d, Y" }}
+            </li>
+
+            {% if item.is_featured %}
+              <li>
+                <strong>Status</strong>: Featured Item
+              </li>
+            {% endif %}
+
+          </ul>
+          <!-- Price Information -->
+          <div class="price-info">
+
+            {% if item.current_price %}
+              <span class="current-price">Ksh. {{ item.current_price }}</span>
+
+              {% if item.discount > 0 %}
+                <span class="original-price">Ksh. {{ item.original_price }}</span>
+                <span class="discount-badge">{{ item.discount_percentage|floatformat:0 }}% OFF</span>
+              {% endif %}
+            {% endif %}
+
+          </div>
+          <!-- Stock Information -->
+          <div class="stock-info">
+
+            {% if item.is_in_stock %}
+              {% if item.is_low_stock %}
+                <span class="stock-status low-stock">Low Stock - {{ item.available_quantity }} remaining</span>
+              {% else %}
+                <span class="stock-status in-stock">In Stock - {{ item.available_quantity }} available</span>
+              {% endif %}
+
+            {% else %}
+              <span class="stock-status out-of-stock">Out of Stock</span>
+            {% endif %}
+
+          </div>
+          <!-- Order Constraints -->
+
+          {% if item.min_order_quantity > 1 or item.max_order_quantity %}
+            <div class="order-constraints mt-3">
+              <small class="text-muted">
+
+                {% if item.min_order_quantity > 1 %}
+                  Minimum order: {{ item.min_order_quantity }} units
+                  <br>
+                {% endif %}
+
+                {% if item.max_order_quantity %}Maximum order: {{ item.max_order_quantity }} units{% endif %}
+
+              </small>
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+          <h2>{{ item.name }}</h2>
+
+          {% if item.description %}
+            <div class="description-text">{{ item.description|linebreaksbr }}</div>
+          {% else %}
+            <p>
+              This is a high-quality product from our {{ item.category.name|lower }} collection.
+
+              {% if item.is_featured %}
+                This featured item
+              {% else %}
+                This item
+              {% endif %}
+
+              is carefully crafted to meet your needs and exceeds industry standards.
+            </p>
+            <p>
+              Available now with
+
+              {% if item.discount > 0 %}
+                special pricing
+              {% else %}
+                competitive pricing
+              {% endif %}
+
+              and reliable stock availability.
+
+              {% if item.min_order_quantity > 1 %}
+                Please note the minimum order quantity of {{ item.min_order_quantity }} units.
+              {% endif %}
+
+            </p>
+          {% endif %}
+
+          <div class="features mt-4">
+            <!-- <h3>Product Features</h3> -->
+            <div class="row gy-3">
+              {% list_features as features %}
+
+              {% for feature in features %}
+                <div class="col-md-6 col-lg-4">
+                  <div class="feature-item">
+                    <i class="{{ feature.bootstrap_icon }}"></i>
+                    <h4>{{ feature.name }}</h4>
+                    <p>{{ feature.description }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- OOB Swap for Modal Header -->
+<h1 id="portfolio-detail-modal-header"
+    class="mb-2 mb-lg-0"
+    hx-swap-oob="true">{{ item.name }}</h1>
+<!-- OOB Swap for Breadcrumb -->
+<li id="portfolio-detail-breadcrumb" class="current" hx-swap-oob="true">{{ item.name }}</li>
