@@ -31,7 +31,7 @@ function updateOverlayHeadingParagraph() {
     return;
   }
 
-  overlayHeading = headingText;
+  overlayHeading.textContent = headingText;
   overlayHeading.style.display = 'block';
 
   overlayParagraph.textContent = paragraphText;
