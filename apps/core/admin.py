@@ -396,7 +396,7 @@ class UserRoleAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Basic Information", {"fields": ("name", "display_name", "description")}),
-        ("Role Settings", {"fields": ("has_portal_access", "is_default_role")}),
+        ("Role Settings", {"fields": ("has_portal_access", "is_default_role", "permissions")}),
     )
     readonly_fields = (
         "name",
