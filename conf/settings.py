@@ -16,17 +16,20 @@ https://docs.djangoproject.com/en/stable/howto/deployment/checklist/
 from pathlib import Path
 
 from decouple import Csv, config
-from django.core.exceptions import ImproperlyConfigured
-from django.db.utils import OperationalError
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+LIB_DIR = BASE_DIR / "lib"
+
+LIB_DIR.mkdir(parents=True, exist_ok=True)
+
 # * SECURITY WARNING: keep the SECRET_KEY used in production secret!
-# * SECURITY WARNING: don't run with DEBUG turned on in production!
 
 SECRET_KEY = config("SECRET_KEY", default="Make sure to set your own secret key!")
+
+# * SECURITY WARNING: don't run with DEBUG turned on in production!
 
 DEBUG = config("ENVIRONMENT", default="development") == "development"
 
@@ -49,27 +52,26 @@ HOME_APP_LABEL = HOME_APP_NAME.split(".")[-1]
 # https://docs.djangoproject.com/en/stable/ref/settings/#databases
 # https://docs.djangoproject.com/en/stable/ref/databases/
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "lib" / f"{config('DB_NAME', default='db')}.sqlite3",
-    }
-}
+DB_BACKEND = config("DB_BACKEND", default="sqlite3")
 
-if config("DB_POSTGRESQL", default=False, cast=bool):
-    try:
-        DATABASES = {
-            "default": {
-                "ENGINE": "django.db.backends.postgresql",
-                "NAME": config("DB_NAME", default=None),
-                "USER": config("DB_USER", default=None),
-                "PASSWORD": config("DB_PASSWORD", default=None),
-                "HOST": config("DB_HOST", default="localhost"),
-                "PORT": config("DB_PORT", default="5432"),
-            }
+if DB_BACKEND == "sqlite3":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": LIB_DIR / f"{config('DB_NAME', default='db')}.sqlite3",
         }
-    except (ImproperlyConfigured, OperationalError, ModuleNotFoundError):
-        pass  # Falls back to SQLite3
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": f"django.db.backends.{DB_BACKEND}",
+            "NAME": config("DB_NAME"),
+            "USER": config("DB_USER", default=""),
+            "PASSWORD": config("DB_PASSWORD", default=""),
+            "HOST": config("DB_HOST", default="localhost"),
+            "PORT": config("DB_PORT", default="5432"),
+        }
+    }
 
 
 # Email
@@ -204,7 +206,7 @@ STATICFILES_FINDERS = [
 
 STATIC_URL = "lib/static/"
 
-STATIC_ROOT = BASE_DIR / "lib" / "static"
+STATIC_ROOT = LIB_DIR / "static"
 
 SASS_PRECISION = 8
 
@@ -214,7 +216,7 @@ SASS_PRECISION = 8
 
 MEDIA_URL = "lib/media/"
 
-MEDIA_ROOT = BASE_DIR / "lib" / "media"
+MEDIA_ROOT = LIB_DIR / "media"
 
 
 # Cache
