@@ -11,3 +11,34 @@ order systems
 - seed fixtures
 - custom 0002_setup.py
 - .env
+
+
+
+
+- staff
+  - 
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+
+
+- manager
+  -
+  -
+  -
+  -
+  -
+
+
+- blogger
+  -
+  -
+  -
+  -
+
+
+

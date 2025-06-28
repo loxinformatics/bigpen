@@ -51,37 +51,44 @@ Set up a `.env` file in your production environment:
 
 ```bash
 # Environment (defaults to 'development')
-ENVIRONMENT="production"
+
+# ENVIRONMENT="production"
 
 # Secret Key (defaults to 'Make sure to set your own secret key!')
-SECRET_KEY="your-secure-key-here"
 
-# Allowed Hosts (Defaults to 'localhost,127.0.0.1,dev.tawalabora.space')
-ALLOWED_HOSTS="localhost,127.0.0.1,example.com,www.example.com"
+# SECRET_KEY="your-secure-key-here"
+
+# Allowed Hosts (Defaults to 'localhost,127.0.0.1')
+
+# ALLOWED_HOSTS="localhost,127.0.0.1,example.com,www.example.com"
 
 # Database Configuration
-# SQLite (default - no configuration needed)
+# (defaults to sqlite3 - no configuration needed)
 # For PostgreSQL, set all the following:
-DB_POSTGRESQL=True
-DB_NAME=your_database_name
-DB_USER=postgres
-DB_PASSWORD=your_postgres_password
-DB_HOST=localhost
-DB_PORT=5432
+
+# DB_BACKEND="postgresql"
+# DB_NAME=your_database_name
+# DB_USER=postgres
+# DB_PASSWORD=your_postgres_password
+# DB_HOST=localhost
+# DB_PORT=5432
 
 # Email Configuration
 # Console email backend (default - no configuration needed)
 # For SMTP email backend, set all the following:
-EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_HOST_USER="your-email@gmail.com"
-EMAIL_HOST_PASSWORD="your-app-password"
+
+# EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST="smtp.gmail.com"
+# EMAIL_HOST_USER="your-email@gmail.com"
+# EMAIL_HOST_PASSWORD="your-app-password"
 
 # Home App Name (defaults to "apps.home")
+
 # HOME_APP_NAME="apps.home"
 
-# Navigation Type Configuration (defaults to 'navbar')
-# NAVIGATION_TYPE="sidebar" # either 'sidebar' or 'navbar'
+# Navigation Type Configuration - either 'sidebar' or 'navbar' (defaults to 'navbar')
+
+# NAVIGATION_TYPE="sidebar"
 ```
 
 ### D. 🗄️ Database Setup

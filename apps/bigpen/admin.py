@@ -1,11 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.utils.html import format_html
+from django.core.exceptions import ValidationError
+from django.db import models
 
 from apps.core.admin import BaseUserAdmin
 from apps.core.site import portal_site
 
-from .models import Category, Item, ItemImage
+from .models import Category, Item, ItemImage, Order, OrderItem
 
 
 class StockStatusFilter(admin.SimpleListFilter):
@@ -35,6 +37,30 @@ class StockStatusFilter(admin.SimpleListFilter):
         return queryset
 
 
+class OrderStatusFilter(admin.SimpleListFilter):
+    """Custom filter for order status."""
+
+    title = "order status"
+    parameter_name = "order_status"
+
+    def lookups(self, request, model_admin):
+        return (
+            ("pending", "Pending"),
+            ("assigned", "Assigned"),
+            ("in_progress", "In Progress"),
+            ("completed", "Completed"),
+            ("cancelled", "Cancelled"),
+            ("unassigned", "Unassigned Orders"),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == "unassigned":
+            return queryset.filter(assigned_to__isnull=True, status="pending")
+        elif self.value():
+            return queryset.filter(status=self.value())
+        return queryset
+
+
 class ItemImageInline(admin.TabularInline):
     """Inline admin for ItemImage model."""
 
@@ -42,6 +68,29 @@ class ItemImageInline(admin.TabularInline):
     extra = 1
     fields = ("image", "alt_text", "is_active")
     readonly_fields = ("created_at", "updated_at")
+
+
+class OrderItemInline(admin.TabularInline):
+    """Inline admin for OrderItem model."""
+
+    model = OrderItem
+    extra = 0
+    fields = ("item", "quantity", "price_at_time", "total_price_display")
+    readonly_fields = ("total_price_display",)
+    autocomplete_fields = ("item",)
+
+    def total_price_display(self, obj):
+        """Display total price for this order item."""
+        if obj and hasattr(obj, "total_price") and obj.total_price:
+            try:
+                # Convert to string first to avoid SafeString issues
+                price = float(obj.total_price)
+                return f"${price:.2f}"
+            except (ValueError, TypeError):
+                return "-"
+        return "-"
+
+    total_price_display.short_description = "Total Price"
 
 
 @admin.register(Category, site=portal_site)
@@ -290,15 +339,349 @@ class ItemImageAdmin(admin.ModelAdmin):
     image_preview.short_description = "Preview"
 
 
-# class OrderItemInline(admin.TabularInline):
-#     model = OrderItem
-#     extra = 0
+@admin.register(Order, site=portal_site)
+class OrderAdmin(admin.ModelAdmin):
+    """
+    Admin interface for Order model with staff assignment and order management.
+    """
+
+    list_display = (
+        "id",
+        "user",
+        "status_display",
+        "assigned_to_display",
+        "total_items_display",
+        "total_price_display",
+        "created_at",
+        "fulfilled",
+    )
+    list_editable = ("fulfilled",)
+    list_filter = (
+        OrderStatusFilter,
+        "fulfilled",
+        "assigned_to",
+        "created_at",
+        "assigned_at",
+    )
+    search_fields = (
+        "id",
+        "user__username",
+        "user__email",
+        "notes",
+        "assigned_to__username",
+    )
+    ordering = ("-created_at",)
+    date_hierarchy = "created_at"
+
+    fieldsets = (
+        (
+            "Order Information",
+            {"fields": ("user", "status", "fulfilled", "notes")},
+        ),
+        (
+            "Staff Assignment",
+            {
+                "fields": ("assigned_to", "assigned_at"),
+                "description": "Assign orders to staff members for processing.",
+            },
+        ),
+        (
+            "Order Summary",
+            {
+                "fields": ("total_items_summary", "total_price_summary"),
+                "classes": ("collapse",),
+            },
+        ),
+        (
+            "Timestamps",
+            {"fields": ("created_at",), "classes": ("collapse",)},
+        ),
+    )
+
+    readonly_fields = (
+        "created_at",
+        "assigned_at",
+        "total_items_summary",
+        "total_price_summary",
+    )
+
+    inlines = [OrderItemInline]
+    actions = ["assign_to_me", "unassign_orders", "mark_completed", "mark_in_progress"]
+
+    def get_queryset(self, request):
+        """Optimize queryset with select_related."""
+        return super().get_queryset(request).select_related("user", "assigned_to")
+
+    def status_display(self, obj):
+        """Display order status with color coding."""
+        status_colors = {
+            "pending": "#ffc107",  # Warning yellow
+            "assigned": "#17a2b8",  # Info blue
+            "in_progress": "#007bff",  # Primary blue
+            "completed": "#28a745",  # Success green
+            "cancelled": "#dc3545",  # Danger red
+        }
+
+        color = status_colors.get(obj.status, "#6c757d")
+        return format_html(
+            '<span style="background-color: {}; color: white; padding: 2px 8px; border-radius: 3px; font-size: 11px;">{}</span>',
+            color,
+            obj.get_status_display().upper(),
+        )
+
+    status_display.short_description = "Status"
+
+    def assigned_to_display(self, obj):
+        """Display assigned staff member with visual indicator."""
+        if obj.assigned_to:
+            return format_html(
+                '<span style="color: #28a745; font-weight: bold;">👤 {}</span>',
+                obj.assigned_to.username,
+            )
+        return format_html('<span style="color: #dc3545;">Unassigned</span>')
+
+    assigned_to_display.short_description = "Assigned To"
+
+    def total_items_display(self, obj):
+        """Display total number of items in the order."""
+        try:
+            total = obj.get_total_items()
+            return f"{total} items"
+        except Exception:
+            return "0 items"
+
+    total_items_display.short_description = "Items"
+
+    def total_price_display(self, obj):
+        """Display total price of the order."""
+        try:
+            total = obj.get_total_price()
+            if total is None or total == 0:
+                return "$0.00"
+            # Convert to float to ensure it's a number, not SafeString
+            price = float(total)
+            return f"${price:.2f}"
+        except (ValueError, TypeError, AttributeError):
+            return "$0.00"
+
+    total_price_display.short_description = "Total Price"
+
+    def total_items_summary(self, obj):
+        """Display detailed items summary."""
+        if not obj.pk:
+            return "Save order first to see items summary"
+
+        items = obj.order_items.all()
+        if not items:
+            return "No items in this order"
+
+        summary = []
+        for item in items:
+            summary.append(f"• {item.quantity}× {item.item.name}")
+
+        return format_html("<br>".join(summary))
+
+    total_items_summary.short_description = "Items Summary"
+
+    def total_price_summary(self, obj):
+        """Display detailed price breakdown."""
+        if not obj.pk:
+            return "Save order first to see price summary"
+
+        try:
+            total = obj.get_total_price()
+            item_count = obj.get_total_items()
+
+            if total is None:
+                total = 0
+
+            # Convert to float to avoid SafeString issues
+            price = float(total)
+            return f"Total: ${price:.2f} ({item_count} items)"
+        except (ValueError, TypeError, AttributeError):
+            return "Total: $0.00 (0 items)"
+
+    total_price_summary.short_description = "Price Summary"
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        """Filter assigned_to field to only show staff members."""
+        if db_field.name == "assigned_to":
+            User = get_user_model()
+            # Filter to only staff members based on your role system
+            # Users with staff_admin or manager_admin roles, or is_staff=True
+            kwargs["queryset"] = User.objects.filter(
+                models.Q(groups__name__in=["staff_admin", "manager_admin"])
+                | models.Q(is_staff=True)
+            ).distinct()
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def assign_to_me(self, request, queryset):
+        """Action to assign selected orders to the current user."""
+        # Check if current user can be assigned orders (has staff role or is_staff)
+        user_can_be_assigned = (
+            request.user.has_role("staff_admin")
+            or request.user.has_role("manager_admin")
+            or request.user.is_staff
+        )
+
+        if not user_can_be_assigned:
+            self.message_user(
+                request, "Only staff members can be assigned orders.", level="ERROR"
+            )
+            return
+
+        assigned_count = 0
+        for order in queryset:
+            if order.can_be_assigned_to(request.user):
+                try:
+                    order.assign_to_staff(request.user)
+                    assigned_count += 1
+                except ValidationError as e:
+                    self.message_user(
+                        request, f"Error assigning order {order.id}: {e}", level="ERROR"
+                    )
+
+        if assigned_count:
+            self.message_user(
+                request, f"Successfully assigned {assigned_count} orders to you."
+            )
+        else:
+            self.message_user(request, "No orders could be assigned.", level="WARNING")
+
+    assign_to_me.short_description = "Assign selected orders to me"
+
+    def unassign_orders(self, request, queryset):
+        """Action to unassign selected orders."""
+        unassigned_count = 0
+        for order in queryset.filter(assigned_to__isnull=False):
+            order.unassign_order()
+            unassigned_count += 1
+
+        if unassigned_count:
+            self.message_user(
+                request, f"Successfully unassigned {unassigned_count} orders."
+            )
+        else:
+            self.message_user(
+                request, "No assigned orders were selected.", level="WARNING"
+            )
+
+    unassign_orders.short_description = "Unassign selected orders"
+
+    def mark_completed(self, request, queryset):
+        """Action to mark selected orders as completed."""
+        updated = queryset.update(status="completed", fulfilled=True)
+        self.message_user(
+            request, f"Successfully marked {updated} orders as completed."
+        )
+
+    mark_completed.short_description = "Mark selected orders as completed"
+
+    def mark_in_progress(self, request, queryset):
+        """Action to mark selected orders as in progress."""
+        updated = queryset.update(status="in_progress")
+        self.message_user(
+            request, f"Successfully marked {updated} orders as in progress."
+        )
+
+    mark_in_progress.short_description = "Mark selected orders as in progress"
 
 
-# @admin.register(Order, site=portal_site)
-# class OrderAdmin(admin.ModelAdmin):
-#     list_display = ("id", "user", "created_at", "fulfilled")
-#     inlines = [OrderItemInline]
+@admin.register(OrderItem, site=portal_site)
+class OrderItemAdmin(admin.ModelAdmin):
+    """
+    Admin interface for OrderItem model with pricing and inventory details.
+    """
+
+    list_display = (
+        "order_id_display",
+        "item",
+        "quantity",
+        "price_at_time_display",
+        "total_price_display",
+        "order_status",
+    )
+    list_filter = ("order__status", "item__category", "order__created_at")
+    search_fields = (
+        "order__id",
+        "item__name",
+        "order__user__username",
+        "order__user__email",
+    )
+    ordering = ("-order__created_at",)
+    autocomplete_fields = ("order", "item")
+
+    fieldsets = (
+        (
+            "Order Item Information",
+            {"fields": ("order", "item", "quantity")},
+        ),
+        (
+            "Pricing",
+            {"fields": ("price_at_time", "calculated_total_price")},
+        ),
+    )
+
+    readonly_fields = ("calculated_total_price",)
+
+    def get_queryset(self, request):
+        """Optimize queryset with select_related."""
+        return (
+            super().get_queryset(request).select_related("order", "item", "order__user")
+        )
+
+    def order_id_display(self, obj):
+        """Display order ID with link."""
+        return format_html(
+            '<a href="/admin/shop/order/{}/change/">Order #{}</a>',
+            obj.order.id,
+            obj.order.id,
+        )
+
+    order_id_display.short_description = "Order"
+
+    def price_at_time_display(self, obj):
+        """Display price at time of order."""
+        if obj.price_at_time:
+            try:
+                price = float(obj.price_at_time)
+                return f"${price:.2f}"
+            except (ValueError, TypeError):
+                return "-"
+        return "-"
+
+    price_at_time_display.short_description = "Unit Price"
+
+    def total_price_display(self, obj):
+        """Display total price for this order item."""
+        try:
+            total = obj.total_price
+            if total is None:
+                return "$0.00"
+            price = float(total)
+            return f"${price:.2f}"
+        except (ValueError, TypeError, AttributeError):
+            return "$0.00"
+
+    total_price_display.short_description = "Total Price"
+
+    def order_status(self, obj):
+        """Display order status."""
+        return obj.order.get_status_display()
+
+    order_status.short_description = "Order Status"
+
+    def calculated_total_price(self, obj):
+        """Display calculated total price in admin form."""
+        if obj and hasattr(obj, "total_price") and obj.total_price:
+            try:
+                price = float(obj.total_price)
+                return f"${price:.2f}"
+            except (ValueError, TypeError):
+                return "-"
+        return "-"
+
+    calculated_total_price.short_description = "Total Price"
 
 
 @admin.register(get_user_model(), site=portal_site)
