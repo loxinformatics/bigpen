@@ -454,7 +454,7 @@ class BaseUserAdmin(UserAdmin):
         (None, {"fields": ("username", "password")}),
         (
             "Personal info",
-            {"fields": ("first_name", "last_name", "email", "profile_image")},
+            {"fields": ("first_name", "last_name", "email")},
         ),
         (
             "Permissions",

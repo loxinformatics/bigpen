@@ -198,26 +198,30 @@ class User(BaseUser):
 
     def is_staff_member(self):
         """Check if user has staff role."""
-        if hasattr(self, "role") and self.role:
-            return self.role.name == "staff_admin"
+        role_obj = self.get_role_object()
+        if role_obj:
+            return role_obj.name == "staff_admin"
         return False
 
     def is_manager(self):
         """Check if user has manager role."""
-        if hasattr(self, "role") and self.role:
-            return self.role.name == "manager_admin"
+        role_obj = self.get_role_object()
+        if role_obj:
+            return role_obj.name == "manager_admin"
         return False
 
     def is_client(self):
         """Check if user has client role."""
-        if hasattr(self, "role") and self.role:
-            return self.role.name == "client"
+        role_obj = self.get_role_object()
+        if role_obj:
+            return role_obj.name == "client"
         return True  # Default to client if no role assigned
 
     def has_portal_access(self):
         """Check if user can access the admin portal."""
-        if hasattr(self, "role") and self.role:
-            return self.role.has_portal_access
+        role_obj = self.get_role_object()
+        if role_obj:
+            return role_obj.has_portal_access
         return False
 
 
@@ -226,7 +230,6 @@ class Order(models.Model):
 
     ORDER_STATUS_CHOICES = [
         ("pending", "Pending"),
-        ("assigned", "Assigned"),
         ("in_progress", "In Progress"),
         ("completed", "Completed"),
         ("cancelled", "Cancelled"),
@@ -271,7 +274,7 @@ class Order(models.Model):
             raise ValidationError("Only staff members can be assigned to orders")
 
     def assign_to_staff(self, staff_user):
-        """Assign order to a staff member."""
+        """Assign order to a staff member and set status to in_progress."""
         if not staff_user.is_staff_member():
             raise ValidationError("Only staff members can be assigned to orders")
 
@@ -279,7 +282,7 @@ class Order(models.Model):
             raise ValidationError("Order is already assigned to someone else")
 
         self.assigned_to = staff_user
-        self.status = "assigned"
+        self.status = "in_progress"
         self.assigned_at = timezone.now()
         self.save()
 
@@ -352,4 +355,5 @@ class OrderItem(models.Model):
     def total_price(self):
         """Get total price for this order item."""
         price = self.price_at_time or self.item.current_price or 0
+        return price * self.quantity
         return price * self.quantity
