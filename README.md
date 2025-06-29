@@ -1,4 +1,4 @@
-# [Online BigPen Kenya](https://github.com/tawalabora/bigpen)
+# [Online BigPen Kenya](https://github.com/online-bigpen-kenya/ecommerce/)
 
 A Django-based web application for **Online Bigpen Kenya**.
 
@@ -58,9 +58,9 @@ Set up a `.env` file in your production environment:
 
 # SECRET_KEY="your-secure-key-here"
 
-# Allowed Hosts (Defaults to 'localhost,127.0.0.1')
+# Allowed Hosts (Defaults to 'localhost,127.0.0.1,8000.christianwhocodes.space')
 
-# ALLOWED_HOSTS="localhost,127.0.0.1,example.com,www.example.com"
+# ALLOWED_HOSTS="localhost,127.0.0.1,8000.christianwhocodes.space,example.com,www.example.com"
 
 # Database Configuration
 # (defaults to sqlite3 - no configuration needed)

@@ -1,8 +1,6 @@
 [project]
-name = "bigpen"
+name = "ecommerce"
 version = "0.1.0"
-description = ""
-authors = [{ name = "Lox Informatics", email = "contact@loxinformatics.space" }]
 readme = "README.md"
 requires-python = ">=3.13"
 

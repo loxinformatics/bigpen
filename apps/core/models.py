@@ -693,6 +693,11 @@ class BaseUser(AbstractUser, Ordering):
     def __str__(self):
         return self.username
 
+    @property
+    def role(self):
+        """Property to get role"""
+        return self.get_role()
+
     def get_role(self):
         """Get the user's role from groups"""
         try:
@@ -821,11 +826,6 @@ class BaseUser(AbstractUser, Ordering):
                     )
             except Exception as e:
                 logger.error(f"Error validating user roles for {self.username}: {e}")
-
-    @property
-    def role(self):
-        """Property to get role"""
-        return self.get_role()
 
     def save(self, *args, **kwargs):
         """Override save to assign default role, handle superusers, and update staff status"""

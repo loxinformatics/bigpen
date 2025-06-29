@@ -33,7 +33,11 @@ SECRET_KEY = config("SECRET_KEY", default="Make sure to set your own secret key!
 
 DEBUG = config("ENVIRONMENT", default="development") == "development"
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv(), default="localhost,127.0.0.1")
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    cast=Csv(),
+    default="localhost,127.0.0.1,8000.christianwhocodes.space",
+)
 
 NAVIGATION_TYPE = config("NAVIGATION_TYPE", default="navbar")
 
