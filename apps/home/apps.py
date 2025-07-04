@@ -6,10 +6,9 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 
-class Homeonfig(AppConfig):
+class HomeConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = settings.HOME_APP_NAME
-    verbose_name = "Store"
 
     def ready(self):
         try:
