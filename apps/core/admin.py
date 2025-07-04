@@ -1,13 +1,9 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import Permission
-from django.utils.html import format_html
 
 from .forms import (
     BaseDetailForm,
     BaseImageForm,
     ContactSocialLinkForm,
-    UserChangeForm,
 )
 from .models import (
     BaseDetail,
@@ -18,7 +14,6 @@ from .models import (
     ContactSocialLink,
     ListCategory,
     ListItem,
-    UserRole,
 )
 from .site import portal_site
 
@@ -373,133 +368,3 @@ class ListItemAdmin(admin.ModelAdmin):
         form = super().get_form(request, obj, **kwargs)
         form.base_fields["category"].widget.can_add_related = False
         return form
-
-
-# ============================================================================
-# USER ADMIN
-# ============================================================================
-
-
-@admin.register(UserRole, site=portal_site)
-class UserRoleAdmin(admin.ModelAdmin):
-    list_display = [
-        "name",
-        "display_name",
-        "is_default_role",
-        "has_portal_access",
-        "user_count",
-    ]
-    list_editable = ["display_name", "is_default_role"]
-    list_filter = ["has_portal_access", "is_default_role"]
-    search_fields = ["name", "display_name"]
-    filter_horizontal = ["permissions"]  # This makes permissions easier to manage
-
-    fieldsets = (
-        ("Basic Information", {"fields": ("name", "display_name", "description")}),
-        ("Role Settings", {"fields": ("has_portal_access", "is_default_role", "permissions")}),
-    )
-    readonly_fields = (
-        "name",
-        "has_portal_access",
-    )
-
-    def user_count(self, obj):
-        """Show number of users with this role"""
-        count = obj.user_set.count()
-        if count > 0:
-            return format_html(
-                '<a href="{}?groups__id__exact={}">{} users</a>',
-                "/admin/core/user/",
-                obj.pk,
-                count,
-            )
-        return "0 users"
-
-    user_count.short_description = "Users"
-
-    def has_delete_permission(self, request, obj=None):
-        # Prevent deletion via admin
-        return False
-
-    def has_add_permission(self, request, obj=None):
-        # Prevent addition via admin
-        return False
-
-    def get_form(self, request, obj=None, **kwargs):
-        """Customize the form to group permissions by app"""
-        form = super().get_form(request, obj, **kwargs)
-
-        # Group permissions by app for better UX
-        if "permissions" in form.base_fields:
-            permissions = Permission.objects.select_related("content_type").all()
-            form.base_fields["permissions"].queryset = permissions.order_by(
-                "content_type__app_label", "content_type__model", "codename"
-            )
-
-        return form
-
-
-class BaseUserAdmin(UserAdmin):
-    form = UserChangeForm
-    list_display = [
-        "username",
-        "first_name",
-        "last_name",
-        "get_role_for_admin",
-        "is_active",
-    ]
-    list_filter = ("is_active", "groups", "is_staff")
-
-    fieldsets = (
-        (None, {"fields": ("username", "password")}),
-        (
-            "Personal info",
-            {"fields": ("first_name", "last_name", "email")},
-        ),
-        (
-            "Permissions",
-            {
-                "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                )
-            },
-        ),
-        (
-            "Display Options",
-            {"fields": ("order",)},
-        ),
-        ("Important dates", {"fields": ("last_login", "date_joined")}),
-    )
-
-    readonly_fields = ("is_staff", "is_superuser")
-    # Add filter_horizontal for better permission management
-    filter_horizontal = ["groups"]
-
-    def get_role_for_admin(self, obj):
-        try:
-            return obj.get_role()
-        except Exception:
-            return "Unknown"
-
-    get_role_for_admin.short_description = "Role"
-    get_role_for_admin.admin_order_field = "groups"
-
-    def get_fieldsets(self, request, obj=None):
-        fieldsets = super().get_fieldsets(request, obj)
-
-        if request.user.is_superuser:
-            return fieldsets
-
-        # Hide sensitive fields for non-superusers
-        fieldsets = list(fieldsets)
-        for name, section in fieldsets:
-            section["fields"] = tuple(
-                field
-                for field in section["fields"]
-                if field not in ["is_staff", "is_superuser"]
-            )
-
-        return fieldsets

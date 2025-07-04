@@ -5,12 +5,10 @@ from django.contrib.auth.forms import (
     UserCreationForm,
     UsernameField,
 )
-from django.contrib.auth.forms import (
-    UserChangeForm as DjangoUserChangeForm,
-)
+
 
 from .management.config.auth import auth_config
-from .models import BaseDetail, BaseImage, ContactSocialLink, UserRole
+from .models import BaseDetail, BaseImage, ContactSocialLink
 
 
 class MailUsForm(forms.Form):
@@ -211,43 +209,3 @@ class SignUpForm(UserCreationForm):
         model = get_user_model()
         fields = ("username",)
 
-
-class UserChangeForm(DjangoUserChangeForm):
-    class Meta:
-        model = get_user_model()
-        fields = "__all__"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # Update username field (assuming auth_config is defined elsewhere)
-        self.fields["username"].label = f"Username / {auth_config.get_username_label()}"
-        self.fields["username"].widget.attrs["placeholder"] = (
-            auth_config.get_username_placeholder()
-        )
-
-        # Filter groups to only show UserRole instances in the admin
-        if "groups" in self.fields:
-            self.fields["groups"].queryset = UserRole.objects.all()
-
-    def clean_groups(self):
-        """Ensure user is assigned to exactly one role group."""
-        groups = self.cleaned_data.get("groups")
-
-        if not groups:
-            raise forms.ValidationError(
-                "This field is required. Please select at least one group."
-            )
-
-        # Check that only one role group is selected
-        role_groups = list(groups)
-
-        if len(role_groups) > 1:
-            role_names = [g.name for g in role_groups]
-            raise forms.ValidationError(
-                f"User can only be assigned to one role group. "
-                f"You selected: {', '.join(role_names)}. "
-                f"Please select only one role group."
-            )
-
-        return groups

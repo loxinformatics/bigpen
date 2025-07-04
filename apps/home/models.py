@@ -1,9 +1,127 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser, Group
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils import timezone
 
-from apps.core.models import BaseUser, BootstrapIcon, DateFields, Ordering
+from apps.core.models import BootstrapIcon, DateFields, Ordering
+
+# ============================================================================
+# AUTH MODELS
+# ============================================================================
+
+
+class User(AbstractUser, Ordering):
+    """Custom User model with group-based permissions and staff status management"""
+
+    # 👇make email optional
+    email = models.EmailField(blank=True, null=True)
+    REQUIRED_FIELDS = []
+
+    class Meta:
+        db_table = "auth_user"
+        ordering = ["order", "username"]
+
+    def clean(self):
+        """Validate group assignments according to business rules"""
+        super().clean()
+
+        # Get group names from the many-to-many field
+        if self.pk:  # Only check if user exists (has been saved)
+            group_names = set(self.groups.values_list("name", flat=True))
+            self._validate_group_combinations(group_names)
+
+    def _validate_group_combinations(self, group_names):
+        """Validate that group combinations follow business rules"""
+        exclusive_groups = {"standard", "manager", "superuser"}
+        staff_groups = {"normal_staff", "blogger_staff"}
+
+        # Check for exclusive groups
+        exclusive_found = group_names.intersection(exclusive_groups)
+        if len(exclusive_found) > 1:
+            raise ValidationError(
+                f"User can only belong to one of these groups: {', '.join(exclusive_groups)}. "
+                f"Found: {', '.join(exclusive_found)}"
+            )
+
+        # Check if exclusive group is mixed with others
+        if exclusive_found:
+            exclusive_group = list(exclusive_found)[0]
+            other_groups = group_names - {exclusive_group}
+            if other_groups:
+                raise ValidationError(
+                    f"'{exclusive_group}' group cannot be combined with other groups. "
+                    f"Found additional groups: {', '.join(other_groups)}"
+                )
+
+        # If no exclusive groups, ensure only staff groups are present
+        elif group_names:
+            invalid_combinations = group_names - staff_groups
+            if invalid_combinations:
+                raise ValidationError(
+                    f"Invalid group combination. When not using exclusive groups "
+                    f"(standard, manager, superuser), only staff groups are allowed: "
+                    f"{', '.join(staff_groups)}. Found invalid: {', '.join(invalid_combinations)}"
+                )
+
+    def save(self, *args, **kwargs):
+        """Custom save method to handle default group assignment and staff status"""
+        is_new_user = self.pk is None
+
+        # Set default values for new users
+        if is_new_user:
+            if self.is_superuser:
+                # Superusers get superuser group by default
+                self.is_staff = True
+            else:
+                # Regular users get standard group by default
+                self.is_staff = False
+
+        # Call the parent save method first
+        super().save(*args, **kwargs)
+
+        # Handle group assignment for new users
+        if is_new_user:
+            if self.is_superuser:
+                superuser_group, created = Group.objects.get_or_create(name="superuser")
+                self.groups.set([superuser_group])
+            else:
+                standard_group, created = Group.objects.get_or_create(name="standard")
+                self.groups.set([standard_group])
+
+    def update_staff_status(self):
+        """Update is_staff based on group membership"""
+        group_names = set(self.groups.values_list("name", flat=True))
+
+        # Only 'standard' group users should have is_staff = False
+        if group_names == {"standard"}:
+            self.is_staff = False
+        else:
+            # All other groups should have is_staff = True
+            self.is_staff = True
+
+        # Save without triggering the full save logic again
+        super().save(update_fields=["is_staff"])
+
+
+@receiver(post_save, sender=User)
+def update_user_staff_status(sender, instance, **kwargs):
+    """Signal to update staff status when user groups change"""
+    if not kwargs.get("raw", False):  # Don't run during fixtures loading
+        # Use a flag to prevent infinite recursion
+        if not hasattr(instance, "_updating_staff_status"):
+            instance._updating_staff_status = True
+            try:
+                instance.update_staff_status()
+            finally:
+                delattr(instance, "_updating_staff_status")
+
+
+# ============================================================================
+# STOCK MODELS
+# ============================================================================
 
 
 class Category(Ordering, BootstrapIcon, DateFields):
@@ -193,36 +311,9 @@ class ItemImage(DateFields):
         return f"{self.item.name} - Image {self.id}"
 
 
-class User(BaseUser):
-    """Extended user model that works with the existing UserRole system."""
-
-    def is_staff_member(self):
-        """Check if user has staff role."""
-        role_obj = self.get_role_object()
-        if role_obj:
-            return role_obj.name == "staff_admin"
-        return False
-
-    def is_manager(self):
-        """Check if user has manager role."""
-        role_obj = self.get_role_object()
-        if role_obj:
-            return role_obj.name == "manager_admin"
-        return False
-
-    def is_client(self):
-        """Check if user has client role."""
-        role_obj = self.get_role_object()
-        if role_obj:
-            return role_obj.name == "client"
-        return True  # Default to client if no role assigned
-
-    def has_portal_access(self):
-        """Check if user can access the admin portal."""
-        role_obj = self.get_role_object()
-        if role_obj:
-            return role_obj.has_portal_access
-        return False
+# ============================================================================
+# ORDER MODELS
+# ============================================================================
 
 
 class Order(models.Model):
@@ -270,12 +361,12 @@ class Order(models.Model):
 
     def clean(self):
         """Validate order assignment."""
-        if self.assigned_to and not self.assigned_to.is_staff_member():
+        if self.assigned_to and not self.assigned_to.is_staff:
             raise ValidationError("Only staff members can be assigned to orders")
 
     def assign_to_staff(self, staff_user):
         """Assign order to a staff member and set status to in_progress."""
-        if not staff_user.is_staff_member():
+        if not staff_user.is_staff:
             raise ValidationError("Only staff members can be assigned to orders")
 
         if self.assigned_to is not None:
@@ -296,7 +387,7 @@ class Order(models.Model):
     def can_be_assigned_to(self, staff_user):
         """Check if order can be assigned to a specific staff member."""
         return (
-            staff_user.is_staff_member()
+            staff_user.is_staff
             and self.assigned_to is None
             and self.status == "pending"
         )

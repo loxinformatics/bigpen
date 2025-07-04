@@ -7,9 +7,6 @@ lib/
 # vendor & node_modules
 /apps/core/static/core/vendor
 
-# Seed data
-fixtures/
-
 # Environments
 .env
 
