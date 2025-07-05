@@ -6,9 +6,8 @@ from django.contrib.auth.forms import (
     UsernameField,
 )
 
-
 from .management.config.auth import auth_config
-from .models import BaseDetail, BaseImage, ContactSocialLink
+from .models import ContactSocialLink
 
 
 class MailUsForm(forms.Form):
@@ -74,32 +73,6 @@ class UniqueChoiceFormMixin:
         ]
 
         self.fields["name"].choices = [(None, "")] + available_choices
-
-
-def generate_model_form(model_class, choices_attr_name):
-    """
-    Generates a model form class using UniqueChoiceFormMixin, with dynamic filtering of choices.
-
-    Args:
-        model_class (Model): The Django model class to build the form for.
-        choices_attr_name (str): The name of the class attribute containing the choice list.
-
-    Returns:
-        forms.ModelForm: A dynamically generated model form class.
-    """
-
-    class _ModelForm(UniqueChoiceFormMixin, forms.ModelForm):
-        choices_attr = choices_attr_name
-
-        class Meta:
-            model = model_class
-            fields = "__all__"
-
-    return _ModelForm
-
-
-BaseDetailForm = generate_model_form(BaseDetail, "CHOICES")
-BaseImageForm = generate_model_form(BaseImage, "CHOICES")
 
 
 class ContactSocialLinkForm(UniqueChoiceFormMixin, forms.ModelForm):
@@ -208,4 +181,3 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = get_user_model()
         fields = ("username",)
-

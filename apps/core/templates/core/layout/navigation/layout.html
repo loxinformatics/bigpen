@@ -1,4 +1,4 @@
-{% load base %}
+{% load site_tags %}
 {% load urls %}
 {% load contacts %}
 {% load navigation %}
@@ -6,7 +6,6 @@
 
 {% has_signin as signin_enabled %}
 {% has_signup as signup_enabled %}
-{% navigation_type as nav_type %}
 
 {% if nav_type == "sidebar" %}
   <aside id="aside" class="aside dark-background d-flex flex-column py-3">
@@ -15,13 +14,13 @@
     {# Logo #}
     <a id="header-logo" href="{% landing_url %}" class="logo mb-3">
       {# Uncomment the line below if you also wish to use an image logo #}
-      <img src="{% base_logo %}"
+      <img src="{% site_logo %}"
            class="img-fluid"
            alt="logo"
            width="40"
            height="40" />
       {% comment  %}
-      <h1 class="sitename">{% base_name %}</h1>
+      <h1 class="sitename">{% site_name %}</h1>
       {% endcomment %}
     </a>
     {# Navigation #}
@@ -147,12 +146,14 @@
     {# Social Links #}
     <div class="mt-auto social-links text-center">
       {% get_social_links as social_links %}
+
       {% for link in social_links %}
         <a href="{{ link.url }}"
            class="{{ link.name }}"
            target="_blank"
            rel="noopener">{{ link.icon_html|safe }}</a>
       {% endfor %}
+
     </div>
   </aside>
 {% elif nav_type == "navbar" %}
@@ -165,9 +166,9 @@
         <div class="col-4 d-flex align-items-center">
           <a href="{% landing_url %}" class="logo d-flex align-items-center">
             {# Uncomment the line below if you also wish to use an image logo #}
-            <img src="{% base_logo %}" class="img-fluid" alt="logo" width="" height="" />
+            <img src="{% site_logo %}" class="img-fluid" alt="logo" width="" height="" />
             {% comment  %}
-              <h1 class="sitename">{% base_name %}</h1>
+              <h1 class="sitename">{% site_name %}</h1>
             {% endcomment %}
           </a>
         </div>

@@ -6,9 +6,9 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 
-class HomeConfig(AppConfig):
+class EcommerceConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = settings.HOME_APP_NAME
+    name = settings.SITE_APP
 
     def ready(self):
         try:

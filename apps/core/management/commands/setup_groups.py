@@ -9,10 +9,10 @@ class Command(BaseCommand):
         # Define groups and their permissions
         groups_permissions = {
             "superuser": [
-                "home.add_user",
-                "home.change_user",
-                "home.delete_user",
-                "home.view_user",
+                "ecommerce.add_user",
+                "ecommerce.change_user",
+                "ecommerce.delete_user",
+                "ecommerce.view_user",
                 "auth.add_group",
                 "auth.change_group",
                 "auth.delete_group",
@@ -24,13 +24,13 @@ class Command(BaseCommand):
             ],
             "standard": [],
             "manager": [
-                "home.add_user",
-                "home.change_user",
-                "home.view_user",
+                "ecommerce.add_user",
+                "ecommerce.change_user",
+                "ecommerce.view_user",
                 "auth.view_group",
             ],
-            "normal_staff": ["home.view_user"],
-            "blogger_staff": ["home.view_user"],
+            "normal_staff": ["ecommerce.view_user"],
+            "blogger_staff": ["ecommerce.view_user"],
         }
 
         for group_name, permission_codenames in groups_permissions.items():

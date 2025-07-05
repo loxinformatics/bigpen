@@ -1,139 +1,62 @@
-# [Online BigPen Kenya](https://github.com/online-bigpen-kenya/ecommerce/)
+# Ecommerce Django App.
 
-A Django-based web application for **Online Bigpen Kenya**.
+This guide walks you through setting up the project for a **development** environment.
 
-## ⚙️ Setup Guide
+## A. 📋 Prerequisites
 
-This guide walks you through setting up the project for both **development** and **production** environments.
-
-### A. 📋 Prerequisites
-
-These apply to **both** development and production setups:
-
-- 🐍 Python 3.13 or higher
 - 📦 Poetry package manager (Python)
 - 📦 NPM package manager (Nodejs)
-- 🐘 PostgreSQL (optional - defaults to SQLite for development)
 
-### B. ⚙️ Poetry and NPM Installation
+By default, SQLite3 is the database system employed. But you can use other DBMSs such as PostgreSQL.
 
-1. Install Poetry using pip:
+## B. 🛠️ Environment Configuration
 
-   ```bash
-   pip install poetry
-   ```
+Set up a `.env` file only if you need to override variables.
+For example if you are using another database management system such as PostgreSQL besides SQLite.
+Or if you want to test out a mail server _(By default, emails sent are simply printed out in the terminal / console)_.
+Below is a table of supported environment variables:
 
-2. **(Optional)** Configure Poetry to create virtualenv inside project roots.
+| Variable            | What it's for                         | Default Value                                      |
+| ------------------- | ------------------------------------- | -------------------------------------------------- |
+| ENVIRONMENT         | Set to `"production"` for production  | `development`                                      |
+| SECRET_KEY          | Django secret key                     | `Make sure to set your own secret key!`            |
+| ALLOWED_HOSTS       | Comma-separated list of allowed hosts | `localhost,127.0.0.1,8000.christianwhocodes.space` |
+| DB_BACKEND          | Database backend engine               | `sqlite3`                                          |
+| DB_NAME             | Database name (PostgreSQL only)       | _(none)_                                           |
+| DB_USER             | Database user (PostgreSQL only)       | `postgres`                                         |
+| DB_PASSWORD         | Database password (PostgreSQL only)   | `postgres`                                         |
+| DB_HOST             | Database host (PostgreSQL only)       | `localhost`                                        |
+| DB_PORT             | Database port (PostgreSQL only)       | `5432`                                             |
+| EMAIL_BACKEND       | Django email backend                  | `django.core.mail.backends.console.EmailBackend`   |
+| EMAIL_HOST          | SMTP server host                      | _(none)_                                           |
+| EMAIL_HOST_USER     | SMTP username                         | _(none)_                                           |
+| EMAIL_HOST_PASSWORD | SMTP password                         | _(none)_                                           |
+| SITE_APP            | Django custom app name                | `apps.default`                                     |
+
+## C. ⚙️ Setup Commands
+
+1. **(Optional)** Configure Poetry to create virtualenv inside project roots.
 
    ```bash
    poetry config.virtualenvs.in-project true
    ```
 
-3. Install NPM (`npm` comes with **NodeJs** by default when you install it)
-
-4. Install dependencies:
-
-   - For **development** (includes dev tools and test libs):
-
-     ```bash
-     poetry install
-     ```
-
-   - For **production** (excludes dev dependencies):
-
-     ```bash
-     poetry install --only main
-     ```
-
-### C. 🛠️ Environment Configuration
-
-Set up a `.env` file in your production environment:
-
-```bash
-# Environment (defaults to 'development')
-
-# ENVIRONMENT="production"
-
-# Secret Key (defaults to 'Make sure to set your own secret key!')
-
-# SECRET_KEY="your-secure-key-here"
-
-# Allowed Hosts (Defaults to 'localhost,127.0.0.1,8000.christianwhocodes.space')
-
-# ALLOWED_HOSTS="localhost,127.0.0.1,8000.christianwhocodes.space,example.com,www.example.com"
-
-# Database Configuration
-# (defaults to sqlite3 - no configuration needed)
-# For PostgreSQL, set all the following:
-
-# DB_BACKEND="postgresql"
-# DB_NAME=your_database_name
-# DB_USER=postgres
-# DB_PASSWORD=your_postgres_password
-# DB_HOST=localhost
-# DB_PORT=5432
-
-# Email Configuration
-# Console email backend (default - no configuration needed)
-# For SMTP email backend, set all the following:
-
-# EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST="smtp.gmail.com"
-# EMAIL_HOST_USER="your-email@gmail.com"
-# EMAIL_HOST_PASSWORD="your-app-password"
-
-# Home App Name (defaults to "apps.home")
-
-# HOME_APP_NAME="apps.home"
-
-# Navigation Type Configuration - either 'sidebar' or 'navbar' (defaults to 'navbar')
-
-# NAVIGATION_TYPE="sidebar"
-```
-
-### D. 🗄️ Database Setup
-
-#### SQLite (Default - Development)
-
-By default, the system uses SQLite which requires no additional setup.
-
-#### PostgreSQL (Optional - Production Recommended)
-
-If using PostgreSQL:
-
-1. **Install PostgreSQL** on your system
-2. **Create a database**:
-   ```sql
-   CREATE DATABASE your_database_name;
-   ```
-3. **Configure environment variables** in your `.env` file as shown above
-
-#### Database Migration (Both SQLite and PostgreSQL)
-
-1. Create database tables:
-
-    ```bash
-    python manage.py makemigrations
-    python manage.py migrate
-    ```
-
-2. Create the cache table (required for DatabaseCache):
-
-    ```bash
-    python manage.py createcachetable
-    ```
-
-### E. 📦 Static Files (Production Only)
-
-If you're deploying to production and using a web server (like Nginx) to serve static files, collect them into a single location using:
+2. Install dependencies
 
    ```bash
-   python manage.py buildstatic
+     poetry install
+     poetry run python manage.py npm install
    ```
 
-⚠️ This step is not needed in development, as Django serves static files automatically when `DEBUG=True`.
+3. Create database tables:
 
-## 🚀 Running the Application
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+
+## D. 🚀 Running the Application
 
 Start the development server:
 

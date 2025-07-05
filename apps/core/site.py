@@ -34,4 +34,4 @@ class AdminSite(DjangoAdminSite):
 
 
 # Create custom admin site instance
-portal_site = AdminSite(name="admin_site")
+admin_site = AdminSite(name="admin_site")
