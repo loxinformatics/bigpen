@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.core.site import admin_site
+from apps.core.admin import admin_site
 
 from .forms import ArticleForm
 from .models import Article, Category, Tag

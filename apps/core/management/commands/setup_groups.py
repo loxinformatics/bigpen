@@ -1,37 +1,36 @@
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = "Create user groups with appropriate permissions"
+    help = "Create user groups with appropriate permissions from settings"
 
     def handle(self, *args, **options):
-        # Define groups and their permissions
-        groups_permissions = {
-            "superuser": [
-                "ecommerce.add_user",
-                "ecommerce.change_user",
-                "ecommerce.delete_user",
-                "ecommerce.view_user",
-                "auth.add_group",
-                "auth.change_group",
-                "auth.delete_group",
-                "auth.view_group",
-                "auth.add_permission",
-                "auth.change_permission",
-                "auth.delete_permission",
-                "auth.view_permission",
-            ],
+        # Get groups configuration from settings with fallback
+        default_groups = {
             "standard": [],
-            "manager": [
-                "ecommerce.add_user",
-                "ecommerce.change_user",
-                "ecommerce.view_user",
-                "auth.view_group",
-            ],
-            "normal_staff": ["ecommerce.view_user"],
-            "blogger_staff": ["ecommerce.view_user"],
+            "staff": ["auth.view_group"],
         }
+
+        groups_permissions = getattr(settings, "GROUPS_PERMISSIONS", default_groups)
+
+        if not groups_permissions:
+            self.stdout.write(
+                self.style.WARNING(
+                    "GROUPS_PERMISSIONS not found in settings. Using default groups."
+                )
+            )
+            groups_permissions = default_groups
+
+        if not isinstance(groups_permissions, dict):
+            self.stdout.write(
+                self.style.ERROR(
+                    "GROUPS_PERMISSIONS must be a dictionary. "
+                    "Please check your settings.py file."
+                )
+            )
+            return
 
         for group_name, permission_codenames in groups_permissions.items():
             # Create or get the group

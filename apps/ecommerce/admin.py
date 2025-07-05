@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.utils.html import format_html
 from django.views.decorators.http import require_http_methods
 
-from apps.core.site import admin_site
+from apps.core.admin import admin_site
 
 from .forms import UserChangeForm
 from .models import Category, Item, ItemImage, Order, OrderItem
