@@ -13,21 +13,22 @@ from django.utils import timezone
 from django.utils.html import format_html
 from django.views.decorators.http import require_http_methods
 
-from apps.core.site import portal_site
-from apps.home.forms import UserChangeForm
-from apps.home.models import Category, Item, ItemImage, Order, OrderItem
+from apps.core.site import admin_site
+
+from .forms import UserChangeForm
+from .models import Category, Item, ItemImage, Order, OrderItem
 
 # ============================================================================
 # AUTH ADMIN
 # ============================================================================
 
 
-@admin.register(Group, site=portal_site)
+@admin.register(Group, site=admin_site)
 class GroupAdmin(BaseGroupAdmin):
     pass
 
 
-@admin.register(get_user_model(), site=portal_site)
+@admin.register(get_user_model(), site=admin_site)
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
 
@@ -161,7 +162,7 @@ class ItemImageInline(admin.TabularInline):
     readonly_fields = ("created_at", "updated_at")
 
 
-@admin.register(Category, site=portal_site)
+@admin.register(Category, site=admin_site)
 class CategoryAdmin(admin.ModelAdmin):
     """
     Admin interface for Category model with comprehensive display options,
@@ -217,7 +218,7 @@ class CategoryAdmin(admin.ModelAdmin):
     item_count.short_description = "Items"
 
 
-@admin.register(Item, site=portal_site)
+@admin.register(Item, site=admin_site)
 class ItemAdmin(admin.ModelAdmin):
     """
     Admin interface for Item model with comprehensive inventory management,
@@ -372,7 +373,7 @@ class ItemAdmin(admin.ModelAdmin):
     available_quantity_display.short_description = "Available Stock"
 
 
-@admin.register(ItemImage, site=portal_site)
+@admin.register(ItemImage, site=admin_site)
 class ItemImageAdmin(admin.ModelAdmin):
     """
     Admin interface for ItemImage model with image preview and organization.
@@ -496,7 +497,7 @@ class OrderItemInline(admin.TabularInline):
     total_price_display.short_description = "Total Price"
 
 
-@admin.register(Order, site=portal_site)
+@admin.register(Order, site=admin_site)
 class OrderAdmin(admin.ModelAdmin):
     """
     Enhanced admin interface for Order model with staff-specific functionality.
@@ -886,7 +887,7 @@ class OrderAdmin(admin.ModelAdmin):
     total_price_summary.short_description = "Price Summary"
 
 
-@admin.register(OrderItem, site=portal_site)
+@admin.register(OrderItem, site=admin_site)
 class OrderItemAdmin(admin.ModelAdmin):
     """Admin interface for OrderItem model with pricing and inventory details."""
 

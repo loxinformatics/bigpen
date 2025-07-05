@@ -1,12 +1,34 @@
-{% load base %}
+{% load site_tags %}
 {% load forms %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    {% base_meta %}
-    {% base_icons %}
-    <link rel="manifest" href="{% url 'webmanifest' %}">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="author" content="{% site_author %}" />
+    <meta name="description" content="{% site_description %}" />
+    <meta name="keywords" content="{% site_keywords %}" />
+    {# Twitter #}
+    <meta name="twitter:image" content="{% site_logo %}" />
+    <meta name="twitter:card" content="{% site_description %}" />
+    <meta name="twitter:site" content="{% site_url %}" />
+    <meta name="twitter:title" content="{% site_name %}" />
+    <meta name="twitter:description" content="{% site_description %}" />
+    <meta name="twitter:image:alt" content="{% site_name %}" />
+    {# Open Graph #}
+    <meta property="og:image" content="{% site_logo %}" />
+    <meta property="og:url" content="{% site_url %}" />
+    <meta property="og:site_name" content="{% site_name %}" />
+    <meta property="og:title" content="{% site_name %}" />
+    <meta property="og:locale" content="en_GB" />
+    {# Icons & Manifest #}
+    {% site_favicon %}
+    {% site_apple_touch_icon %}
+    {% site_android_chrome_icon %}
+    {% site_mstile %}
+    {% site_manifest %}
+    {# vendors #}
     {% include "core/vendors/bootstrap.html" %}
     {% include "core/vendors/aos.html" %}
     {% include "core/vendors/htmx.html" %}
@@ -14,21 +36,25 @@
     {% include "core/vendors/imagesloaded.html" %}
     {% include "core/vendors/isotope-layout.html" %}
     {% include "core/vendors/glightbox.html" %}
+    {# preloader #}
     {% include "core/overlay/preloader/static.html" %}
+    {# layout #}
     {% include "core/layout/navigation/static.html" %}
     {% include "core/layout/hero/static.html" %}
     {% include "core/layout/auth/signin/static.html" %}
     {% include "core/layout/auth/signup/static.html" %}
     {% include "core/layout/portfolio/portfolio-static.html" %}
     {% include "core/layout/contact/static.html" %}
-    {% include "core/overlay/whatsapp-call-us/static.html" %}
-    {% include "core/overlay/back-to-top/static.html" %}
     {% include "core/layout/footer/static.html" %}
+    {# whatsapp-call-us #}
+    {% include "core/overlay/whatsapp-call-us/static.html" %}
+    {# back to top #}
+    {% include "core/overlay/back-to-top/static.html" %}
 
     {% block static %}
     {% endblock static %}
 
-    {% base_title %}
+    {% site_title %}
   </head>
   <body>
     {% include "core/overlay/preloader/overlay.html" %}

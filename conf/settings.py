@@ -16,40 +16,52 @@ https://docs.djangoproject.com/en/stable/howto/deployment/checklist/
 from pathlib import Path
 
 from decouple import Csv, config
+from django.templatetags.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 LIB_DIR = BASE_DIR / "lib"
-
 LIB_DIR.mkdir(parents=True, exist_ok=True)
 
 # * SECURITY WARNING: keep the SECRET_KEY used in production secret!
-
-SECRET_KEY = config("SECRET_KEY", default="Make sure to set your own secret key!")
-
 # * SECURITY WARNING: don't run with DEBUG turned on in production!
 
-DEBUG = config("ENVIRONMENT", default="development") == "development"
-
-ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS",
-    cast=Csv(),
-    default="localhost,127.0.0.1,8000.christianwhocodes.space",
-)
-
-NAVIGATION_TYPE = config("NAVIGATION_TYPE", default="navbar")
-
+SECRET_KEY = config("SECRET_KEY", default="Make sure to set your own secret key!")
+DEBUG = config("ENVIRONMENT", default="development") != "production"
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv(), default="localhost,127.0.0.1")
 ROOT_URLCONF = "conf.urls"
-
 WSGI_APPLICATION = "conf.wsgi.application"
 
-# Home App Configurations
+# Site
 
-HOME_APP_NAME = config("HOME_APP_NAME", default="apps.home")
-
-HOME_APP_LABEL = HOME_APP_NAME.split(".")[-1]
+SITE_APP = config("SITE_APP", default="apps.default")
+SITE_URL = config("SITE_URL", default="")
+SITE_NAME = config("SITE_NAME", default="")
+SITE_SHORT_NAME = config("SITE_SHORT_NAME", default="")
+SITE_DESCRIPTION = config("SITE_DESCRIPTION", default="")
+SITE_THEME_COLOR = config("SITE_THEME_COLOR", default="")
+SITE_LOGO = config("SITE_LOGO", default=static("core/img/logo.png"))
+SITE_FAVICON = config("SITE_FAVICON", default=static("core/img/favicon.ico"))
+SITE_APPLE_TOUCH_ICON = config(
+    "SITE_APPLE_TOUCH_ICON", default=static("core/img/apple-touch-icon.png")
+)
+SITE_ANDROID_CHROME_ICON = config(
+    "SITE_ANDROID_CHROME_ICON", default=static("core/img/android-chrome-icon.png")
+)
+SITE_MSTILE = config("SITE_MSTILE", default=static("core/img/mstile.png"))
+SITE_HERO = config(
+    "SITE_HERO",
+    default=static("core/img/hero.jpg"),
+)
+SITE_MANIFEST = config(
+    "SITE_MANIFEST",
+    default=static("core/manifest.webmanifest"),
+)
+SITE_AUTHOR = config("SITE_AUTHOR", default="christianwhocodes")
+SITE_AUTHOR_URL = config(
+    "SITE_AUTHOR_URL", default="https://github.com/christianwhocodes/"
+)
 
 
 # Databases
@@ -70,8 +82,8 @@ else:
         "default": {
             "ENGINE": f"django.db.backends.{DB_BACKEND}",
             "NAME": config("DB_NAME"),
-            "USER": config("DB_USER", default=""),
-            "PASSWORD": config("DB_PASSWORD", default=""),
+            "USER": config("DB_USER", default="postgres"),
+            "PASSWORD": config("DB_PASSWORD", default="postgres"),
             "HOST": config("DB_HOST", default="localhost"),
             "PORT": config("DB_PORT", default="5432"),
         }
@@ -86,15 +98,10 @@ EMAIL_BACKEND = config(
 )
 
 EMAIL_USE_TLS = True
-
 EMAIL_USE_SSL = False
-
 EMAIL_PORT = "587"
-
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", default=None)
-
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default=None)
-
 EMAIL_HOST = config("EMAIL_HOST", default=None)
 
 
@@ -115,7 +122,7 @@ INSTALLED_APPS = [
     "django_ckeditor_5",
     "apps.core",
     "apps.blog",
-    HOME_APP_NAME,
+    SITE_APP,
 ]
 
 if DEBUG:
@@ -145,8 +152,7 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/stable/ref/settings/#auth
 # https://docs.djangoproject.com/en/stable/ref/settings/#auth-password-validators
 
-if HOME_APP_LABEL:
-    AUTH_USER_MODEL = f"{HOME_APP_LABEL}.User"
+AUTH_USER_MODEL = f"{SITE_APP.split('.')[-1]}.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -191,7 +197,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                # apps.blog
                 "apps.blog.context_processors.provider",
             ],
         },
@@ -199,8 +204,9 @@ TEMPLATES = [
 ]
 
 
-# Static files (CSS, Sass/SCSS, JavaScript, Images)
+# Static & Media files (CSS, Sass/SCSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/stable/howto/static-files/
+# https://docs.djangoproject.com/en/stable/ref/settings/#media-files
 
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -208,42 +214,20 @@ STATICFILES_FINDERS = [
     "sass_processor.finders.CssFinder",
 ]
 
-STATIC_URL = "lib/static/"
-
-STATIC_ROOT = LIB_DIR / "static"
-
 SASS_PRECISION = 8
 
-
-# Media files
-# https://docs.djangoproject.com/en/stable/ref/settings/#media-files
-
+STATIC_URL = "lib/static/"
 MEDIA_URL = "lib/media/"
-
+STATIC_ROOT = LIB_DIR / "static"
 MEDIA_ROOT = LIB_DIR / "media"
-
-
-# Cache
-# https://docs.djangoproject.com/en/stable/topics/cache/
-
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "django_cache",
-        "TIMEOUT": 300,  # Optional: Default cache timeout in seconds
-    }
-}
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/stable/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "Africa/Nairobi"
-
 USE_I18N = True
-
 USE_TZ = True
 
 

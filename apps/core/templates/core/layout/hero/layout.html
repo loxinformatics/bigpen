@@ -1,19 +1,19 @@
-{% load base %}
+{% load site_tags %}
 
 {% if show_hero|default_if_none:False %}
   <section id="hero"
            class="hero dark-background"
-           style="background-image: url('{% base_hero_image %}')">
+           style="background-image: url('{% site_hero %}')">
     <div class="container text-center">
       <div class="row justify-content-center" data-aos="zoom-out">
         <div class="col-lg-9">
-          <img src="{% base_logo %}"
+          <img src="{% site_logo %}"
                width="130"
                height="133"
                alt=""
                class="img-fluid mb-3" />
-          <h2>{% base_name %}</h2>
-          <p>{% base_description %}</p>
+          <h2>{% site_name %}</h2>
+          <p>{% site_description %}</p>
           <span>{% include 'core/widget/hero-btn-1/widget.html' %}</span>
           <span class="ms-2">{% include 'core/widget/hero-btn-2/widget.html' %}</span>
         </div>

@@ -17,8 +17,10 @@ from .serializers import (
 
 
 class LandingView(TemplateView):
-    template_name = "home/index.html"
+    template_name = "ecommerce/index.html"
     extra_context = {
+        # navigation
+        "nav_type": "sidebar",
         # hero section
         "show_hero": True,
         "hero_btn_1_name": "Shop Online Now",
@@ -33,7 +35,7 @@ class LandingView(TemplateView):
 
 
 class ContactView(TemplateView):
-    template_name = "home/index.html"
+    template_name = "ecommerce/index.html"
     extra_context = {
         # contact section
         "show_contact": True,
@@ -41,7 +43,7 @@ class ContactView(TemplateView):
 
 
 class FeaturesView(TemplateView):
-    template_name = "home/index.html"
+    template_name = "ecommerce/index.html"
     extra_context = {
         # features section
         "show_features": True,
@@ -87,7 +89,7 @@ class ItemDetailView(View):
         item = get_object_or_404(Item, pk=id)
         extra_context = {"item": item}
 
-        html = render_to_string("home/swaps/item.html", extra_context)
+        html = render_to_string("ecommerce/swaps/item.html", extra_context)
         return HttpResponse(html)
 
 

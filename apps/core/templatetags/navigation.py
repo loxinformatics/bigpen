@@ -1,5 +1,4 @@
 from django import template
-from django.conf import settings
 from django.urls import NoReverseMatch, reverse
 from django.utils.safestring import mark_safe
 
@@ -151,20 +150,20 @@ def render_dropdown_item(item, icon_class=""):
     '''
 
 
-def render_regular_item(item, icon_class=""):
+def render_regular_item(nav_type, item, icon_class=""):
     """
     Render a regular navigation item.
     """
     link_class = "navlink"
     icon_class_attr = f' class="{icon_class}"' if icon_class else ""
 
-    if settings.NAVIGATION_TYPE == "navbar":
+    if nav_type == "navbar":
         icon_html = (
             f'<i class="{item["icon"]} fs-6 me-2 {icon_class_attr}"></i>'
             if item["icon"]
             else ""
         )
-    elif settings.NAVIGATION_TYPE == "sidebar":
+    elif nav_type == "sidebar":
         icon_html = (
             f'<i class="{item["icon"]} navicon {icon_class_attr}"></i>'
             if item["icon"]
@@ -184,6 +183,7 @@ def render_regular_item(item, icon_class=""):
 @register.simple_tag(takes_context=True)
 def navmenu(context, icon_class=""):
     request = context.get("request")
+    nav_type = context.get("nav_type", "navbar")
     nav_items = build_nav_items(nav_config.get_items(), request)
 
     html_items = []
@@ -191,12 +191,7 @@ def navmenu(context, icon_class=""):
         if item["is_dropdown"]:
             html_items.append(render_dropdown_item(item, icon_class))
         else:
-            html_items.append(render_regular_item(item, icon_class))
+            html_items.append(render_regular_item(nav_type, item, icon_class))
 
     html = "\n      ".join(html_items)
     return mark_safe(html.strip())
-
-
-@register.simple_tag()
-def navigation_type():
-    return settings.NAVIGATION_TYPE
