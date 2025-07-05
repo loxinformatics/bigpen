@@ -1,14 +1,13 @@
 import logging
 
 from django.apps import AppConfig
-from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
 
 class EcommerceConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = settings.SITE_APP
+    name = "apps.ecommerce"
 
     def ready(self):
         try:

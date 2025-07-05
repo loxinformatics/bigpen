@@ -16,7 +16,6 @@ https://docs.djangoproject.com/en/stable/howto/deployment/checklist/
 from pathlib import Path
 
 from decouple import Csv, config
-from django.templatetags.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -30,38 +29,28 @@ LIB_DIR.mkdir(parents=True, exist_ok=True)
 SECRET_KEY = config("SECRET_KEY", default="Make sure to set your own secret key!")
 DEBUG = config("ENVIRONMENT", default="development") != "production"
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv(), default="localhost,127.0.0.1")
-ROOT_URLCONF = "conf.urls"
+
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "django_filters",
+    "sass_processor",
+    "phonenumber_field",
+    "django_ckeditor_5",
+    "apps.core",
+    "apps.blog",
+]
+
+if DEBUG:
+    INSTALLED_APPS.append("django_browser_reload")
+
+ROOT_URLCONF = config("ROOT_URLCONF", default="conf.urls")
 WSGI_APPLICATION = "conf.wsgi.application"
-
-# Site
-
-SITE_APP = config("SITE_APP", default="apps.default")
-SITE_URL = config("SITE_URL", default="")
-SITE_NAME = config("SITE_NAME", default="")
-SITE_SHORT_NAME = config("SITE_SHORT_NAME", default="")
-SITE_DESCRIPTION = config("SITE_DESCRIPTION", default="")
-SITE_THEME_COLOR = config("SITE_THEME_COLOR", default="")
-SITE_LOGO = config("SITE_LOGO", default=static("core/img/logo.png"))
-SITE_FAVICON = config("SITE_FAVICON", default=static("core/img/favicon.ico"))
-SITE_APPLE_TOUCH_ICON = config(
-    "SITE_APPLE_TOUCH_ICON", default=static("core/img/apple-touch-icon.png")
-)
-SITE_ANDROID_CHROME_ICON = config(
-    "SITE_ANDROID_CHROME_ICON", default=static("core/img/android-chrome-icon.png")
-)
-SITE_MSTILE = config("SITE_MSTILE", default=static("core/img/mstile.png"))
-SITE_HERO = config(
-    "SITE_HERO",
-    default=static("core/img/hero.jpg"),
-)
-SITE_MANIFEST = config(
-    "SITE_MANIFEST",
-    default=static("core/manifest.webmanifest"),
-)
-SITE_AUTHOR = config("SITE_AUTHOR", default="christianwhocodes")
-SITE_AUTHOR_URL = config(
-    "SITE_AUTHOR_URL", default="https://github.com/christianwhocodes/"
-)
 
 
 # Databases
@@ -105,54 +94,14 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default=None)
 EMAIL_HOST = config("EMAIL_HOST", default=None)
 
 
-# Installed Apps
-# https://docs.djangoproject.com/en/stable/ref/applications/
-
-INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "rest_framework",
-    "django_filters",
-    "sass_processor",
-    "phonenumber_field",
-    "django_ckeditor_5",
-    "apps.core",
-    "apps.blog",
-    SITE_APP,
-]
-
-if DEBUG:
-    INSTALLED_APPS.append("django_browser_reload")
-
-
 # Default Auto Field
 # https://docs.djangoproject.com/en/stable/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# Rest Framework
-# https://www.django-rest-framework.org/
-
-REST_FRAMEWORK = {
-    # "DEFAULT_AUTHENTICATION_CLASSES": [
-    #     "rest_framework.authentication.SessionAuthentication",
-    # ],
-    # "DEFAULT_PERMISSION_CLASSES": [
-    #     # "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
-    # ],
-}
-
-
-# Auth
-# https://docs.djangoproject.com/en/stable/ref/settings/#auth
+# Auth Password Validators
 # https://docs.djangoproject.com/en/stable/ref/settings/#auth-password-validators
-
-AUTH_USER_MODEL = f"{SITE_APP.split('.')[-1]}.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {

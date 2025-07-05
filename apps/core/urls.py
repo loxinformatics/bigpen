@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .site import admin_site
+from .admin import admin_site
 
 urlpatterns = [
     path("portal/", admin_site.urls, name="portal"),

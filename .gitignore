@@ -2,17 +2,18 @@
 __pycache__/
 
 # Lib files (SQLite, Media, and Static files)
-lib/
+/lib/
 
 # vendor & node_modules
-/apps/core/static/core/vendor
+/apps/core/static/core/vendor/
 
-# Environments
-.env
+# Environments and settings
+/.env
+/conf/custom/prod_*
 
 # packages and vendor files
-.venv/
+/.venv/
 
 # Misc
-.vscode/
-.backup/
+/.vscode/
+/.backup/
