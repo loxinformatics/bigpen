@@ -51,6 +51,7 @@ if DEBUG:
 
 ROOT_URLCONF = config("ROOT_URLCONF", default="conf.urls")
 WSGI_APPLICATION = "conf.wsgi.application"
+NAVIGATION_TYPE = "navbar"
 
 
 # Databases
