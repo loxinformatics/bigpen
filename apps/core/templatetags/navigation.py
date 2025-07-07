@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 from django.urls import NoReverseMatch, reverse
 from django.utils.safestring import mark_safe
 
@@ -183,7 +184,7 @@ def render_regular_item(nav_type, item, icon_class=""):
 @register.simple_tag(takes_context=True)
 def navmenu(context, icon_class=""):
     request = context.get("request")
-    nav_type = context.get("nav_type", "navbar")
+    nav_type = settings.NAVIGATION_TYPE
     nav_items = build_nav_items(nav_config.get_items(), request)
 
     html_items = []
@@ -195,3 +196,8 @@ def navmenu(context, icon_class=""):
 
     html = "\n      ".join(html_items)
     return mark_safe(html.strip())
+
+
+@register.simple_tag()
+def navigation_type():
+    return settings.NAVIGATION_TYPE

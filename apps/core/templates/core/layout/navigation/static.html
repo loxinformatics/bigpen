@@ -1,4 +1,7 @@
 {% load static %}
+{% load navigation %}
+
+{% navigation_type as nav_type %}
 
 {% if nav_type == "sidebar" or nav_type == "navbar" %}
   <link rel="stylesheet"

@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin import AdminSite as DjangoAdminSite
+from django.utils.translation import gettext_lazy as _
 
 from .forms import ContactSocialLinkForm
 from .models import (
@@ -22,9 +24,9 @@ class AdminSite(DjangoAdminSite):
     tailored to the organization.
     """
 
-    site_header = "Portal Manager"  # Appears at the top of each admin page
-    site_title = "Management Portal"  # Appears in the <title> of admin pages
-    index_title = "Welcome to the Portal Manager"  # Appears on the admin homepage
+    site_header = _("{} Administration").format(settings.SITE_NAME)
+    site_title = _("{} Admin").format(settings.SITE_NAME)
+    index_title = _("Welcome to {} Portal Manager").format(settings.SITE_NAME)
 
     def get_urls(self):
         """

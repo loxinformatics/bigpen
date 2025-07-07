@@ -43,11 +43,8 @@
     {% include "core/layout/hero/static.html" %}
     {% include "core/layout/auth/signin/static.html" %}
     {% include "core/layout/auth/signup/static.html" %}
-    {% include "core/layout/portfolio/portfolio-static.html" %}
     {% include "core/layout/contact/static.html" %}
     {% include "core/layout/footer/static.html" %}
-    {# whatsapp-call-us #}
-    {% include "core/overlay/whatsapp-call-us/static.html" %}
     {# back to top #}
     {% include "core/overlay/back-to-top/static.html" %}
 
@@ -57,26 +54,27 @@
     {% site_title %}
   </head>
   <body>
-    {% include "core/overlay/preloader/overlay.html" %}
+    
     {% include "core/layout/navigation/layout.html" %}
     <main>
       {% include "core/layout/hero/layout.html" %}
       {% include "core/layout/cta/v1.html" %}
       {% include "core/layout/auth/signin/layout.html" %}
       {% include "core/layout/auth/signup/layout.html" %}
-      {% include "core/layout/portfolio/portfolio-section.html" %}
+      {% include "core/layout/portfolio.html" %}
       {% include "core/layout/features/v1.html" %}
 
       {% block layout %}
       {% endblock layout %}
 
       {% include "core/layout/contact/layout.html" %}
-      {% include "core/overlay/whatsapp-call-us/overlay.html" %}
+      {% include "core/overlay/whatsapp-call-us.html" %}
     </main>
     {% include "core/layout/footer/layout.html" %}
     {% include "core/overlay/back-to-top/overlay.html" %}
     {% include "core/modals/portfolio-detail.html" %}
     {% include "core/modals/auth.html" %}
+    {% include "core/overlay/preloader/overlay.html" %}
     {% form_logout %}
   </body>
 </html>

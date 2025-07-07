@@ -87,6 +87,10 @@ $modal-backdrop-opacity:  0.87;
   scroll-behavior: smooth;
 }
 
+:root {
+  --header-height: 80px; /* Set your actual header height */
+}
+
 body {
   color: var(--default-color);
   background-color: var(--background-color);

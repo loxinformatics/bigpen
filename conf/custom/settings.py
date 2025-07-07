@@ -4,6 +4,9 @@ from conf.settings import *  # noqa: F403
 # Add ecommerce app
 INSTALLED_APPS.append("apps.ecommerce")  # noqa: F405
 
+# Override Navigation type
+# NAVIGATION_TYPE = "sidebar"
+
 # Custom user model
 AUTH_USER_MODEL = "ecommerce.User"
 

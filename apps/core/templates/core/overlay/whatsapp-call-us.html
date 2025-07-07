@@ -1,6 +1,40 @@
 {% load contacts %}
+{% load static %}
 
 {% if overlay_whatsapp_call_us|default_if_none:True %}
+  <style>
+    .whatsapp-float,
+    .call-float {
+      position: fixed;
+      z-index: 996;
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      transition: all 0.4s;
+    }
+
+    .call-float {
+      background: var(--bs-primary);
+    }
+
+    .whatsapp-float {
+      background: #25D366;
+      /* WhatsApp green */
+    }
+
+    .whatsapp-float i,
+    .call-float i {
+      font-size: 24px;
+      color: var(--contrast-color);
+      line-height: 0;
+    }
+
+    .whatsapp-float:hover,
+    .call-float:hover {
+      background-color: color-mix(in srgb, var(--bs-primary), transparent 20%);
+      color: var(--contrast-color);
+    }
+  </style>
   {% whatsapp_phone as whatsapp %}
   {% primary_phone as primary_phone %}
 
@@ -30,4 +64,6 @@
       <i class="bi bi-telephone"></i>
     </a>
   {% endif %}
+
+  <script defer src="{% static 'core/overlay/whatsapp-call-us.js' %}"></script>
 {% endif %}

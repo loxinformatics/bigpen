@@ -38,8 +38,7 @@ class EcommerceConfig(AppConfig):
             )
             nav_config.register(
                 name="Products",
-                url_name="landing",
-                fragment="portfolio",
+                url_name="portfolio",
                 order=2,
                 icon="bi bi-grid",
             )

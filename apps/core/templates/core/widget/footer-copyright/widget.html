@@ -5,6 +5,10 @@
     <p>
       © <span>Copyright</span> <strong class="px-1 sitename">{% site_name %}</strong> <span>All Rights Reserved</span>
     </p>
-    <div class="credits">{% site_credits %}</div>
+    <div class="credits">
+      Designed by <a href="{% site_author_url %}" class="
+      {% if not author_url or author_url == "#" %}pe-none{% endif %}
+    "><em>{% site_author %}</em></a>
   </div>
+</div>
 {% endif %}
