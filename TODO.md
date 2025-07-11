@@ -1,2 +1,0 @@
-- A page where a user can place orders and they go to the backend.
-- In the backend, the orders should be listed there, with filters being assigned, unassigned, and

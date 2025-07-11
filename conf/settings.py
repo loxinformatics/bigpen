@@ -53,6 +53,32 @@ ROOT_URLCONF = config("ROOT_URLCONF", default="conf.urls")
 WSGI_APPLICATION = "conf.wsgi.application"
 NAVIGATION_TYPE = "navbar"
 
+# Site-specific settings
+
+SITE_URL = config("SITE_URL", default="https://preview.bigpen.co.ke")
+SITE_NAME = config("SITE_NAME", default="Online BigPen Kenya")
+SITE_SHORT_NAME = config("SITE_SHORT_NAME", default="BigPen")
+SITE_DESCRIPTION = config("SITE_DESCRIPTION", default="Delivering Stationery Supplies")
+SITE_THEME_COLOR = config("SITE_THEME_COLOR", default="#ef4444")
+SITE_KEYWORDS = config("SITE_KEYWORDS", default="bigpen, Online BigPen Kenya, ecommerce")
+
+SITE_LOGO = config("SITE_LOGO", default="/lib/static/core/img/logo.png")
+SITE_FAVICON = config("SITE_FAVICON", default="/lib/static/core/img/favicon.ico")
+SITE_APPLE_TOUCH_ICON = config(
+    "SITE_APPLE_TOUCH_ICON", default="/lib/static/core/img/apple-touch-icon.png"
+)
+SITE_ANDROID_CHROME_ICON = config(
+    "SITE_ANDROID_CHROME_ICON", default="/lib/static/core/img/android-chrome-icon.png"
+)
+SITE_MSTILE = config("SITE_MSTILE", default="/lib/static/core/img/mstile.png")
+SITE_HERO = config("SITE_HERO", default="/lib/static/core/img/hero.jpg")
+SITE_MANIFEST = config("SITE_MANIFEST", default="/lib/static/core/manifest.webmanifest")
+
+SITE_AUTHOR = config("SITE_AUTHOR", default="christianwhocodes")
+SITE_AUTHOR_URL = config(
+    "SITE_AUTHOR_URL", default="https://github.com/christianwhocodes/"
+)
+
 
 # Databases
 # https://docs.djangoproject.com/en/stable/ref/settings/#databases

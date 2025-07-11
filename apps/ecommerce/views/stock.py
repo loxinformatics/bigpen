@@ -1,35 +1,21 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from django.views.generic import TemplateView, View
+from django.views.generic import View
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from .models import Category, Item
-from .serializers import (
+from ..models.stock import Category, Item
+from ..serializers.stock import (
     CategoryDetailSerializer,
     CategoryListSerializer,
     ItemListSerializer,
 )
 
 
-# Landing Page
-class LandingView(TemplateView):
-    template_name = "ecommerce/index.html"
-    extra_context = {
-        # hero section
-        "show_hero": True,
-        "hero_btn_1_name": "Shop Online Now",
-        "hero_btn_1_url": "/#portfolio",
-        # cta section
-        "show_cta": True,
-    }
-
-
-# Products Page
 class CategoryViewSet(ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     filter_backends = [DjangoFilterBackend, SearchFilter]
@@ -70,35 +56,6 @@ class ItemDetailView(View):
 
         html = render_to_string("ecommerce/swaps/item.html", extra_context)
         return HttpResponse(html)
-
-
-class PortfolioView(TemplateView):
-    template_name = "ecommerce/index.html"
-    extra_context = {
-        # portfolio section
-        "show_portfolio": True,
-        "portfolio_title_heading": "Our Products",
-        "portfolio_title_paragraph": "Explore our curated collection of educational materials, school supplies, and academic resources designed to support learning and administration in every classroom. Quality, affordability, and purpose in every item.",
-    }
-
-
-# Features Page
-class FeaturesView(TemplateView):
-    template_name = "ecommerce/index.html"
-    extra_context = {
-        # features section
-        "show_features": True,
-        "features_title_paragraph": "What we offer",
-    }
-
-
-# Contact Page
-class ContactView(TemplateView):
-    template_name = "ecommerce/index.html"
-    extra_context = {
-        # contact section
-        "show_contact": True,
-    }
 
 
 # def ShopDashboard(request):
@@ -149,23 +106,3 @@ class ContactView(TemplateView):
 #         "has_footer": True,
 #     }
 #     return render(request, "shop/item_detail.html", context)
-
-
-# @login_required
-# def place_order(request):
-#     if request.method == "POST":
-#         form = OrderForm(request.POST)
-#         if form.is_valid():
-#             order = Order.objects.create(user=request.user)
-#             for item in Item.objects.all():
-#                 quantity = form.cleaned_data.get(f"item_{item.id}")
-#                 if quantity and quantity > 0:
-#                     OrderItem.objects.create(order=order, item=item, quantity=quantity)
-#                     # Subtract from stock
-#                     item.quantity -= quantity
-#                     item.save()
-#             return redirect("order_success")  # Make sure this exists
-#     else:
-#         form = OrderForm()
-
-#     return render(request, "shop/place_order.html", {"form": form})

@@ -24,9 +24,11 @@ class AdminSite(DjangoAdminSite):
     tailored to the organization.
     """
 
-    site_header = _("{} Administration").format(settings.SITE_NAME)
-    site_title = _("{} Admin").format(settings.SITE_NAME)
-    index_title = _("Welcome to {} Portal Manager").format(settings.SITE_NAME)
+    SITE_NAME = settings.SITE_NAME
+
+    site_header = _("{} Administration").format(SITE_NAME)
+    site_title = _("{} Admin").format(SITE_NAME)
+    index_title = _("Welcome to {} Portal Manager").format(SITE_NAME)
 
     def get_urls(self):
         """
