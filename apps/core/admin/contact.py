@@ -1,59 +1,13 @@
-from django.conf import settings
 from django.contrib import admin
-from django.contrib.admin import AdminSite as DjangoAdminSite
-from django.utils.translation import gettext_lazy as _
 
-from .forms import ContactSocialLinkForm
-from .models import (
+from ..forms.contact import ContactSocialLinkForm
+from ..models.contact import (
     ContactAddress,
     ContactEmail,
     ContactNumber,
     ContactSocialLink,
-    ListCategory,
-    ListItem,
 )
-from .views import signin, signout
-
-
-class AdminSite(DjangoAdminSite):
-    """
-    Custom admin site for the organization.
-
-    Overrides default admin login/logout URLs with custom views
-    for authentication that may include branding, layout, or behavior
-    tailored to the organization.
-    """
-
-    SITE_NAME = settings.SITE_NAME
-
-    site_header = _("{} Administration").format(SITE_NAME)
-    site_title = _("{} Admin").format(SITE_NAME)
-    index_title = _("Welcome to {} Portal Manager").format(SITE_NAME)
-
-    def get_urls(self):
-        """
-        Returns a list of URL patterns for the custom admin site.
-
-        Adds custom login and logout paths (handled by `signin` and `signout` views),
-        and appends the default admin site URLs.
-        """
-        from django.urls import path
-
-        urls = super().get_urls()
-        custom_urls = [
-            path("login/", signin, name="admin_login"),
-            path("logout/", signout, name="admin_logout"),
-        ]
-        return custom_urls + urls
-
-
-# Create custom admin site instance
-admin_site = AdminSite(name="admin_site")
-
-
-# ============================================================================
-# CONTACT ADMIN
-# ============================================================================
+from .site import admin_site
 
 
 @admin.register(ContactSocialLink, site=admin_site)
@@ -192,79 +146,3 @@ class ContactAddressAdmin(admin.ModelAdmin):
         ),
         ("Display Options", {"fields": ("is_active", "use_in_contact_form", "order")}),
     )
-
-
-# ============================================================================
-# LIST ADMIN
-# ============================================================================
-@admin.register(ListCategory, site=admin_site)
-class ListCategoryAdmin(admin.ModelAdmin):
-    """
-    Admin for ListCategory model. Allow permissions only for superusers.
-    """
-
-    list_display = (
-        "name",
-        "bootstrap_icon",
-        "order",
-    )
-    list_editable = ("order",)
-    ordering = ("order",)
-    search_fields = ("name",)
-    fieldsets = (
-        ("Category Details", {"fields": ("name",)}),
-        ("Display Options", {"fields": ("bootstrap_icon", "order")}),
-        ("Timestamps", {"fields": ("created_at", "updated_at")}),
-    )
-    readonly_fields = ("created_at", "updated_at")
-
-
-# Custom filter for ListItem based on category name
-class CategoryNameFilter(admin.SimpleListFilter):
-    title = "Category"
-    parameter_name = "category_name"
-
-    def lookups(self, request, model_admin):
-        categories = set(ListCategory.objects.values_list("name", flat=True))
-        return [(cat, cat) for cat in categories]
-
-    def queryset(self, request, queryset):
-        if self.value():
-            return queryset.filter(category__name=self.value())
-        return queryset
-
-
-@admin.register(ListItem, site=admin_site)
-class ListItemAdmin(admin.ModelAdmin):
-    """
-    Admin for ListItem model with enhanced display, filtering,
-    search, and form behavior.
-    """
-
-    list_display = (
-        "name",
-        "bootstrap_icon",
-        "category",
-        "order",
-    )
-    list_editable = (
-        "bootstrap_icon",
-        "order",
-    )
-    list_filter = (CategoryNameFilter, "category")
-    search_fields = ("name", "description")
-    ordering = ("order", "name")
-    fieldsets = (
-        ("Item Details", {"fields": ("name", "description", "category")}),
-        ("Display Options", {"fields": ("bootstrap_icon", "order")}),
-        ("Timestamps", {"fields": ("created_at", "updated_at")}),
-    )
-    readonly_fields = ("created_at", "updated_at")
-
-    def get_form(self, request, obj=None, **kwargs):
-        """
-        Remove '+' add-related button from the category field.
-        """
-        form = super().get_form(request, obj, **kwargs)
-        form.base_fields["category"].widget.can_add_related = False
-        return form

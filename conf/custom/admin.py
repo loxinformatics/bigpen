@@ -4,7 +4,7 @@ from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
-from apps.core.admin import admin_site
+from apps.core.admin.site import admin_site
 
 from .forms import UserForm
 

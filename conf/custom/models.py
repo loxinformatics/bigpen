@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 # from django.dispatch import receiver
 
-from apps.core.models import Ordering
+from apps.core.models.abstract import Ordering
 
 
 class User(AbstractUser, Ordering):

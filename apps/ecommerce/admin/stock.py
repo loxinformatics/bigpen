@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from apps.core.admin import admin_site
+from apps.core.admin.site import admin_site
 
 from ..models.stock import Category, Item, ItemImage
 

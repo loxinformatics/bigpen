@@ -1,6 +1,6 @@
 from django import template
 
-from ..forms import MailUsForm
+from ..forms.mail import MailUsForm
 
 register = template.Library()
 

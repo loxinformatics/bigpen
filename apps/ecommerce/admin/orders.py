@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.utils.html import format_html
 from django.views.decorators.http import require_http_methods
 
-from apps.core.admin import admin_site
+from apps.core.admin.site import admin_site
 
 from ..models.orders import Order, OrderItem
 

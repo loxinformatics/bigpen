@@ -1,6 +1,6 @@
 from django import template
 
-from ..models import ListItem
+from ..models.list import ListItem
 
 register = template.Library()
 

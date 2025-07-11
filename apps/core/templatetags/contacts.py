@@ -1,7 +1,12 @@
 from django import template
 from django.utils.html import format_html
 
-from ..models import ContactAddress, ContactEmail, ContactNumber, ContactSocialLink
+from ..models.contact import (
+    ContactAddress,
+    ContactEmail,
+    ContactNumber,
+    ContactSocialLink,
+)
 
 register = template.Library()
 

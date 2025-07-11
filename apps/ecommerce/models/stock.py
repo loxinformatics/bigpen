@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 
-from apps.core.models import BootstrapIcon, DateFields, Ordering
+from apps.core.models.abstract import BootstrapIcon, DateFields, Ordering
 
 
 class Category(Ordering, BootstrapIcon, DateFields):
