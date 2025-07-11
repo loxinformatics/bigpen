@@ -5,8 +5,8 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 
-from apps.core.management.config.auth import auth_config
-from apps.core.management.config.urls import urls_config
+from ..management.config.auth import auth_config
+from ..management.config.urls import urls_config
 
 
 def auth_page_required(page_name):

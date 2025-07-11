@@ -1,47 +1,7 @@
-import logging
-
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
-logger = logging.getLogger(__name__)
-
-
-class Ordering(models.Model):
-    class Meta:
-        abstract = True
-
-    order = models.PositiveIntegerField(
-        default=1,
-        help_text="Display order (lower numbers - zero included - appear first)",
-    )
-
-
-class BootstrapIcon(models.Model):
-    class Meta:
-        abstract = True
-
-    bootstrap_icon = models.CharField(
-        max_length=255,
-        blank=True,
-        help_text="Optional. Bootstrap icon class or path for the item. Example: 'bi bi-cart' for a shopping cart icon. Find icons at [Bootstrap Icons](https://icons.getbootstrap.com/).",
-    )
-
-
-class DateFields(models.Model):
-    class Meta:
-        abstract = True
-
-    created_at = models.DateTimeField(
-        auto_now_add=True, help_text="Date and time created."
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        help_text="Date and time last updated.",
-    )
-
-# ============================================================================
-# CONTACT MODELS
-# ============================================================================
+from .abstract import Ordering
 
 
 class Contacts(models.Model):
@@ -336,44 +296,3 @@ class ContactAddress(Contacts, Ordering):
 
         query = urllib.parse.quote_plus(self.full_address)
         return f"https://www.google.com/maps/search/?api=1&query={query}"
-
-
-# ============================================================================
-# LIST MODELS
-# ============================================================================
-
-
-class ListCategory(Ordering, BootstrapIcon, DateFields):
-    class Meta:
-        ordering = ["order", "name"]
-        verbose_name_plural = "List categories"
-
-    name = models.CharField(
-        max_length=255,
-        help_text="Category name that groups related list items (e.g., 'Electronics', 'Furniture').",
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class ListItem(Ordering, BootstrapIcon, DateFields):
-    class Meta:
-        ordering = ["order", "name"]
-
-    category = models.ForeignKey(
-        ListCategory,
-        on_delete=models.CASCADE,
-        related_name="items",
-    )
-    name = models.CharField(
-        max_length=255,
-        help_text="Name of the item.",
-    )
-    description = models.TextField(
-        blank=True,
-        help_text="Detailed description of this item, including features or specifications (optional).",
-    )
-
-    def __str__(self):
-        return self.name
