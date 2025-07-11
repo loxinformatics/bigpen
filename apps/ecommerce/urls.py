@@ -1,20 +1,21 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from . import views
+from .views.home import ContactView, FeaturesView, LandingView, PortfolioView
+from .views.stock import CategoryViewSet, ItemDetailView
 
 api = DefaultRouter()
-api.register(r"portfolio", views.CategoryViewSet)
+api.register(r"portfolio", CategoryViewSet)
 
 urlpatterns = [
-    path("", views.LandingView.as_view(), name="landing"),
-    path("products", views.PortfolioView.as_view(), name="portfolio"),
-    path("contact/", views.ContactView.as_view(), name="contact"),
-    path("features", views.FeaturesView.as_view(), name="features"),
+    path("", LandingView.as_view(), name="landing"),
+    path("products", PortfolioView.as_view(), name="portfolio"),
+    path("contact/", ContactView.as_view(), name="contact"),
+    path("features", FeaturesView.as_view(), name="features"),
     path("api/", include(api.urls)),
     path(
         "swaps/portfolio/item/<int:id>/",
-        views.ItemDetailView.as_view(),
+        ItemDetailView.as_view(),
         name="item-detail",
     ),
 ]

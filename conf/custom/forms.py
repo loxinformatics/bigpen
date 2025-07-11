@@ -1,19 +1,11 @@
-# from .models import Item
-# from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import (
-    UserChangeForm as BaseUserChangeForm,
-)
+from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import Group
 
 from apps.core.management.config.auth import auth_config
 
-# ============================================================================
-# AUTH FORMS
-# ============================================================================
 
-
-class UserChangeForm(BaseUserChangeForm):
+class UserForm(UserChangeForm):
     class Meta:
         model = get_user_model()
         fields = "__all__"
@@ -61,28 +53,3 @@ class UserChangeForm(BaseUserChangeForm):
     #         )
 
     #     return groups
-
-
-# class OrderForm(forms.Form):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.items = Item.objects.all()  # Store queryset for validation later
-#         for item in self.items:
-#             self.fields[f"item_{item.id}"] = forms.IntegerField(
-#                 label=f"{item.name} (In Stock: {item.quantity})",
-#                 min_value=0,
-#                 initial=0,
-#                 required=False,
-#             )
-
-#     def clean(self):
-#         cleaned_data = super().clean()
-#         for item in self.items:
-#             field_name = f"item_{item.id}"
-#             quantity = cleaned_data.get(field_name)
-#             if quantity and quantity > item.quantity:
-#                 self.add_error(
-#                     field_name,
-#                     f"Only {item.quantity} left in stock for '{item.name}'.",
-#                 )
-#         return cleaned_data

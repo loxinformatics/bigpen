@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
-from .models import Category, Item, ItemImage  # noqa: F401
-
-# ===== CATEGORY SERIALIZERS =====
+from ..models.stock import Category, Item
 
 
 class CategoryListSerializer(serializers.HyperlinkedModelSerializer):
@@ -57,8 +55,6 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
     def get_total_items(self, obj):
         return obj.items.count()
 
-
-# ===== ITEM SERIALIZERS =====
 
 
 class ItemListSerializer(serializers.ModelSerializer):
