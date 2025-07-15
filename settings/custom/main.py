@@ -1,12 +1,9 @@
-from conf.settings import *  # noqa: F403
+from settings.main import *  # noqa: F403
 
 INSTALLED_APPS += [  # noqa: F405
-    "conf.custom",
+    "settings.custom",
     "apps.ecommerce",
 ]
-
-# Override Navigation type
-# NAVIGATION_TYPE = "sidebar"
 
 # Custom user model
 AUTH_USER_MODEL = "custom.User"

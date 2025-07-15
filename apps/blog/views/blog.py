@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, render
 
-from .forms import ReplyForm, SearchForm
-from .models import Article, Category, Tag
+from ..forms.comments import ReplyForm
+from ..forms.search import SearchForm
+from ..models.articles import Article, Category, Tag
 
 
 def blog(request):

@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 
 from apps.core.admin.site import admin_site
 
-from .forms import UserForm
+from ..forms.users import UserForm
 
 
 @admin.register(Group, site=admin_site)

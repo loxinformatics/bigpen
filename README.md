@@ -1,4 +1,4 @@
-# Ecommerce Django App.
+# Django Template App.
 
 This guide walks you through setting up the project for a **development** environment.
 
@@ -19,8 +19,8 @@ Set these in your `.env` file as needed. Defaults are preconfigured for developm
 
 | Variable               | What it's for                         | Default Value                                      |
 |------------------------|---------------------------------------|----------------------------------------------------|
-| DJANGO_SETTINGS_MODULE | Django settings module to use         | `conf.settings`                                    |
-| ROOT_URLCONF           | Django root URL configuration module  | `conf.urls`                                        |
+| DJANGO_SETTINGS_MODULE | Django settings module to use         | `settings.main`                                    |
+| ROOT_URLCONF           | Django root URL configuration module  | `settings.urls`                                        |
 | ENVIRONMENT            | Set to `"production"` for production  | `development`                                      |
 | SECRET_KEY             | Django secret key                     | `Make sure to set your own secret key!`            |
 | ALLOWED_HOSTS          | Comma-separated list of allowed hosts | `localhost,127.0.0.1` |
@@ -63,6 +63,7 @@ Set these in your `.env` file as needed. Defaults are preconfigured for developm
 | SITE_KEYWORDS            | Comma-separated SEO keywords         | `bigpen,Online BigPen Kenya,ecommerce`           |
 | SITE_AUTHOR              | Site author metadata                 | `christianwhocodes`                              |
 | SITE_AUTHOR_URL          | URL to author profile                | `https://github.com/christianwhocodes/`         |
+| SITE_NAVIGATION_TYPE          | Type of navigation - `navbar` or `sidebar`               | `navbar`         |
 
 ---
 
@@ -78,46 +79,4 @@ Set these in your `.env` file as needed. Defaults are preconfigured for developm
 | SITE_HERO                | Hero/banner image                    | `/lib/static/core/img/hero.jpg`                   |
 | SITE_MANIFEST            | Web manifest path                    | `/lib/static/core/manifest.webmanifest`           |
 
-## C. ⚙️ Setup Commands
-
-1. **(Optional)** Configure Poetry to create virtualenv inside project roots.
-
-   ```bash
-   poetry config.virtualenvs.in-project true
-   ```
-
-2. Install dependencies
-
-   ```bash
-     poetry install
-     poetry run python manage.py npm install
-   ```
-
-3. Create database tables:
-
-   ```bash
-   poetry run python manage.py makemigrations
-   poetry run python manage.py migrate
-   ```
-
-3. Setup Groups:
-
-   ```bash
-   poetry run python manage.py setup_groups
-   ```
-
-3. Seed the database with sample data:
-
-   ```bash
-   poetry run python manage.py seed
-   ```
-
-## D. 🚀 Running the Application
-
-Start the development server:
-
-```bash
-poetry run python manage.py runserver
-```
-
-The application will be available at `http://localhost:8000`
+---

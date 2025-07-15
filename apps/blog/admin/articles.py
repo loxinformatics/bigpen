@@ -2,8 +2,8 @@ from django.contrib import admin
 
 from apps.core.admin.site import admin_site
 
-from .forms import ArticleForm
-from .models import Article, Category, Tag
+from ..forms.articles import ArticleForm
+from ..models.articles import Article, Category, Tag
 
 
 @admin.register(Article, site=admin_site)

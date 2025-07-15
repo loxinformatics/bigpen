@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AbstractUser, Group
 from django.core.exceptions import ValidationError
 from django.db import models
-# from django.dispatch import receiver
 
+# from django.dispatch import receiver
 from apps.core.models.abstract import Ordering
 
 
@@ -83,30 +83,3 @@ class User(AbstractUser, Ordering):
             else:
                 standard_group, created = Group.objects.get_or_create(name="standard")
                 self.groups.set([standard_group])
-
-#     def update_staff_status(self):
-#         """Update is_staff based on group membership"""
-#         group_names = set(self.groups.values_list("name", flat=True))
-
-#         # Only 'standard' group users should have is_staff = False
-#         if group_names == {"standard"}:
-#             self.is_staff = False
-#         else:
-#             # All other groups should have is_staff = True
-#             self.is_staff = True
-
-#         # Save without triggering the full save logic again
-#         super().save(update_fields=["is_staff"])
-
-
-# @receiver(models.signals.post_save, sender=User)
-# def update_user_staff_status(sender, instance, **kwargs):
-#     """Signal to update staff status when user groups change"""
-#     if not kwargs.get("raw", False):  # Don't run during fixtures loading
-#         # Use a flag to prevent infinite recursion
-#         if not hasattr(instance, "_updating_staff_status"):
-#             instance._updating_staff_status = True
-#             try:
-#                 instance.update_staff_status()
-#             finally:
-#                 delattr(instance, "_updating_staff_status")
