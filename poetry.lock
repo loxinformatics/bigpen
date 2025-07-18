@@ -923,21 +923,6 @@ dev = ["build", "hatch"]
 doc = ["sphinx"]
 
 [[package]]
-name = "termcolor"
-version = "3.1.0"
-description = "ANSI color formatting for output in terminal"
-optional = false
-python-versions = ">=3.9"
-groups = ["main"]
-files = [
-    {file = "termcolor-3.1.0-py3-none-any.whl", hash = "sha256:591dd26b5c2ce03b9e43f391264626557873ce1d379019786f99b0c2bee140aa"},
-    {file = "termcolor-3.1.0.tar.gz", hash = "sha256:6a6dd7fbee581909eeec6a756cff1d7f7c376063b14e4a298dc4980309e55970"},
-]
-
-[package.extras]
-tests = ["pytest", "pytest-cov"]
-
-[[package]]
 name = "tqdm"
 version = "4.67.1"
 description = "Fast, Extensible Progress Meter"
@@ -974,4 +959,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "6cfb839f90045ce55e1574f732bddafdd178b1648ebcd64fd941a4649f6bf8fd"
+content-hash = "3ce6ff2e82bae43c10f22effcbde806ce84f4f2790f1b0646cf149df54c3e8e0"
