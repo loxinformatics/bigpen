@@ -19,7 +19,7 @@ from decouple import Csv, config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 LIB_DIR = BASE_DIR / "lib"
 LIB_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -49,8 +49,8 @@ INSTALLED_APPS = [
 if DEBUG:
     INSTALLED_APPS.append("django_browser_reload")
 
-ROOT_URLCONF = config("ROOT_URLCONF", default="settings.urls")
-WSGI_APPLICATION = "settings.wsgi.application"
+ROOT_URLCONF = config("ROOT_URLCONF", default="settings.core.urls")
+WSGI_APPLICATION = "settings.core.wsgi.application"
 
 
 # Site-specific settings

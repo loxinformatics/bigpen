@@ -1,4 +1,4 @@
-from settings.main import *  # noqa: F403
+from settings.core.main import *  # noqa: F403
 
 INSTALLED_APPS += [  # noqa: F405
     "settings.custom",

@@ -19,8 +19,8 @@ Set these in your `.env` file as needed. Defaults are preconfigured for developm
 
 | Variable               | What it's for                         | Default Value                                      |
 |------------------------|---------------------------------------|----------------------------------------------------|
-| DJANGO_SETTINGS_MODULE | Django settings module to use         | `settings.main`                                    |
-| ROOT_URLCONF           | Django root URL configuration module  | `settings.urls`                                        |
+| DJANGO_SETTINGS_MODULE | Django settings module to use         | `settings.core.main`                                    |
+| ROOT_URLCONF           | Django root URL configuration module  | `settings.core.urls`                                        |
 | ENVIRONMENT            | Set to `"production"` for production  | `development`                                      |
 | SECRET_KEY             | Django secret key                     | `Make sure to set your own secret key!`            |
 | ALLOWED_HOSTS          | Comma-separated list of allowed hosts | `localhost,127.0.0.1` |
