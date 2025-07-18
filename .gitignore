@@ -9,7 +9,6 @@ __pycache__/
 
 # Environments and settings
 /.env
-/conf/custom/prod_*
 
 # packages and vendor files
 /.venv/
@@ -17,8 +16,3 @@ __pycache__/
 # Misc
 /.vscode/
 /.backup/
-
-# Ignore everything in migrations/
-migrations/*
-# But don't ignore this file
-!migrations/__init__.py
