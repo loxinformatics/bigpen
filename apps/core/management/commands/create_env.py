@@ -65,7 +65,7 @@ class Command(BaseCommand):
 
         # Define environment variables
         env_content = f"""# 🚀 Core Django Configuration
-DJANGO_SETTINGS_MODULE="settings.core.main"
+DJANGO_SETTINGS_MODULE="settings.core.conf"
 ROOT_URLCONF="settings.core.urls"
 ENVIRONMENT="development"
 SECRET_KEY="{secret_key}"

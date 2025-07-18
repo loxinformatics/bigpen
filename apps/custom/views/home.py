@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 
 # Landing Page
 class LandingView(TemplateView):
-    template_name = "ecommerce/index.html"
+    template_name = "custom/index.html"
     extra_context = {
         # hero section
         "show_hero": True,
@@ -15,7 +15,7 @@ class LandingView(TemplateView):
 
 
 class PortfolioView(TemplateView):
-    template_name = "ecommerce/index.html"
+    template_name = "custom/index.html"
     extra_context = {
         # portfolio section
         "show_portfolio": True,
@@ -26,7 +26,7 @@ class PortfolioView(TemplateView):
 
 # Features Page
 class FeaturesView(TemplateView):
-    template_name = "ecommerce/index.html"
+    template_name = "custom/index.html"
     extra_context = {
         # features section
         "show_features": True,
@@ -36,7 +36,7 @@ class FeaturesView(TemplateView):
 
 # Contact Page
 class ContactView(TemplateView):
-    template_name = "ecommerce/index.html"
+    template_name = "custom/index.html"
     extra_context = {
         # contact section
         "show_contact": True,

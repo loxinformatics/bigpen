@@ -4,10 +4,12 @@ from django.apps import AppConfig
 
 logger = logging.getLogger(__name__)
 
+APP_NAME = "apps.blog"
+
 
 class BlogConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.blog"
+    name = APP_NAME
 
     def ready(self):
         try:

@@ -4,10 +4,12 @@ from django.apps import AppConfig
 
 logger = logging.getLogger(__name__)
 
+APP_NAME = "apps.custom"
 
-class EcommerceConfig(AppConfig):
+
+class CustomConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.ecommerce"
+    name = APP_NAME
 
     def ready(self):
         try:

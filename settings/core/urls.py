@@ -6,7 +6,6 @@ urlpatterns = [
     path("ckeditor5/", include("django_ckeditor_5.urls")),
     path("core/", include("apps.core.urls")),
     path("blog/", include("apps.blog.urls")),
-    
 ]
 
 if settings.DEBUG:

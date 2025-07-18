@@ -1,12 +1,6 @@
-from settings.core.main import *  # noqa: F403
+from settings.core.conf import *  # noqa: F403
 
-INSTALLED_APPS += [  # noqa: F405
-    "settings.custom",
-    "apps.ecommerce",
-]
-
-# Custom user model
-AUTH_USER_MODEL = "custom.User"
+INSTALLED_APPS.append("apps.custom")  # noqa: F405
 
 # Groups and Permissions Configuration
 GROUPS_PERMISSIONS = {

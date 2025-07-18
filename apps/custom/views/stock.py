@@ -54,7 +54,7 @@ class ItemDetailView(View):
         item = get_object_or_404(Item, pk=id)
         extra_context = {"item": item}
 
-        html = render_to_string("ecommerce/swaps/item.html", extra_context)
+        html = render_to_string("custom/swaps/item.html", extra_context)
         return HttpResponse(html)
 
 
